@@ -1,6 +1,4 @@
-<h1 align="center">个人主页</h1>
-
-
+<h1 align="center"><a href='http://8.133.162.30'>个人主页</a></h1>
 
 
 
@@ -19,8 +17,8 @@
 | react               | 核心，构建交互界面的库。核心思想是虚拟Dom                    |
 | react-dom           | 只做和浏览器或DOM相关的操作                                  |
 | react-router-dom    | react spa应用实现路由核心                                    |
-|                     |                                                              |
-|                     |                                                              |
+| react-redux         | react状态管理                                                |
+| webpack-merge       | 合并webpack配置                                              |
 |                     |                                                              |
 |                     |                                                              |
 |                     |                                                              |
