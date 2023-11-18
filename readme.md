@@ -2,7 +2,7 @@
 
 
 
-|                              |                                                              |
+| 依赖                         | 说明                                                         |
 | ---------------------------- | ------------------------------------------------------------ |
 | webpack                      | 前端构建工具                                                 |
 | webpack-cli                  | 让 webpack 支持命令行执行                                    |
@@ -30,6 +30,16 @@
 | webpack-bundle-analyzer      | 分析打包结果                                                 |
 | terser-webpack-plugin        | 使用 [terser](https://github.com/terser/terser) 来压缩 JavaScript。 |
 | antd                         | UI组件                                                       |
+| @ant-design/cssinjs          | 样式兼容低版本浏览器                                         |
+| ahooks                       | 高质量react hooks库                                          |
+| @reduxjs/toolkit             | redux最佳实践                                                |
+| prop-types                   | props 类型检查                                               |
+|                              |                                                              |
+|                              |                                                              |
+|                              |                                                              |
+|                              |                                                              |
+|                              |                                                              |
+|                              |                                                              |
 |                              |                                                              |
 |                              |                                                              |
 |                              |                                                              |

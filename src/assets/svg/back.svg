@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="18px" viewBox="0 0 10 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_arrow_right备份</title>
+    <defs>
+        <path d="M0.429136906,0.991636906 C0.72984061,0.690933201 1.20492209,0.670886287 1.52887616,0.931496165 L1.59586309,0.991636906 L9.29586309,8.69163691 C9.5965668,8.99234061 9.61661371,9.46742209 9.35600384,9.79137616 L9.29586309,9.85836309 L1.59586309,17.5583631 C1.27368055,17.8805456 0.751319446,17.8805456 0.429136906,17.5583631 C0.128433201,17.2576594 0.108386287,16.7825779 0.368996165,16.4586238 L0.429136906,16.3916369 L7.5458125,9.275 L0.429136906,2.15836309 C0.128433201,1.85765939 0.108386287,1.38257791 0.368996165,1.05862384 L0.429136906,0.991636906 Z" id="path-1"></path>
+    </defs>
+    <g id="ui页面" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="尽调任务-待办" transform="translate(-20.000000, -60.000000)">
+            <g id="navbar备份" transform="translate(0.000000, 47.000000)">
+                <g id="编组-4">
+                    <g id="编组">
+                        <g id="ic_arrow_right备份" transform="translate(25.000000, 22.000000) scale(-1, 1) translate(-25.000000, -22.000000) translate(20.000000, 13.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="ic_arrow_right" fill="#646464" fill-rule="nonzero" xlink:href="#path-1"></use>
+                            <g id="color_black2-100" mask="url(#mask-2)" fill="#646464">
+                                <g transform="translate(-6.000000, -2.000000)" id="矩形备份">
+                                    <rect x="0" y="0" width="22" height="22"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
