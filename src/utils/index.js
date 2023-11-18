@@ -1,4 +1,6 @@
 // 判断系统平台 手机、ipad、pc
+import dayjs from 'dayjs'
+
 export const systemPlatform = () => {
     if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
         return 'mobile'
@@ -60,9 +62,9 @@ String.prototype.sliceByPoint = function(pStart, pEnd){
 }
 
 // 😀
-console.log('😀死了'.sliceByPoint(0, 1))
+// console.log('😀死了'.sliceByPoint(0, 1))
 // '\uD83D'
-console.log('😀死了'.slice(0, 1))
+// console.log('😀死了'.slice(0, 1))
 
 const chineseUppercaseMap = {
     '零': '零',
@@ -124,4 +126,16 @@ const toChineseNumber = (num) => {
         result += c + u
     }
     return handleZero(result)
+}
+
+export const showTime = (date, type = true) => {
+    const beginDate = dayjs(date), nowDate = dayjs()
+    let y = dayjs.duration(nowDate.diff(date)).years()
+    let M = dayjs.duration(nowDate.diff(date)).months()
+    let D = Math.floor(dayjs.duration(nowDate.diff(date)).asDays())
+    let d = dayjs.duration(nowDate.diff(date)).days()
+    let H = dayjs.duration(nowDate.diff(date)).hours()
+    let m = dayjs.duration(nowDate.diff(date)).minutes()
+    let s = dayjs.duration(nowDate.diff(date)).seconds()
+    return (type ? D : y + '年' + M + '个月' + d) + '天' + H + '时' + m + '分' + s + '秒'
 }
