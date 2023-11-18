@@ -128,14 +128,12 @@ const toChineseNumber = (num) => {
     return handleZero(result)
 }
 
-export const showTime = (date, type = true) => {
-    const beginDate = dayjs(date), nowDate = dayjs()
-    let y = dayjs.duration(nowDate.diff(date)).years()
-    let M = dayjs.duration(nowDate.diff(date)).months()
-    let D = Math.floor(dayjs.duration(nowDate.diff(date)).asDays())
-    let d = dayjs.duration(nowDate.diff(date)).days()
-    let H = dayjs.duration(nowDate.diff(date)).hours()
-    let m = dayjs.duration(nowDate.diff(date)).minutes()
-    let s = dayjs.duration(nowDate.diff(date)).seconds()
-    return (type ? D : y + '年' + M + '个月' + d) + '天' + H + '时' + m + '分' + s + '秒'
+export const showTime = (beginDate, type = true) => {
+    const duration = dayjs.duration(dayjs().diff(beginDate)) // 开始至今的时长
+
+    const days = Math.floor(duration.asDays()) // 开始至今的天数
+    const date = duration.format('Y年M月D天') // 年月日
+    const time = duration.format('H时m分s秒') // 时分秒
+
+    return (type ? days + '天' : date) + time
 }
