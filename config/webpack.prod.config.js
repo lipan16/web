@@ -1,14 +1,32 @@
 const {merge} = require('webpack-merge')
-const path = require('path')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 const webpackConfigBase = require('./webpack.config')
 
-const webpackConfigProd = {
-    mode: 'production',
-    output: { // 配置输出信息
-        path: path.join(__dirname, '../dist'),
-        filename: 'js/[name].[contenthash:8].js',  // 列在 entry 中,打包输出的文件名称
-        chunkFilename: 'js/[name].[contenthash:8].chunk.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
-        clean: true
+const webpackConfigProd = (env) => {
+    const isAnalyse = env.analyse // 是否打包分析
+    // console.log('webpackConfig Prod: ',env, env.analyse)
+
+    return {
+        mode: 'production',
+        optimization: {
+            minimizer: [
+                `...`,
+                new CssMinimizerPlugin()
+            ],
+            splitChunks: {
+                chunks: 'all'
+            }
+        },
+        plugins: [
+            isAnalyse && new BundleAnalyzerPlugin(),
+            new MiniCssExtractPlugin({
+                filename: 'css/[name].[contenthash:8].bundle.css',
+                chunkFilename: 'css/[name].[contenthash:8].bundle.css'
+            })
+        ]
     }
 }
-module.exports = merge(webpackConfigBase, webpackConfigProd)
+module.exports = (env) => merge(webpackConfigBase(env), webpackConfigProd(env))
