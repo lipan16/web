@@ -1,18 +1,24 @@
+import {useInterval} from 'ahooks'
 import {Button} from 'antd'
-import React from 'react'
+import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
-import SvgIcon from '@/components/SvgIcon'
+import {showTime} from '@/utils'
 
 const Index = () => {
-    const click = () => {
-    }
+    const navigate = useNavigate()
+
+    const [bpiTime, setBpiTime] = useState('')
+    useInterval(() => {
+        setBpiTime(showTime('2018-11-04 18:36:00'))
+    }, 1000)
 
     return (
         <div style={{textAlign: 'center'}}>
-            <Button type="primary" onClick={click}>Button</Button>
-            <SvgIcon name="back" fill="red"/>
+            <Button type="primary" onClick={() => navigate('/about')}>about</Button>
             <h1>Hello World!</h1>
-            <a href="http://8.133.162.30/web-knowledge" target="_blank">web knowledge</a>
+
+            <div>{bpiTime}</div>
         </div>
     )
 }
