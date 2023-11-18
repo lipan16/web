@@ -3,8 +3,9 @@ import React from 'react'
 const App = () => {
 
     return (
-        <div>
-            <h1>Hello World!!!w!</h1>
+        <div style={{textAlign: 'center'}}>
+            <h1>Hello World!</h1>
+            <a href='http://8.133.162.30/web-knowledge' target='_blank'>web knowledge</a>
         </div>
     )
 }
