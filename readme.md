@@ -29,7 +29,7 @@
 | css-minimizer-webpack-plugin | 使用 [cssnano](https://cssnano.co/) 优化和压缩 CSS           |
 | webpack-bundle-analyzer      | 分析打包结果                                                 |
 | terser-webpack-plugin        | 使用 [terser](https://github.com/terser/terser) 来压缩 JavaScript。 |
-|                              |                                                              |
+| antd                         | UI组件                                                       |
 |                              |                                                              |
 |                              |                                                              |
 |                              |                                                              |

@@ -1,12 +1,17 @@
+import {ConfigProvider} from 'antd'
 import React from 'react'
+import Index from '@/views'
 
 const App = () => {
 
     return (
-        <div style={{textAlign: 'center'}}>
-            <h1>Hello World!</h1>
-            <a href='http://8.133.162.30/web-knowledge' target='_blank'>web knowledge</a>
-        </div>
+        <ConfigProvider theme={{
+            token: {
+                colorPrimary: '#e10c77', // https://ant-design.antgroup.com/docs/react/customize-theme-cn#seedtoken
+            }
+        }}>
+            <Index/>
+        </ConfigProvider>
     )
 }
 export default App
