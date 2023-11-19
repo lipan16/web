@@ -1,26 +1,23 @@
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 import {ConfigProvider} from 'antd'
 import React from 'react'
-import {Outlet} from 'react-router-dom'
+
+import SelfLayout from '@/components/layout'
+import theme from '@/theme'
 import './global.less'
 
 const px2rem = px2remTransformer({
-    // rootValue: 32 // 32px = 1rem; @default 16
+    rootValue: 16 // 根元素字体大小 rootValue px = 1rem
 })
 
 const App = () => {
-
     return (
-        <StyleProvider transformers={[px2rem]} hashPriority="high">
-            <ConfigProvider theme={{
-                token: {
-                    colorPrimary: '#e10c77' // https://ant-design.antgroup.com/docs/react/customize-theme-cn#seedtoken
-                }
-            }}>
-                <Outlet/>
-                <a href="http://8.133.162.30/web-knowledge" target="_blank">web knowledge</a>
-            </ConfigProvider>
-        </StyleProvider>
+        <ConfigProvider theme={theme}>
+            <StyleProvider transformers={[px2rem]}>
+                <SelfLayout/>
+            </StyleProvider>
+        </ConfigProvider>
     )
 }
+
 export default App

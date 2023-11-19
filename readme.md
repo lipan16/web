@@ -34,8 +34,8 @@
 | ahooks                       | 高质量react hooks库                                          |
 | @reduxjs/toolkit             | redux最佳实践                                                |
 | prop-types                   | props 类型检查                                               |
-|                              |                                                              |
-|                              |                                                              |
+| @ant-design/icons            | antd Icon图标                                                |
+| jinrishici                   | 今日诗词推荐                                                 |
 |                              |                                                              |
 |                              |                                                              |
 |                              |                                                              |
