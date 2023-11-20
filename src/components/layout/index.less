@@ -12,6 +12,8 @@
  */
 
 .header-content{
+    min-width: 1200px;
+    user-select: none;
     padding: 0 16px;
     display: flex;
     align-items: center;
@@ -21,6 +23,44 @@
     background-image: linear-gradient(90deg, rgba(159, 219, 252, .15) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(159, 219, 252, .15) 3%, rgba(0, 0, 0, 0) 3%);
     background-size: 20px 20px;
     opacity: .9;
+
+    .logo{
+        display: flex;
+        align-items: center;
+
+        > img{
+            height: 40px;
+        }
+
+        > span{
+            font-weight: 600;
+            font-size: 20px;
+            margin-left: 8px;
+        }
+    }
+
+    .right{
+        display: flex;
+
+        > div{
+            margin: 0 8px;
+
+            a{
+                color: unset;
+                &:hover{
+                    color: #fa3899;
+                }
+            }
+        }
+
+        .fullscreen, .login{
+            cursor: pointer;
+
+            &:hover{
+                color: #fa3899;
+            }
+        }
+    }
 }
 
 .mobile-nav-btn{

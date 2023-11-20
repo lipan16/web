@@ -4,14 +4,14 @@ export default { // https://ant-design.antgroup.com/docs/react/customize-theme-c
         colorPrimary: '#fa3899'
     },
     components: {
-        Layout: {
-
-        },
+        Layout: {},
         Menu: {
             itemBg: 'transparent',
             itemHoverColor: '#fa3899',
             itemSelectedColor: '#fa3899',
             activeBarHeight: 0,
+            itemPaddingInline: 12,
+            iconMarginInlineEnd: 8
         }
-    },
+    }
 }
