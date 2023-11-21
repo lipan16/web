@@ -1,17 +1,17 @@
-import {useScroll, useDebounceFn, useUpdateEffect, useFullscreen} from 'ahooks'
-import React, {useState, useEffect, Suspense, useRef, useCallback} from 'react'
+import {useScroll, useDebounceFn, useFullscreen} from 'ahooks'
+import React, {useState, useEffect, Suspense, useRef, useCallback, useMemo} from 'react'
 import {Outlet, useNavigate, useLocation} from 'react-router-dom'
 import {
+    createFromIconfontCN,
     MenuOutlined,
     HomeOutlined,
     UserOutlined,
     HeartOutlined,
     ShareAltOutlined,
-    createFromIconfontCN,
     DesktopOutlined,
     GithubOutlined, FullscreenExitOutlined, FullscreenOutlined
 } from '@ant-design/icons'
-import {Layout, Menu, Affix, Input} from 'antd'
+import {Layout, Menu, Affix, Input, Drawer} from 'antd'
 
 const {Search} = Input
 const {Header, Content, Footer} = Layout
@@ -42,7 +42,7 @@ const SelfLayout = () => {
         {key: '/resources', label: '共享资源', icon: <ShareAltOutlined/>},
         {key: '/about', label: '关于', icon: <UserOutlined/>}
     ]
-    const [isFullscreen, {enterFullscreen, exitFullscreen, toggleFullscreen}] = useFullscreen(ref)
+    const [isFullscreen, {toggleFullscreen}] = useFullscreen(ref)
 
     const [hideHeader, setHideHeader] = useState(false)
     const [selectedKey, setSelectedKey] = useState('/')
@@ -53,15 +53,31 @@ const SelfLayout = () => {
     }, {wait: 10})
     run()
 
-    const onClickMenu = ({key}) => {
+    const onClickMenu = useCallback(({key}) => {
         navigate(key)
-    }
+    }, [])
+
     useEffect(() => {
         setSelectedKey(location.pathname)
     }, [location])
 
     const onSearch = useCallback((value, _e, info) => {
         console.log(value, _e, info)
+    }, [])
+
+    const [openDrawer, setOpenDrawer] = useState(false)
+
+    const onClickDrawer = useCallback(() => {
+        setOpenDrawer(!openDrawer)
+    }, [openDrawer])
+
+    const drawerMenuOpenKeys = useMemo(() => {
+        return MENU_LIST.filter(f => f.children).map(m => m.key)
+    }, [MENU_LIST])
+
+    const onClickDrawerMenu = useCallback(({key}) => {
+        setOpenDrawer(false)
+        navigate(key)
     }, [])
 
     // console.log('layout render', scroll)
@@ -76,7 +92,7 @@ const SelfLayout = () => {
                             <span>拓荒者</span>
                         </div>
                         <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: 200}}/>
-                        <Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/>
+                        <div className='header-menu'><Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/></div>
                         <div className='right'>
                             <div>
                                 <a href='./admin' target='_blank'><DesktopOutlined/></a>
@@ -91,9 +107,17 @@ const SelfLayout = () => {
                         </div>
                     </div>
                 </Affix>
-                <div className='mobile-nav-btn' style={{transform: hideHeader ? 'translateY(-100%)' : ''}}>
+                <div onClick={onClickDrawer} className='mobile-nav-btn' style={{transform: hideHeader ? 'translateY(-100%)' : ''}}>
                     <MenuOutlined/>
                 </div>
+                <Drawer width={170} closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
+                    <div className='logo' onClick={() => navigate('/', {replace: true})}>
+                        <img src={WebDevPng} alt=''/>
+                        <span>拓荒者</span>
+                    </div>
+                    <Menu mode='inline' defaultOpenKeys={drawerMenuOpenKeys} items={MENU_LIST} inlineCollapsed={false} inlineIndent='16'
+                          onClick={onClickDrawerMenu}/>
+                </Drawer>
             </Header>
             <Content style={{minHeight: 'calc(100vh - 156px)'}}>
                 <Suspense><Outlet/></Suspense>

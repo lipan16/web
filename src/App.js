@@ -5,6 +5,7 @@ import React from 'react'
 import SelfLayout from '@/components/layout'
 import theme from '@/theme'
 import './global.less'
+import '@/theme/antd.less'
 
 const px2rem = px2remTransformer({
     rootValue: 16 // 根元素字体大小 rootValue px = 1rem

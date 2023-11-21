@@ -11,7 +11,8 @@ export default { // https://ant-design.antgroup.com/docs/react/customize-theme-c
             itemSelectedColor: '#fa3899',
             activeBarHeight: 0,
             itemPaddingInline: 12,
-            iconMarginInlineEnd: 8
+            iconMarginInlineEnd: 8,
+            activeBarBorderWidth: 0,
         }
     }
 }
