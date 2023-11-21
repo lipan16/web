@@ -2,14 +2,14 @@ import {useTitle} from 'ahooks'
 import React from 'react'
 
 
-const Resources = () => {
+const Site = () => {
     useTitle('共享资源')
 
     return (
         <section className='resources'>
-            <h2>共享资源</h2>
+            <h2>site</h2>
         </section>
     )
 }
 
-export default Resources
+export default Site
