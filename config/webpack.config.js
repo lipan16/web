@@ -13,6 +13,7 @@ module.exports = (env) => {
         entry: './src/index.js', // 项目的入口文件,相对根目录
         devServer: {},
         output: { // 配置输出信息
+            publicPath: '/',
             path: path.join(__dirname, '../dist'), // 输出的路径，相对当前目录
             filename: isProduction ? 'js/[name].[contenthash:8].js' : '[name].js',  // 列在 entry 中,打包输出的文件名称
             chunkFilename: isProduction ? 'js/[name].[contenthash:8].bundle.js' : '[name].bundle.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
@@ -82,7 +83,6 @@ module.exports = (env) => {
         resolve: {
             alias: {
                 '@': path.resolve(__dirname, '../src'),
-                '@config': path.resolve(__dirname, './')
             },
             extensions: ['.js', '.css', '.less']
         },
@@ -93,16 +93,16 @@ module.exports = (env) => {
             new WebpackManifestPlugin({})
         ],
         optimization: { // 添加抽离公共代码插件的配置
-            splitChunks: {
-                cacheGroups: {
-                    commons: { // 打包公共模块
-                        chunks: 'initial', // initial表示提取入口文件的公共部分
-                        minChunks: 1, // 表示提取公共部分最少的文件数
-                        minSize: 0, // 表示提取公共部分最小的大小
-                        name: 'commons' // 提取出来的文件命名
-                    }
-                }
-            },
+            // splitChunks: {
+            //     cacheGroups: {
+            //         commons: { // 打包公共模块
+            //             chunks: 'initial', // initial表示提取入口文件的公共部分
+            //             minChunks: 1, // 表示提取公共部分最少的文件数
+            //             minSize: 0, // 表示提取公共部分最小的大小
+            //             name: 'commons' // 提取出来的文件命名
+            //         }
+            //     }
+            // },
             minimize: true,
             minimizer: [
                 new TerserPlugin({

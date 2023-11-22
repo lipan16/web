@@ -2,7 +2,7 @@
   "name": "web",
   "version": "1.1.0",
   "description": "个人主页 website",
-  "main": "index.js",
+  "main": "./src/index.js",
   "author": "lipan",
   "nickname": "拓荒者",
   "license": "ISC",
