@@ -25,7 +25,7 @@ const SelfFooter = () => {
     }, 1000)
 
     return (
-        <Footer>
+        <Footer className='footer'>
             <div>本站点已运行：<a>{websiteTime}</a></div>
             <div className='design'>
                 本网站由
@@ -99,6 +99,11 @@ const SelfLayout = () => {
         navigate(key)
     }, [])
 
+    const onClickLogo = useCallback(() => {
+        setOpenDrawer(false)
+        navigate('/', {replace: true})
+    }, [])
+
     // console.log('layout render', scroll)
 
     return (
@@ -106,7 +111,7 @@ const SelfLayout = () => {
             <Header style={{padding: 0, background: 'transparent'}}>
                 <Affix offsetTop={0.000000001}>
                     <div className='header-content' style={{transform: hideHeader ? 'translate3d(0px, -100%, 0px)' : ''}}>
-                        <div className='logo' onClick={() => navigate('/', {replace: true})}>
+                        <div className='logo' onClick={onClickLogo}>
                             <img src={WebDevPng} alt=''/>
                             <span>{pkg.nickname}</span>
                         </div>
@@ -130,7 +135,7 @@ const SelfLayout = () => {
                     <MenuOutlined/>
                 </div>
                 <Drawer width={170} closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
-                    <div className='logo' onClick={() => navigate('/', {replace: true})}>
+                    <div className='logo' onClick={onClickLogo}>
                         <img src={WebDevPng} alt=''/>
                         <span>{pkg.nickname}</span>
                     </div>
@@ -138,7 +143,7 @@ const SelfLayout = () => {
                           onClick={onClickDrawerMenu}/>
                 </Drawer>
             </Header>
-            <Content style={{minHeight: 'calc(100vh - 160px)'}}>
+            <Content style={{minHeight: 'calc(100vh - 10rem)'}}>
                 <Suspense><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
