@@ -2,7 +2,7 @@ import {useTitle} from 'ahooks'
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
-import SvgIcon from '@/components/SvgIcon'
+import SvgIcon from '@/components/svgIcon'
 import './index.less'
 
 const About = () => {
