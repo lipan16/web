@@ -10,24 +10,23 @@ html, body{
 
 ::-webkit-scrollbar{
     width: 8px;
+    height: 8px;
 }
 
+/*滚动条里面小方块*/
 ::-webkit-scrollbar-thumb{
-    background: linear-gradient(#fa3899, #60f5ef);
+    background: linear-gradient(135deg, #fa3899, #60f5ef);
     border-radius: 4px
 }
 
-::-webkit-scrollbar-thumb:hover{
-    background: linear-gradient(#60f5ef, #fa3899)
-}
-
+/*滚动条里面轨道*/
 ::-webkit-scrollbar-track{
     background: rgba(0, 0, 0, 0);
-    border-radius: 8px
 }
 
 @media screen and(max-width: 768px){
     ::-webkit-scrollbar{
         width: 4px;
+        height: 4px;
     }
 }

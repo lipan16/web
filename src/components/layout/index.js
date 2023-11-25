@@ -6,7 +6,7 @@ import {
     MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined,
     GithubOutlined, FullscreenExitOutlined, FullscreenOutlined
 } from '@ant-design/icons'
-import {Layout, Menu, Affix, Input, Drawer} from 'antd'
+import {Layout, Menu, Affix, Input, Drawer, FloatButton} from 'antd'
 
 const {Search} = Input
 const {Header, Content, Footer} = Layout
@@ -147,6 +147,7 @@ const SelfLayout = () => {
                 <Suspense><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
+            <FloatButton.BackTop visibilityHeight={300}/>
         </Layout>
     )
 }
