@@ -458,3 +458,41 @@ export const FINE_WEBSITE = [
         ]
     }
 ]
+
+export const FINE_TOOLS = [
+    {
+        site: [
+            {
+                title: '王者荣耀体验服',
+                desc: '体验服',
+                link: 'https://pvp.qq.com/cp/a20161115tyf/index.shtml',
+                logo: 'https://pvp.qq.com/favicon.ico'
+            },
+            {title: '兰州大学校友网', desc: '', link: 'https://alumni.lzu.edu.cn', logo: 'https://www.lzu.edu.cn/res/favicon.ico'},
+            {
+                title: '软考',
+                desc: '报名',
+                link: 'https://bm.ruankao.org.cn/sign/welcome',
+                logo: 'https://bm.ruankao.org.cn/asset/image/public/logo.png'
+            },
+            {
+                title: 'remove bg',
+                desc: '背景消除',
+                link: 'https://www.remove.bg/zh',
+                logo: 'https://www.remove.bg/safari-pinned-tab.svg?v=YAXaAv7pao'
+            },
+            {
+                title: 'regulex',
+                desc: '正则表达式匹配',
+                link: 'https://jex.im/regulex/#!flags=&re=',
+                logo: 'https://jex.im/favicon.ico'
+            },
+            {
+                title: '工具猫',
+                desc: '在线生成透明ICO图标—工具猫',
+                link: 'https://www.toolscat.com/img/ico',
+                logo: 'https://www.toolscat.com/static/common/favicon.ico'
+            },
+        ]
+    }
+]

@@ -55,8 +55,8 @@ const SelfLayout = () => {
         {key: '/works', label: '作品', icon: <IconFont type='icon-wodezuopin'/>},
         {
             key: '', label: '共享资源', icon: <ShareAltOutlined/>, children: [
-                {key: '/site', label: '网站链接', icon: null},
-                {key: '/tools', label: '实用工具', icon: null}
+                {key: '/site', label: '精品网站', icon: null},
+                {key: '/tools', label: '工具集', icon: null}
             ]
         },
         {key: '/about', label: '关于', icon: <UserOutlined/>}
