@@ -2,6 +2,7 @@ export default { // https://ant-design.antgroup.com/docs/react/customize-theme-c
     token: {
         fontSize: 16, // (fontSize / rootValue) 16/16 rem
         colorPrimary: '#fa3899',
+        colorBgLayout: '#f7f8fa'
     },
     components: {
         Layout: {},

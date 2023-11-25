@@ -327,3 +327,134 @@ export const INTERVIEW_LIST = [
         ]
     }
 ]
+
+export const FINE_WEBSITE = [
+    {
+        title: '✨推荐',
+        site: [
+            {
+                title: 'HTML文档',
+                desc: 'web开发者社群',
+                link: 'https://developer.mozilla.org/zh-CN/docs/Web/HTML',
+                logo: 'https://developer.mozilla.org/favicon-48x48.cbbd161b.png'
+            },
+            {title: '前端开发者手册', desc: '', link: 'https://dwqs.gitbooks.io/frontenddevhandbook/content'}
+        ]
+    },
+    {
+        title: 'CSS',
+        site: [
+            {title: 'less', desc: 'less官网', link: 'https://lesscss.org', logo: 'https://lesscss.org/public/ico/favicon.ico'},
+            {
+                title: 'Tailwind CSS',
+                desc: '只需书写HTML代码，无需书写 CSS',
+                link: 'https://www.tailwindcss.cn/docs/installation',
+                logo: 'https://www.tailwindcss.cn/favicons/apple-touch-icon.png'
+            }
+        ]
+    },
+    {
+        title: 'JavaScript',
+        site: [
+            {
+                title: 'ES6 入门教程',
+                desc: '阮一峰-JavaScript 语言教程',
+                link: 'https://es6.ruanyifeng.com',
+                logo: 'https://es6.ruanyifeng.com/favicon.ico'
+            },
+            {
+                title: 'Babel',
+                desc: '一个 JavaScript compiler，将ES6代码转换为 JavaScript 向后兼容版本的代码',
+                link: 'https://babel.docschina.org/docs',
+                logo: 'https://babel.docschina.org/img/babel.svg'
+            }
+        ]
+    },
+    {
+        title: 'TypeScript',
+        site: [
+            {
+                title: 'TypeScript中文文档',
+                desc: '',
+                link: 'https://www.tslang.cn/docs/home.html',
+                logo: 'https://www.tslang.cn/assets/images/icons/favicon.ico'
+            }
+        ]
+    },
+    {
+        title: '构建工具',
+        site: [
+            {
+                title: 'webpack',
+                desc: '一个用于现代 JavaScript 应用程序的 静态模块打包工具',
+                link: 'https://www.webpackjs.com/concepts',
+                logo: 'https://www.webpackjs.com/icon-square-small.85ba630cf0c5f29ae3e3.svg'
+            },
+            {title: 'Vite', desc: '下一代前端开发与构建工具', link: 'https://vitejs.cn', logo: 'https://vitejs.cn/logo.svg'}
+        ]
+    },
+    {
+        title: 'Nodejs',
+        site: [
+            {
+                title: 'Node.js',
+                desc: '一个开源的、跨平台的 JavaScript 运行时环境',
+                link: 'https://nodejs.cn/learn',
+                logo: 'https://img.nodejs.cn/logo.svg'
+            },
+            {
+                title: 'Express',
+                desc: '快速、独立、极简的 Node.js Web 框架',
+                link: 'https://express.nodejs.cn',
+                logo: 'https://express.nodejs.cn/images/favicon.png'
+            }
+        ]
+    },
+    {
+        title: '框架',
+        site: [
+            {
+                title: 'React',
+                desc: '用于构建 Web 和原生交互界面的库',
+                link: 'https://react.docschina.org/learn',
+                logo: 'https://react.docschina.org/favicon.ico'
+            },
+            {title: 'Vue', desc: '渐进式 JavaScript 框架', link: 'https://cn.vuejs.org', logo: 'https://cn.vuejs.org/logo.svg'},
+            {
+                title: 'React技术揭秘',
+                desc: '卡颂-本书的宗旨是打造一本严谨、易懂的React源码分析教程',
+                link: 'https://react.iamkasong.com',
+                logo: 'https://react.docschina.org/favicon.ico'
+            }
+        ]
+    },
+    {
+        title: 'UI库',
+        site: [
+            {
+                title: 'Vant',
+                desc: '面向vue移动端轻量、可定制的移动端组件库',
+                link: 'https://vant-contrib.gitee.io/vant/#/zh-CN',
+                logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png'
+            },
+            {
+                title: 'Element Plus',
+                desc: '基于 Vue 3，面向设计师和开发者的pc端组件库',
+                link: 'https://element-plus.org/zh-CN/#/zh-CN',
+                logo: 'https://element-plus.org/images/element-plus-logo-small.svg'
+            },
+            {
+                title: 'Ant Design',
+                desc: '面向react pc端',
+                link: 'https://ant-design.antgroup.com/index-cn',
+                logo: 'https://gw.alipayobjects.com/zos/antfincdn/UmVnt3t4T0/antd.png'
+            },
+            {
+                title: 'Ant Design Mobile',
+                desc: '面向react 移动端',
+                link: 'https://mobile.ant.design/zh',
+                logo: 'https://gw.alipayobjects.com/zos/bmw-prod/69a27fcc-ce52-4f27-83f1-c44541e9b65d.svg'
+            }
+        ]
+    }
+]

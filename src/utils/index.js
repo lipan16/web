@@ -137,3 +137,14 @@ export const showTime = (beginDate, type = true) => {
 
     return (type ? days + '天' : date) + time
 }
+
+// js label 语法
+const breakFor = () => {
+    out: for(let i = 0; i < 5; i++){
+        for(let j = 0; j < 5; j++){
+            if(j > i){
+                break out // 退出外层循环
+            }
+        }
+    }
+}
