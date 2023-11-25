@@ -14,7 +14,7 @@ const px2rem = px2remTransformer({
 const App = () => {
     return (
         <ConfigProvider theme={theme}>
-            <StyleProvider transformers={[px2rem]}>
+            <StyleProvider transformers={[px2rem]} hashPriority='high'>
                 <SelfLayout/>
             </StyleProvider>
         </ConfigProvider>

@@ -2,7 +2,7 @@ import React, {useState, useEffect, Suspense, useRef, useCallback, useMemo} from
 import {Outlet, useNavigate, useLocation} from 'react-router-dom'
 import {useScroll, useDebounceFn, useFullscreen, useInterval} from 'ahooks'
 import dayjs from 'dayjs'
-import {Layout, Menu, Affix, Input, Drawer, FloatButton} from 'antd'
+import {Layout, Menu, Affix, Input, Drawer, FloatButton, Spin} from 'antd'
 import {
     MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined,
     GithubOutlined, FullscreenExitOutlined, FullscreenOutlined
@@ -144,7 +144,7 @@ const SelfLayout = () => {
                 </Drawer>
             </Header>
             <Content style={{minHeight: 'calc(100vh - 10rem)'}}>
-                <Suspense><Outlet/></Suspense>
+                <Suspense fallback={<Spin size='large' fullscreen/>}><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
             <FloatButton.BackTop visibilityHeight={300}/>

@@ -18,11 +18,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.17.2",
+    "@ant-design/cssinjs": "^1.17.5",
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.7",
     "ahooks": "^3.7.8",
-    "antd": "^5.11.2",
+    "antd": "^5.11.4",
     "dayjs": "^1.11.10",
     "jinrishici": "^1.0.6",
     "prop-types": "^15.8.1",
