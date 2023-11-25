@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>lipan | blog</title>
 </head>
+<script>
+    // 控制台打印
+    console.log(
+        '%c拓荒者，守护繁华。\n\n%c拓荒者%c当前版本v1.1.0',
+        'color: #fa3899; font-size: 16px; font-weight: 600;',
+        'background: #1475B2; color: #fff; border-radius: 4px; padding:2px 5px',
+        'background: #00cc00; color: #fff; border-radius: 4px; padding:2px 5px; margin-left: 8px;'
+    )
+    // 控制标签名称
+    let title
+    document.addEventListener('visibilitychange', function(){
+        if(document.visibilityState === 'hidden'){ // 页面变为不可见时触发
+            title = document.title
+            document.title = '别离开我😭'
+        }
+        if(document.visibilityState === 'visible'){ // 页面变为可见时触发
+            document.title = title || 'lipan | blog'
+        }
+    })
+</script>
 <body>
 <div id="root" class="root">
   <style>
@@ -111,29 +131,4 @@
   </div>
 </div>
 </body>
-<!-- 控制台打印 -->
-<script>
-    console.log(
-        '%c拓荒者，守护繁华。\n\n%c拓荒者%c当前版本v1.1.0',
-        'color: #fa3899; font-size: 16px; font-weight: 600;',
-        'background: #1475B2; color: #fff; border-radius: 4px; padding:2px 5px',
-        'background: #00cc00; color: #fff; border-radius: 4px; padding:2px 5px; margin-left: 8px;'
-    )
-</script>
-<!-- 控制标签名称 -->
-<script>
-    let title
-    document.addEventListener('visibilitychange', function(){
-        // 页面变为不可见时触发
-        if(document.visibilityState === 'hidden'){
-            title = document.title
-            document.title = '😭😭😭,不要走!!!'
-        }
-        // 页面变为可见时触发
-        if(document.visibilityState === 'visible'){
-            document.title = title || 'lipan | blog'
-        }
-    })
-</script>
 </html>
-
