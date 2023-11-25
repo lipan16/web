@@ -1,9 +1,8 @@
-import {useInterval, useUpdateEffect} from 'ahooks'
-import {Button} from 'antd'
-import React, {useState} from 'react'
+import {useUpdateEffect} from 'ahooks'
+import {Image} from 'antd'
+import React, {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-import {showTime} from '@/utils'
 const jinrishici = require('jinrishici')
 
 const Index = () => {
@@ -17,6 +16,10 @@ const Index = () => {
         '1597551257997.jpg', '20230512202610.png', '20230512202700.png',
         '20230512202530.png', '20230512202615.png', 'asi.png'
     ]
+    const [imgSrc, setImgSrc] = useState('')
+    useEffect(() => {
+        setImgSrc(`http://8.133.162.30/static/${imgs[Math.floor(Math.random() * imgs.length)]}`)
+    }, [])
     useUpdateEffect(() => {
         jinrishici.load(result => {
             console.log(result)
@@ -25,9 +28,8 @@ const Index = () => {
 
 
     return (
-        <div>
-            <h1>Hello World!</h1>
-            {/*<img src={'http://8.133.162.30/static/' + imgs[Math.floor(Math.random() * imgs.length)]} alt='' />*/}
+        <div className='index'>
+            <Image src={imgSrc} preview={false}/>
         </div>
     )
 }
