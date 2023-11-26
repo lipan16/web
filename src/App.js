@@ -4,6 +4,7 @@ import React from 'react'
 
 import SelfLayout from '@/components/layout'
 import theme from '@/theme'
+import '@/utils/event'
 import './global.less'
 import '@/theme/antd.less'
 
