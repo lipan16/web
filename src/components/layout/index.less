@@ -1,18 +1,4 @@
-/**
- * 响应式布局容器固定宽度
- * xs: < 768px
- * sm: >= 768px
- * md: >= 992px
- * lg: >= 1200px
- * xl: >= 1920px
- *
- * 大屏（>=1200px）
- * 中屏（>=992px）
- * 小屏（>=768px）
- */
-
 .header-content{
-    min-width: 1200px;
     user-select: none;
     padding: 0 16px;
     display: flex;
@@ -27,6 +13,7 @@
     .logo{
         display: flex;
         align-items: center;
+        flex-shrink: 0;
 
         > img{
             height: 40px;
@@ -40,11 +27,13 @@
     }
 
     .header-menu{
-        min-width: 400px;
+        min-width: 560px;
     }
 
     .right{
         display: flex;
+        align-items: center;
+        flex-shrink: 0;
 
         > div{
             margin: 0 8px;
@@ -85,6 +74,7 @@
     text-align: center;
     padding-top: 16px;
     max-height: 6rem;
+
     .design{
 
     }

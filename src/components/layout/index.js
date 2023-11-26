@@ -110,12 +110,12 @@ const SelfLayout = () => {
         <Layout ref={ref}>
             <Header style={{padding: 0, background: 'transparent'}}>
                 <Affix offsetTop={0.000000001}>
-                    <div className='header-content' style={{transform: hideHeader ? 'translate3d(0px, -100%, 0px)' : ''}}>
+                    <div className='header-content' style={{transform: hideHeader ? 'translate3d(0, -100%, 0)' : ''}}>
                         <div className='logo' onClick={onClickLogo}>
                             <img src={WebDevPng} alt=''/>
                             <span>{pkg.nickname}</span>
                         </div>
-                        <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: 200}}/>
+                        <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: '16rem'}}/>
                         <div className='header-menu'>
                             <Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/>
                         </div>
@@ -136,7 +136,7 @@ const SelfLayout = () => {
                 <div onClick={onClickDrawer} className='mobile-nav-btn' style={{transform: hideHeader ? 'translateY(-100%)' : ''}}>
                     <MenuOutlined/>
                 </div>
-                <Drawer width={170} closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
+                <Drawer width='16rem' closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
                     <div className='logo' onClick={onClickLogo}>
                         <img src={WebDevPng} alt=''/>
                         <span>{pkg.nickname}</span>
