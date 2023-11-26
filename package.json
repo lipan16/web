@@ -12,6 +12,7 @@
   ],
   "homepage": "https://github.com/lipan16/web#readme",
   "scripts": {
+    "serve": "node ./server/index.js",
     "dev": "webpack-dev-server --env development --config ./config/webpack.config.js --history-api-fallback",
     "build": "webpack --env production --config ./config/webpack.prod.config.js",
     "build:analyse": "webpack --env analyse --config ./config/webpack.prod.config.js",

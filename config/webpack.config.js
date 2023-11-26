@@ -11,7 +11,20 @@ module.exports = (env) => {
     return {
         mode: 'development', // webpack打包环境是开发环境
         entry: './src/index.js', // 项目的入口文件,相对根目录
-        devServer: {},
+        devServer: {
+            proxy: {
+                '/api': {
+                    target: 'http://127.0.0.1:3000/',
+                    secure: false,
+                    changeOrigin: true
+                },
+                '/sse': {
+                    target: 'http://127.0.0.1:3000/',
+                    secure: false,
+                    changeOrigin: true
+                },
+            }
+        },
         output: { // 配置输出信息
             publicPath: '/',
             path: path.join(__dirname, '../dist'), // 输出的路径，相对当前目录
