@@ -22,7 +22,7 @@ module.exports = (env) => {
                     target: 'http://127.0.0.1:3000/',
                     secure: false,
                     changeOrigin: true
-                },
+                }
             }
         },
         output: { // 配置输出信息
@@ -55,6 +55,28 @@ module.exports = (env) => {
                                 //     }
                                 //     return content
                                 // }
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                postcssOptions: {
+                                    plugins: [
+                                        // require('postcss-px-to-viewport')({
+                                        //     viewportUnit: 'vw',
+                                        //     viewportWidth: 1920,
+                                        //     viewportHeight: 1080,
+                                        //     unitPrecision: 3,
+                                        //     minPixelValue: 1, // 最小替换像素
+                                        //     mediaQuery: true, // 允许媒体查询中转换
+                                        // }),
+                                        require('postcss-pxtorem')({
+                                            rootValue: 16, // 根元素大小
+                                            propList: ['*'], // 存储将被转换的存储列表，‘*’表示所有
+                                            unitPrecision: 3 // rem保留小数点位数
+                                        })
+                                    ]
+                                }
                             }
                         }
                     ]
@@ -95,7 +117,7 @@ module.exports = (env) => {
         },
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, '../src'),
+                '@': path.resolve(__dirname, '../src')
             },
             extensions: ['.js', '.css', '.less']
         },
