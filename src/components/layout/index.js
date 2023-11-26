@@ -116,7 +116,9 @@ const SelfLayout = () => {
                             <span>{pkg.nickname}</span>
                         </div>
                         <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: 200}}/>
-                        <div className='header-menu'><Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/></div>
+                        <div className='header-menu'>
+                            <Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/>
+                        </div>
                         <div className='right'>
                             <div>
                                 <a href='./admin' target='_blank'><DesktopOutlined/></a>
