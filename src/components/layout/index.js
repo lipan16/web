@@ -115,7 +115,7 @@ const SelfLayout = () => {
                             <img src={WebDevPng} alt=''/>
                             <span>{pkg.nickname}</span>
                         </div>
-                        <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: '16rem'}}/>
+                        <Search placeholder='搜索' allowClear onSearch={onSearch} style={{maxWidth: '16rem', margin: '0 .5rem'}}/>
                         <div className='header-menu'>
                             <Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/>
                         </div>

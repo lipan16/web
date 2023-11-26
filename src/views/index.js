@@ -1,7 +1,6 @@
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 import {useHover} from 'ahooks'
 import {Image, Tag} from 'antd'
-import dayjs from 'dayjs'
 import React, {useState, useEffect, useRef, useMemo} from 'react'
 
 const jinrishici = require('jinrishici')
@@ -59,7 +58,6 @@ const Index = () => {
         }
         setImgSrc(img)
         jinrishici.load(result => {
-            console.log(result)
             setVerse(result)
         })
     }, [])
@@ -67,7 +65,6 @@ const Index = () => {
     const visitTime = useMemo(() => {
         return localStorage.getItem('USER_VISIT_TIME')
     }, [])
-
 
     return (
         <div className='index'>
