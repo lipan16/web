@@ -11,7 +11,7 @@ const imgs = [
     '1597550702059.jpg', '1597551240750.jpg', '2735011818.jpg', '1597550850648.jpg', '1597551250418.jpg',
     '2735052109.jpg', '1597550857008.jpg', '1597551257997.jpg', '2735080516.jpg', '1597550925381.jpg',
     '1698638136.jpg', '   2735103011.jpg', '1597550949010.jpg', '2735011818111.jpg', '2735110309.jpg',
-    '1597551149762.jpg', '2735011818112.jpg', '2735110817.jpg', '1597551212238.jpg', '2735011818121.jpg', 'asi.png'
+    '1597551149762.jpg', '2735011818112.jpg', '2735110817.jpg', '1597551212238.jpg', '2735011818121.jpg'
 ]
 const tags = [
     'web', 'javascript', 'css', 'webpack', 'react', 'react router', 'redux', 'ahooks', 'antd', 'babel', 'less', 'svg',
@@ -73,8 +73,8 @@ const Index = () => {
             </div>
             <div className='person'>
                 <div className='card avatar'>
-                    <img ref={avatarRef} className='avatar-img' src={isHovering ? 'http://8.133.162.30/static/asi.png' : 'http://8.133.162.30/favicon.ico'}
-                         alt=''/>
+                    <img ref={avatarRef} className='avatar-img' alt=''
+                         src={isHovering ? 'http://8.133.162.30/static/20181104.jpg' : 'http://8.133.162.30/favicon.ico'}/>
                     <div className='title'>拓荒者, 守护繁华</div>
                     <div className='profession'>前端开发</div>
                     <div className='addr'>上海-浦东</div>
@@ -95,6 +95,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
+            {/*<BroadcastChannelCard/>*/}
         </div>
     )
 }
