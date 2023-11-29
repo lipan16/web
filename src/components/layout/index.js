@@ -28,11 +28,11 @@ const SelfFooter = () => {
         <Footer className='footer'>
             <div>本站点已运行：<a>{websiteTime}</a></div>
             <div className='design'>
-                本网站由
+                Powered by&nbsp;
                 <a href='https://zh-hans.react.dev' target='_blank'>React</a>+
                 <a href='https://nodejs.org' target='_blank'>Node</a>+
                 <a href='https://ant-design.antgroup.com/index-cn' target='_blank'>Antd</a>
-                联合驱动。 当前版本{pkg.version}
+                &nbsp;当前版本{pkg.version}
             </div>
             <div className='copyright'>
                 Copyright © {dayjs().format('2018-YYYY')} {pkg.name}.
@@ -73,7 +73,7 @@ const SelfLayout = () => {
     run()
 
     const onClickMenu = useCallback(({key}) => {
-        navigate(key)
+        navigate(key, {replace: true})
     }, [])
 
     useEffect(() => {
@@ -96,7 +96,7 @@ const SelfLayout = () => {
 
     const onClickDrawerMenu = useCallback(({key}) => {
         setOpenDrawer(false)
-        navigate(key)
+        navigate(key, {replace: true})
     }, [])
 
     const onClickLogo = useCallback(() => {
