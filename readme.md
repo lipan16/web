@@ -55,7 +55,7 @@
 | postcss-loader               | 进一步处理 CSS 文件，比如添加浏览器前缀，压缩 CSS 等         |
 | postcss-pxtorem              | px -> rem                                                    |
 | postcss-px-to-viewport       | px -> vw                                                     |
-|                              |                                                              |
+| gsap                         | 为专业人士构建的非常强大的 JavaScript 动画库                 |
 |                              |                                                              |
 |                              |                                                              |
 
