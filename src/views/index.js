@@ -1,10 +1,12 @@
-import {MailOutlined, TagsOutlined} from '@ant-design/icons'
-import {useHover} from 'ahooks'
-import {Image, Tag} from 'antd'
 import React, {useState, useEffect, useRef, useMemo} from 'react'
-
+import {useHover} from 'ahooks'
+import {useDispatch} from 'react-redux'
+import {Image, Tag} from 'antd'
+import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 const jinrishici = require('jinrishici')
+
 import {randomColor} from '@/utils'
+import {setIp} from '@/store/user'
 import './index.less'
 
 const imgs = [
@@ -19,6 +21,8 @@ const tags = [
 ]
 
 const Index = () => {
+    const dispatch = useDispatch()
+
     const avatarRef = useRef(null) // 头像
     const [imgSrc, setImgSrc] = useState([])
     const [verse, setVerse] = useState(null) // 诗词
@@ -59,6 +63,7 @@ const Index = () => {
         setImgSrc(img)
         jinrishici.load(result => {
             setVerse(result)
+            dispatch(setIp(result.ipAddress))
         })
     }, [])
 
