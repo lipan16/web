@@ -56,7 +56,7 @@
 | postcss-pxtorem              | px -> rem                                                    |
 | postcss-px-to-viewport       | px -> vw                                                     |
 | gsap                         | 为专业人士构建的非常强大的 JavaScript 动画库                 |
-|                              |                                                              |
+| lodash                       | 一个一致性、模块化、高性能的 JavaScript 实用工具库           |
 |                              |                                                              |
 
 
