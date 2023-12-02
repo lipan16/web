@@ -19,7 +19,10 @@ const App = () => {
 
     const themeProvider = useMemo(() => {
         return {
-            token: themeStore.token,
+            token: {
+                ...themeStore.token,
+                colorLinkHover: `${themeStore.token.colorPrimary} !important`
+            },
             algorithm: themeStore.dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
             components: {
                 Menu: {
@@ -29,7 +32,7 @@ const App = () => {
                     activeBarBorderWidth: 0,
                     activeBarHeight: 0,
                     itemPaddingInline: 12,
-                    iconMarginInlineEnd: 8,
+                    iconMarginInlineEnd: 8
                 },
                 FloatButton: {
                     colorBgElevated: themeStore.token.colorPrimary,

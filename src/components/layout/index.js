@@ -18,6 +18,20 @@ import WebDevPng from '@/assets/imgs/webdev.png'
 import pkg from '@/../package.json'
 import './index.less'
 
+const MENU_LIST = [
+    {key: '/', label: '首页', icon: <HomeOutlined/>},
+    {key: '/we', label: '我们', icon: <HeartOutlined/>},
+    {key: '/interview', label: '面试题', icon: <IconFont type='icon--interview'/>},
+    {key: '/works', label: '作品', icon: <IconFont type='icon-wodezuopin'/>},
+    {
+        key: '', label: '共享资源', icon: <ShareAltOutlined/>, children: [
+            {key: '/site', label: '精品网站', icon: null},
+            {key: '/tools', label: '工具集', icon: null}
+        ]
+    },
+    {key: '/about', label: '关于', icon: <UserOutlined/>}
+]
+
 const SelfFooter = () => {
     const [websiteTime, setWebsiteTime] = useState(showTime(WEBSITE_TIME))
     useInterval(() => {
@@ -46,22 +60,9 @@ const SelfLayout = () => {
     const navigate = useNavigate()
     const scroll = useScroll()
     const location = useLocation()
-    const ref = useRef(null)
 
-    const MENU_LIST = [
-        {key: '/', label: '首页', icon: <HomeOutlined/>},
-        {key: '/we', label: '我们', icon: <HeartOutlined/>},
-        {key: '/interview', label: '面试题', icon: <IconFont type='icon--interview'/>},
-        {key: '/works', label: '作品', icon: <IconFont type='icon-wodezuopin'/>},
-        {
-            key: '', label: '共享资源', icon: <ShareAltOutlined/>, children: [
-                {key: '/site', label: '精品网站', icon: null},
-                {key: '/tools', label: '工具集', icon: null}
-            ]
-        },
-        {key: '/about', label: '关于', icon: <UserOutlined/>}
-    ]
-    const [isFullscreen, {toggleFullscreen}] = useFullscreen(ref)
+    const fullscreenRef = useRef(null)
+    const [isFullscreen, {toggleFullscreen}] = useFullscreen(fullscreenRef)
 
     const [hideHeader, setHideHeader] = useState(false)
     const [selectedKey, setSelectedKey] = useState('/')
@@ -107,7 +108,7 @@ const SelfLayout = () => {
     // console.log('layout render', scroll)
 
     return (
-        <Layout ref={ref}>
+        <Layout ref={fullscreenRef}>
             <Header style={{padding: 0, background: 'transparent'}}>
                 <Affix offsetTop={0.000000001}>
                     <div className='header-content' style={{transform: hideHeader ? 'translate3d(0, -100%, 0)' : ''}}>
@@ -127,9 +128,9 @@ const SelfLayout = () => {
                                 <a href='https://github.com/lipan16/web' target='_blank'><GithubOutlined/></a>
                             </div>
                             <div className='fullscreen' onClick={toggleFullscreen}>
-                                {isFullscreen ? <FullscreenExitOutlined/> : <FullscreenOutlined/>}
+                                <a>{isFullscreen ? <FullscreenExitOutlined/> : <FullscreenOutlined/>}</a>
                             </div>
-                            <div className='login'>登录</div>
+                            <div className='login'><a>登录</a></div>
                         </div>
                     </div>
                 </Affix>
