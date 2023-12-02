@@ -136,7 +136,7 @@ const SelfLayout = () => {
                 <div onClick={onClickDrawer} className='mobile-nav-btn' style={{transform: hideHeader ? 'translateY(-100%)' : ''}}>
                     <MenuOutlined/>
                 </div>
-                <Drawer width='16rem' closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
+                <Drawer getContainer={false} width='16rem' closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
                     <div className='logo' onClick={onClickLogo}>
                         <img src={WebDevPng} alt=''/>
                         <span>{pkg.nickname}</span>
