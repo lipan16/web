@@ -12,6 +12,7 @@ const {Search} = Input
 const {Header, Content, Footer} = Layout
 
 import {WEBSITE_TIME} from '@/constants'
+import {useThemeToken} from '@/hooks'
 import {showTime} from '@/utils'
 import IconFont from '@/components/aliIcon'
 import WebDevPng from '@/assets/imgs/webdev.png'
@@ -60,6 +61,7 @@ const SelfLayout = () => {
     const navigate = useNavigate()
     const scroll = useScroll()
     const location = useLocation()
+    const token = useThemeToken()
 
     const fullscreenRef = useRef(null)
     const [isFullscreen, {toggleFullscreen}] = useFullscreen(fullscreenRef)
@@ -146,7 +148,7 @@ const SelfLayout = () => {
                           onClick={onClickDrawerMenu}/>
                 </Drawer>
             </Header>
-            <Content style={{minHeight: 'calc(100vh - 10rem)'}}>
+            <Content style={{minHeight: 'calc(100vh - 10rem)', color: token.colorText}}>
                 <Suspense fallback={<Spin size='large' fullscreen/>}><Outlet/></Suspense>
             </Content>
             <SelfFooter/>

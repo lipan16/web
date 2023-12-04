@@ -9,7 +9,6 @@ export const setting = createSlice({
             token: {
                 fontSize: 16,
                 colorPrimary: '#fa3899',
-                // colorBgLayout: '#f7f8fa'
             }
         }
     },

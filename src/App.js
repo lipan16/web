@@ -1,9 +1,9 @@
+import {useThemeToken} from '@/hooks'
 import React, {useMemo} from 'react'
 import {useSelector} from 'react-redux'
 import {ConfigProvider, theme} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 
-const {useToken} = theme
 import '@/utils/event'
 import SelfLayout from '@/components/layout'
 import '@/global.less'
@@ -14,7 +14,7 @@ const px2rem = px2remTransformer({
 })
 
 const App = () => {
-    const {token} = useToken()
+    const tokenTheme = useThemeToken()
     const themeStore = useSelector(state => state.setting.theme)
 
     const themeProvider = useMemo(() => {
@@ -36,7 +36,7 @@ const App = () => {
                 },
                 FloatButton: {
                     colorBgElevated: themeStore.token.colorPrimary,
-                    colorText: token.colorWhite
+                    colorText: tokenTheme.colorWhite
                 }
             }
         }

@@ -1,8 +1,8 @@
-import ResourceCom from '@/views/resources/resourceCom'
-import {useTitle} from 'ahooks'
 import React from 'react'
+import {useTitle} from 'ahooks'
 
-import {FINE_WEBSITE, FINE_TOOLS} from '@/constants'
+import ResourceCom from '@/views/resources/resourceCom'
+import {FINE_WEBSITE} from '@/constants'
 import './index.less'
 
 const Site = () => {

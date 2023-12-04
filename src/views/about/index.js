@@ -1,18 +1,19 @@
 import React, {useEffect, useMemo} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useTitle} from 'ahooks'
-import {Divider, Collapse, Switch, Card, ColorPicker, theme} from 'antd'
+import {Divider, Collapse, Switch, Card, ColorPicker} from 'antd'
 import {QqCircleFilled, GithubFilled} from '@ant-design/icons'
 
-const {useToken} = theme
+import {useThemeToken, useVisitTime} from '@/hooks'
 import HelloWorld from '@/components/helloWorld'
 import {setDarkTheme, setThemeToken} from '@/store/setting'
 import fetchRequest from '@/utils/request'
 import './index.less'
 
 const About = () => {
-    const {token} = useToken()
+    const token = useThemeToken()
     const dispatch = useDispatch()
+    const visitTime = useVisitTime() // 首次访问网站时间
 
     const ip = useSelector(state => state.user.ip)
     const colorPrimary = useSelector(state => state.setting.theme.colorPrimary)
@@ -24,9 +25,6 @@ const About = () => {
         // })
     }, [])
 
-    const visitTime = useMemo(() => {
-        return localStorage.getItem('USER_VISIT_TIME')
-    }, [])
 
     const onChangeThemeAlgorithm = bool => {
         dispatch(setDarkTheme(bool))
@@ -96,7 +94,7 @@ const About = () => {
                             children:
                                 <div className='log-content'>
                                     访问时间: <span className='time'>{visitTime}</span><br/>
-                                    ip: <span className='ip'>{ip}</span><br/>
+                                    ip: <span className='ip' style={{color: token.colorPrimary}}>{ip}</span><br/>
                                     历史访问量: {1000}<br/>
                                     历史访客量: {1000}<br/>
                                     今日访问量: {10}<br/>
@@ -106,7 +104,7 @@ const About = () => {
                     />
                 </div>
             </div>
-            <HelloWorld/>
+            <HelloWorld pointColor={token.colorPrimary}/>
         </section>
     )
 }

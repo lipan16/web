@@ -1,5 +1,5 @@
-import {useTitle} from 'ahooks'
 import React from 'react'
+import {useTitle} from 'ahooks'
 
 import ResourceCom from '@/views/resources/resourceCom'
 import {FINE_TOOLS} from '@/constants'

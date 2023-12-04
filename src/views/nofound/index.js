@@ -1,6 +1,5 @@
-import {useTitle} from 'ahooks'
 import React from 'react'
-
+import {useTitle} from 'ahooks'
 
 const NoFound = () => {
     useTitle('404')

@@ -1,7 +1,7 @@
-import {useTitle, useInterval} from 'ahooks'
 import React, {useCallback, useState} from 'react'
-import {Button} from 'antd'
 import {Outlet, useNavigate} from 'react-router-dom'
+import {Button} from 'antd'
+import {useTitle, useInterval} from 'ahooks'
 
 import {BPI_TIME} from '@/constants'
 import {showTime} from '@/utils'
@@ -23,7 +23,7 @@ const We = () => {
 
     return (
         <section className='lipan'>
-            <h2>We: {bpiTime}</h2>
+            <h1>We: {bpiTime}</h1>
             <Button onClick={() => onClickBtn('lipan')}>lipan</Button>
             <Button onClick={() => onClickBtn('xiaobing')}>xiaobing</Button>
             <Outlet/>
