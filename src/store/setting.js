@@ -21,6 +21,7 @@ export const setting = createSlice({
         }
     }
 })
+
 export const {setThemeToken, setDarkTheme} = setting.actions
 
 export default setting.reducer

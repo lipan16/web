@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react'
+import React, {useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useTitle} from 'ahooks'
 import {Divider, Collapse, Switch, Card, ColorPicker} from 'antd'
@@ -7,7 +7,6 @@ import {QqCircleFilled, GithubFilled} from '@ant-design/icons'
 import {useThemeToken, useVisitTime} from '@/hooks'
 import HelloWorld from '@/components/helloWorld'
 import {setDarkTheme, setThemeToken} from '@/store/setting'
-import fetchRequest from '@/utils/request'
 import './index.less'
 
 const About = () => {
@@ -16,9 +15,11 @@ const About = () => {
     const visitTime = useVisitTime() // 首次访问网站时间
 
     const ip = useSelector(state => state.user.ip)
-    const colorPrimary = useSelector(state => state.setting.theme.colorPrimary)
+    const colorPrimary = useSelector(state => state.setting.theme.token.colorPrimary)
+    const dark = useSelector(state => state.setting.theme.dark)
 
     useTitle('关于')
+
     useEffect(() => {
         // fetchRequest({url: '/api/login', method: 'GET', data: {username: 'lipan'}}).then(r => {
         //     console.log(r)
@@ -29,6 +30,7 @@ const About = () => {
     const onChangeThemeAlgorithm = bool => {
         dispatch(setDarkTheme(bool))
     }
+
     const onChangeColorPrimary = color => {
         dispatch(setThemeToken({key: 'colorPrimary', value: color.toHexString()}))
     }
@@ -69,7 +71,7 @@ const About = () => {
                                 <div className='setting-content'>
                                     <div className='item'>
                                         <span>暗色模式: </span>
-                                        <Switch checkedChildren='开启' unCheckedChildren='关闭' size='small' onChange={onChangeThemeAlgorithm}/>
+                                        <Switch size='small' checked={dark} onChange={onChangeThemeAlgorithm}/>
                                     </div>
                                     <div className='item'>
                                         <span>主题色: </span>

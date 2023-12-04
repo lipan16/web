@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useMemo} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useHover} from 'ahooks'
 import {useDispatch} from 'react-redux'
 import {Image, Tag} from 'antd'
@@ -78,4 +78,5 @@ const Index = () => {
         </div>
     )
 }
+
 export default Index
