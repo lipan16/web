@@ -11,7 +11,7 @@ const Battery = () => {
 
     useInterval(() => {
         getBattery(setBattery)
-    }, 5000, {immediate: true})
+    }, 10000, {immediate: true})
 
     return (
         <Progress percent={battery?.level}

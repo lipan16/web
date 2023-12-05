@@ -130,14 +130,18 @@ export const randomColor = () => '#' + Math.floor(Math.random() * 0xffffff).toSt
 
 // 获取充电状态
 export const getBattery = cb => {
-    window.navigator.getBattery().then(battery => {
-        cb({charging: battery.charging, level: battery.level * 100})
+    try{
+        navigator.getBattery().then(battery => {
+            cb({charging: battery.charging, level: battery.level * 100})
 
-        battery.addEventListener('chargingchange', () => {
-            cb({charging: battery.charging})
+            battery.addEventListener('chargingchange', () => {
+                cb({charging: battery.charging})
+            })
+            battery.addEventListener('levelchange', () => {
+                cb({level: battery.level * 100})
+            })
         })
-        battery.addEventListener('levelchange', () => {
-            cb({level: battery.level * 100})
-        })
-    })
+    }catch(e){
+        console.error('navigator.getBattery error: ', e.message)
+    }
 }
