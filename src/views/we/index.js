@@ -10,11 +10,11 @@ const We = () => {
     useTitle('We')
     const navigate = useNavigate()
 
-    const [bpiTime, setBpiTime] = useState(showTime(BPI_TIME))
+    const [bpiTime, setBpiTime] = useState('')
 
     useInterval(() => {
         setBpiTime(showTime(BPI_TIME))
-    }, 1000)
+    }, 1000, {immediate: true})
 
     const onClickBtn = useCallback((path) => {
         navigate(path)

@@ -34,11 +34,11 @@ const MENU_LIST = [
 ]
 
 const SelfFooter = () => {
-    const [websiteTime, setWebsiteTime] = useState(showTime(WEBSITE_TIME))
+    const [websiteTime, setWebsiteTime] = useState('')
 
     useInterval(() => {
         setWebsiteTime(showTime(WEBSITE_TIME))
-    }, 1000)
+    }, 1000, {immediate: true})
 
     return (
         <Footer className='footer'>

@@ -7,6 +7,7 @@ import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
 const jinrishici = require('jinrishici')
 
+import Battery from '@/components/battery'
 import {useClientInfo, useThemeToken, useVisitTime} from '@/hooks'
 import {randomColor} from '@/utils'
 import {setIp, setVerse} from '@/store/user'
@@ -48,6 +49,7 @@ const Index = () => {
         }
     }, [])
 
+    console.log(12)
     return (
         <div className='index'>
             <div className='content'>
@@ -61,10 +63,11 @@ const Index = () => {
                     <div className='profession'>前端开发</div>
                     <div className='addr' style={{color: token.colorPrimary}}>上海-浦东</div>
                     <a href='mailto:lipan16@lzu.edu.cn'><MailOutlined/>lipan16@lzu.edu.cn</a>
-                    <div className='verse'>{verse?.data.content}</div>
+                    <div className='verse'>{verse?.data?.content}</div>
                 </div>
 
                 <div className='card your-info'>
+                    <div className='battery'><span>电量:&nbsp;</span><Battery/></div>
                     ip: <span className='ip' style={{color: token.colorPrimary}}>{verse?.ipAddress}</span><br/>
                     浏览器: <span className='browser'>{clientName}-{clientVersion}</span><br/>
                     您在<span className='time'>{visitTime}</span>访问了本站

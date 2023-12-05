@@ -83,6 +83,20 @@
         .your-info{
             text-align: start;
 
+            .battery{
+                display: flex;
+                align-items: center;
+
+                > span{
+                    flex-shrink: 0;
+                }
+
+                .ant-progress-line{
+                    margin-inline-end: unset;
+                    margin-bottom: unset;
+                }
+            }
+
             .ip{
                 font-weight: 500;
                 word-break: break-all;

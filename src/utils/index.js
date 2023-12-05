@@ -127,3 +127,17 @@ const breakFor = () => {
 }
 
 export const randomColor = () => '#' + Math.floor(Math.random() * 0xffffff).toString(16).padEnd(6, '0')
+
+// 获取充电状态
+export const getBattery = cb => {
+    window.navigator.getBattery().then(battery => {
+        cb({charging: battery.charging, level: battery.level * 100})
+
+        battery.addEventListener('chargingchange', () => {
+            cb({charging: battery.charging})
+        })
+        battery.addEventListener('levelchange', () => {
+            cb({level: battery.level * 100})
+        })
+    })
+}
