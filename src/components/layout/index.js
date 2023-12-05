@@ -4,8 +4,8 @@ import {useScroll, useDebounceFn, useFullscreen, useInterval} from 'ahooks'
 import dayjs from 'dayjs'
 import {Layout, Menu, Affix, Input, Drawer, FloatButton, Spin} from 'antd'
 import {
-    MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined,
-    GithubOutlined, FullscreenExitOutlined, FullscreenOutlined
+    MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined, GithubOutlined,
+    FullscreenExitOutlined, FullscreenOutlined
 } from '@ant-design/icons'
 
 const {Search} = Input
@@ -35,6 +35,7 @@ const MENU_LIST = [
 
 const SelfFooter = () => {
     const [websiteTime, setWebsiteTime] = useState(showTime(WEBSITE_TIME))
+
     useInterval(() => {
         setWebsiteTime(showTime(WEBSITE_TIME))
     }, 1000)
@@ -69,22 +70,22 @@ const SelfLayout = () => {
     const [hideHeader, setHideHeader] = useState(false)
     const [selectedKey, setSelectedKey] = useState('/')
 
+    useEffect(() => {
+        setSelectedKey(location.pathname)
+    }, [location])
+
     // 滚动时隐藏header
     const {run} = useDebounceFn(() => {
         setHideHeader(scroll?.top > 100)
-    }, {wait: 10})
+    }, {wait: 20})
     run()
 
     const onClickMenu = useCallback(({key}) => {
         navigate(key, {replace: true})
     }, [])
 
-    useEffect(() => {
-        setSelectedKey(location.pathname)
-    }, [location])
-
     const onSearch = useCallback((value, _e, info) => {
-        console.log(value, _e, info)
+        console.log('onSearch', value, _e, info)
     }, [])
 
     const [openDrawer, setOpenDrawer] = useState(false)
@@ -123,12 +124,8 @@ const SelfLayout = () => {
                             <Menu mode='horizontal' items={MENU_LIST} selectedKeys={selectedKey} onClick={onClickMenu}/>
                         </div>
                         <div className='right'>
-                            <div>
-                                <a href='./admin' target='_blank'><DesktopOutlined/></a>
-                            </div>
-                            <div>
-                                <a href='https://github.com/lipan16/web' target='_blank'><GithubOutlined/></a>
-                            </div>
+                            <div><a href='./admin' target='_blank'><DesktopOutlined/></a></div>
+                            <div><a href='https://github.com/lipan16/web' target='_blank'><GithubOutlined/></a></div>
                             <div className='fullscreen' onClick={toggleFullscreen}>
                                 <a>{isFullscreen ? <FullscreenExitOutlined/> : <FullscreenOutlined/>}</a>
                             </div>
@@ -139,7 +136,8 @@ const SelfLayout = () => {
                 <div onClick={onClickDrawer} className='mobile-nav-btn' style={{transform: hideHeader ? 'translateY(-100%)' : ''}}>
                     <MenuOutlined/>
                 </div>
-                <Drawer getContainer={false} width='16rem' closable={false} onClose={() => setOpenDrawer(false)} open={openDrawer} placement='left'>
+                <Drawer getContainer={false} width='16rem' closable={false} open={openDrawer} placement='left'
+                        onClose={() => setOpenDrawer(false)}>
                     <div className='logo' onClick={onClickLogo}>
                         <img src={WebDevPng} alt=''/>
                         <span>{pkg.nickname}</span>

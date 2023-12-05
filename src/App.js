@@ -1,11 +1,14 @@
-import {useThemeToken} from '@/hooks'
-import React, {useMemo} from 'react'
-import {useSelector} from 'react-redux'
+import React, {useMemo, useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
 import {ConfigProvider, theme} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 
-import '@/utils/event'
+const jinrishici = require('jinrishici')
+
 import SelfLayout from '@/components/layout'
+import {useThemeToken} from '@/hooks'
+import {setIp, setVerse} from '@/store/user'
+import '@/utils/event'
 import '@/global.less'
 import '@/antd.less'
 
@@ -15,6 +18,8 @@ const px2rem = px2remTransformer({
 
 const App = () => {
     const tokenTheme = useThemeToken()
+    const dispatch = useDispatch()
+
     const themeStore = useSelector(state => state.setting.theme)
 
     const themeProvider = useMemo(() => {
@@ -41,6 +46,15 @@ const App = () => {
             }
         }
     }, [themeStore])
+
+    useEffect(() => {
+        jinrishici.load(result => {
+            dispatch(setVerse(result))
+            dispatch(setIp(result.ipAddress))
+        }, err => {
+            console.error('jinrishici ERROR: ', err.message)
+        })
+    }, [])
 
     return (
         <ConfigProvider theme={themeProvider}>
