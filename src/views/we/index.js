@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import React, {useCallback, useState} from 'react'
 import {Outlet, useNavigate} from 'react-router-dom'
 import {Button} from 'antd'
@@ -24,6 +25,8 @@ const We = () => {
     return (
         <section className='lipan'>
             <h1>We: {bpiTime}</h1>
+            <h2>来世界的1万天是：{dayjs('1998-12-17').add(10000, 'days').format('YYYY-MM-DD')}</h2>
+            <h2>来世界的1万天是：{dayjs('1999-06-20').add(10000, 'days').format('YYYY-MM-DD')}</h2>
             <Button onClick={() => onClickBtn('lipan')}>lipan</Button>
             <Button onClick={() => onClickBtn('xiaobing')}>xiaobing</Button>
             <Outlet/>

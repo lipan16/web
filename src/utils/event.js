@@ -4,13 +4,12 @@ import dayjs from 'dayjs'
 export const safe = () => {
     const div = document.createElement('div')
     const loop = setInterval(function(){
-        console.log(div.id) // 禁止调试
+        console.info(div.id) // 禁止调试
         // console.clear()
     }, 2000)
 
     Object.defineProperty(div, 'id', {
         get: function(){
-            console.log('get')
             clearInterval(loop)
             alert('禁止非法调试！请关闭开发者工具！')
             setInterval(breakDebugger, 100) // 防止其他外部调试
@@ -37,7 +36,7 @@ export const safe = () => {
 
     // 禁止右键
     window.oncontextmenu = function(){
-        console.log('右键')
+        console.info('右键')
         return false
     }
 
@@ -51,11 +50,11 @@ export const safe = () => {
 
     const preventCtrl = function(e){
         if(e.keyCode === 123){ // 屏蔽F12
-            console.log('prevent keycode 123')
+            console.info('prevent keycode 123')
             e.preventDefault()
             return false
         }else if(e.keyCode === 17){ // ctrl
-            console.log('prevent keycode ctrl+s')
+            console.info('prevent keycode ctrl+s')
             document.onkeydown = preventS
             return false
         }
@@ -64,7 +63,7 @@ export const safe = () => {
 
     const noPreventS = function(e){
         if(e.keyCode === 17){
-            console.log('no prevent keycode ctrl+s')
+            console.info('no prevent keycode ctrl+s')
             document.onkeydown = preventCtrl
         }
 
@@ -75,33 +74,35 @@ export const safe = () => {
     document.onkeyup = noPreventS // 键盘抬起
 }
 
-const networkChange = () => {
-    const {rtt, downlink, effectiveType, saveData} = navigator.connection
-    console.table({
-        '有效网络连接类型：': effectiveType,
-        '估算下行速度(Mb/s)': downlink,
-        '估算往返时间(ms)': rtt,
-        '打开/请求数据保护模式(用户是否已请求用户代理减少数据使用量)': saveData
+try{
+    navigator.connection.addEventListener('change', () => {
+        const {rtt, downlink, effectiveType, saveData} = navigator.connection
+        console.table({
+            '有效网络连接类型：': effectiveType,
+            '估算下行速度(Mb/s)': downlink,
+            '估算往返时间(ms)': rtt,
+            '打开/请求数据保护模式(用户是否已请求用户代理减少数据使用量)': saveData
+        })
     })
+}catch(e){
+    console.error('connection change ERROR: ', e.message)
 }
-
-navigator.connection.addEventListener('change', networkChange)
 
 // js判断横竖屏
 window.addEventListener('resize', () => {
     if(window.screen.orientation.angle === 180 || window.screen.orientation.angle === 0){
         // 正常方向或屏幕旋转180度
-        console.log('竖屏')
+        console.info('竖屏')
     }
     if(window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90){
         // 屏幕顺时钟旋转90度或屏幕逆时针旋转90度
-        console.log('横屏')
+        console.info('横屏')
     }
 })
 
 // 当 HTML 文档完全解析，且所有延迟脚本（<script defer> 和 <script type="module">）下载和执行完毕后，会触发 DOMContentLoaded 事件
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded')
+    console.info('DOMContentLoaded')
     localStorage.setItem('USER_VISIT_TIME', dayjs().format('YYYY/MM/DD HH:mm:ss'))
 })
 
