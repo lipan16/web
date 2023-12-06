@@ -10,7 +10,7 @@ const Site = () => {
 
     return (
         <section className='resource site'>
-            <h1>site</h1>
+            <h1>精品网站</h1>
             <ResourceCom list={FINE_WEBSITE}/>
         </section>
     )

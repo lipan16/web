@@ -1,23 +1,9 @@
 .resource{
     padding: 0 24px;
 
-    h1{
+    > h1{
         text-align: center;
         margin: 24px 0;
-    }
-}
-
-.resource-group{
-    margin: 20px 0;
-
-    h3{
-        padding: 8px 0;
-        margin-bottom: 16px;
-        border-bottom: 1px solid;
-    }
-
-    > div{
-        margin-left: 24px;
     }
 
     .item{
@@ -59,8 +45,32 @@
     }
 }
 
+.resource-group{
+    margin: 20px 0;
+
+    h3{
+        padding: 8px 0;
+        margin-bottom: 16px;
+        border-bottom: 1px solid;
+    }
+
+    > div{
+        margin-left: 24px;
+    }
+}
+
+.tools{
+    .tools-site{
+        height: 60vh;
+        width: 100%;
+        margin-top: 32px;
+        border-radius: 8px;
+        border: 1px solid;
+    }
+}
+
 @media screen and(max-width: 768px){
-    .resource-group .item{
+    .resource .item{
         margin: 0 auto;
     }
 }

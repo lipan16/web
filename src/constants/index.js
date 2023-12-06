@@ -456,11 +456,9 @@ export const FINE_WEBSITE = [
                 logo: 'https://gw.alipayobjects.com/zos/bmw-prod/69a27fcc-ce52-4f27-83f1-c44541e9b65d.svg'
             }
         ]
-    }
-]
-
-export const FINE_TOOLS = [
+    },
     {
+        title: '其他',
         site: [
             {
                 title: '王者荣耀体验服',
@@ -475,24 +473,33 @@ export const FINE_TOOLS = [
                 link: 'https://bm.ruankao.org.cn/sign/welcome',
                 logo: 'https://bm.ruankao.org.cn/asset/image/public/logo.png'
             },
-            {
-                title: 'remove bg',
-                desc: '背景消除',
-                link: 'https://www.remove.bg/zh',
-                logo: 'https://www.remove.bg/safari-pinned-tab.svg?v=YAXaAv7pao'
-            },
-            {
-                title: 'regulex',
-                desc: '正则表达式匹配',
-                link: 'https://jex.im/regulex/#!flags=&re=',
-                logo: 'https://jex.im/favicon.ico'
-            },
-            {
-                title: '工具猫',
-                desc: '在线生成透明ICO图标—工具猫',
-                link: 'https://www.toolscat.com/img/ico',
-                logo: 'https://www.toolscat.com/static/common/favicon.ico'
-            },
         ]
     }
+]
+
+export const FINE_TOOLS = [
+    {
+        title: 'remove bg',
+        desc: '背景消除',
+        link: 'https://www.remove.bg/zh',
+        logo: 'https://www.remove.bg/safari-pinned-tab.svg?v=YAXaAv7pao'
+    },
+    {
+        title: 'regulex',
+        desc: '正则表达式匹配',
+        link: 'https://jex.im/regulex/#!flags=&re=',
+        logo: 'https://jex.im/favicon.ico'
+    },
+    {
+        title: '工具猫',
+        desc: '在线生成透明ICO图标—工具猫',
+        link: 'https://www.toolscat.com/img/ico',
+        logo: 'https://www.toolscat.com/static/common/favicon.ico'
+    },
+    {
+        title: '字体转换',
+        desc: '',
+        link: 'https://transfonter.org',
+        logo: 'https://transfonter.org/favicon.ico'
+    },
 ]
