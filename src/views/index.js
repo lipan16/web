@@ -49,7 +49,6 @@ const Index = () => {
         }
     }, [])
 
-    console.log(12)
     return (
         <div className='index'>
             <div className='content'>

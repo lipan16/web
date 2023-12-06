@@ -42,11 +42,11 @@ const SelfFooter = () => {
 
     return (
         <Footer className='footer'>
-            <div>本站点已运行：<a>{websiteTime}</a></div>
+            <div>本站已运行：<a>{websiteTime}</a></div>
             <div className='design'>
                 Powered by&nbsp;
-                <a href='https://zh-hans.react.dev' target='_blank'>React</a>+
-                <a href='https://nodejs.org' target='_blank'>Node</a>+
+                <a href='https://www.webpackjs.com' target='_blank'>webpack</a>&nbsp;+&nbsp;
+                <a href='https://zh-hans.react.dev' target='_blank'>React</a>&nbsp;+&nbsp;
                 <a href='https://ant-design.antgroup.com/index-cn' target='_blank'>Antd</a>
                 &nbsp;当前版本{pkg.version}
             </div>
