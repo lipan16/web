@@ -1,0 +1,44 @@
+.we{
+    padding-top: 48px;
+
+    .love-time{
+        margin-bottom: 32px;
+        font-size: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        .title{
+            animation: bg-gradient 4s ease infinite;
+            animation-play-state: paused;
+            background-clip: text;
+            -webkit-background-clip: text;
+            background-image: linear-gradient(270deg, #ff4500, orange, gold, #90ee90, #0ff, #1e90ff, #9370db, #ff69b4, #ff4500);
+            background-size: 300% 300%;
+            color: transparent;
+            letter-spacing: 8px;
+
+            &:hover{
+                animation-play-state: running;
+            }
+        }
+        .time{
+            font-size: 64px;
+            color: #f06;
+            padding: 0 8px;
+        }
+    }
+}
+
+@keyframes bg-gradient{
+    0%{
+        background-size: 50%;
+    }
+    50%{
+        background-size: 400%;
+    }
+    100%{
+        background-size: 50%;
+    }
+}
