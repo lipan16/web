@@ -1,7 +1,19 @@
+@font-face{
+    font-family: pretty;
+    src: url('./assets/fonts/pretty.woff2');
+}
+
+//米凯诗语行楷拼音
+@font-face{
+    font-family: MK;
+    src: url('./assets/fonts/MKshiyuxingkaipinyin.woff2');
+}
+
 html, body{
     height: 100%;
     width: 100%;
     font-size: 1rem;
+    font-family: pretty, "JetBrains Mono", system-ui, serif;
 }
 
 *{
@@ -43,6 +55,7 @@ html, body{
         font-size: 2rem;
     }
 }
+
 @media screen and (max-width: 1200px){
     html, body{
         font-size: 0.75rem;

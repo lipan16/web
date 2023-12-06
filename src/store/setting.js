@@ -8,6 +8,7 @@ export const setting = createSlice({
             dark: false,
             token: {
                 fontSize: 16,
+                fontFamily: 'pretty',
                 colorPrimary: '#fa3899',
             }
         }
