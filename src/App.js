@@ -3,6 +3,9 @@ import {useSelector, useDispatch} from 'react-redux'
 import {ConfigProvider, theme} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 
+window._AMapSecurityConfig = {
+    securityJsCode: '18e4297a6b5ad414c0e09e78ee2985d2'
+}
 const jinrishici = require('jinrishici')
 
 import SelfLayout from '@/components/layout'

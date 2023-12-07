@@ -19,6 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/cssinjs": "^1.17.5",
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.7",

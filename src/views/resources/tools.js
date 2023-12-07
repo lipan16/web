@@ -33,7 +33,7 @@ const Tools = () => {
                     </div>
                 )}
             </Flex>
-            <iframe src={toolSite?.link} className='tools-site' style={{borderColor: token.colorPrimary}}/>
+            <iframe id='tools-iframe' src={toolSite?.link} className='tools-site' style={{borderColor: token.colorPrimary}}/>
         </section>
     )
 }
