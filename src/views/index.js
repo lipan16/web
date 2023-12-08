@@ -1,9 +1,10 @@
 import {isEmpty} from 'lodash'
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useRef, useLayoutEffect} from 'react'
 import {useHover} from 'ahooks'
 import {useDispatch, useSelector} from 'react-redux'
 import {Image, Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
+import AMapLoader from '@amap/amap-jsapi-loader'
 
 const jinrishici = require('jinrishici')
 
@@ -32,6 +33,7 @@ const Index = () => {
 
     const [imgSrc, setImgSrc] = useState([])
     const verse = useSelector(state => state.user.verse) // 诗词
+    const plat = useSelector(state => state.user.plat)
     const avatarRef = useRef(null) // 头像
     const isHovering = useHover(avatarRef) // 头像是否hover
 
@@ -52,24 +54,27 @@ const Index = () => {
     return (
         <div className='index'>
             <div className='content'>
-                {imgSrc.map((img, index) => <Image key={index} src={img} preview={false}/>)}
+                <div>
+                    {imgSrc.map((img, index) => <Image key={index} src={img} preview={false}/>)}
+                </div>
             </div>
             <div className='person'>
                 <div className='card avatar'>
                     <img ref={avatarRef} className='avatar-img' alt='' style={{background: token.colorWhite}}
                          src={isHovering ? 'http://8.133.162.30/static/20181104.jpg' : 'http://8.133.162.30/favicon.ico'}/>
                     <div className='title'>拓荒者, 守护繁华</div>
-                    <div className='profession'>前端开发</div>
-                    <div className='addr' style={{color: token.colorPrimary}}>上海-浦东</div>
+                    <div style={{color: token.colorPrimary}}>前端开发</div>
+                    <div className='addr' style={{color: token.colorLink}}>上海-浦东</div>
                     <a href='mailto:lipan16@lzu.edu.cn'><MailOutlined/>lipan16@lzu.edu.cn</a>
                     <div className='verse'>{verse?.data?.content}</div>
                 </div>
 
                 <div className='card your-info'>
                     <div className='battery'><span>电量:&nbsp;</span><Battery/></div>
+                    os: <span>{plat}</span><br/>
                     ip: <span className='ip' style={{color: token.colorPrimary}}>{verse?.ipAddress}</span><br/>
-                    浏览器: <span className='browser'>{clientName}-{clientVersion}</span><br/>
-                    您在<span className='time'>{visitTime}</span>访问了本站
+                    浏览器: <span style={{color: token.colorLink}}>{clientName}-{clientVersion}</span><br/>
+                    您在<span style={{color: token.colorLink}}>{visitTime}</span>访问了本站
                 </div>
 
                 <div className='card' style={{color: token.colorPrimary}}>
