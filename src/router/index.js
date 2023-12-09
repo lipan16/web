@@ -12,6 +12,7 @@ const Works = lazy(() => import('@/views/works'))
 const Site = lazy(() => import('@/views/resources/site'))
 const Tools = lazy(() => import('@/views/resources/tools'))
 const About = lazy(() => import('@/views/about'))
+const Aieditor = lazy(() => import('@/views/aieditor'))
 
 const routes = [
     {
@@ -33,6 +34,7 @@ const routes = [
                     {path: 'tools', element: <Tools/>}
                 ]
             },
+            {path: 'aieditor', element: <Aieditor/>},
             {path: 'about', element: <About/>},
             {path: '*', element: <NoFound></NoFound>}
         ]

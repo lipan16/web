@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import {Layout, Menu, Affix, Input, Drawer, FloatButton, Spin} from 'antd'
 import {
     MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined, GithubOutlined,
-    FullscreenExitOutlined, FullscreenOutlined
+    FullscreenExitOutlined, FullscreenOutlined, FileMarkdownOutlined
 } from '@ant-design/icons'
 
 const {Search} = Input
@@ -30,6 +30,7 @@ const MENU_LIST = [
             {key: '/tools', label: '工具集', icon: null}
         ]
     },
+    {key: '/aieditor', label: 'AiEditor', icon: <FileMarkdownOutlined/>},
     {key: '/about', label: '关于', icon: <UserOutlined/>}
 ]
 
