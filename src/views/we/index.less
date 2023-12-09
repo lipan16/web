@@ -1,4 +1,4 @@
-.we{
+section{
     padding-top: 48px;
 
     .love-time{
@@ -23,10 +23,23 @@
                 animation-play-state: running;
             }
         }
+
         .time{
             font-size: 64px;
             color: #f06;
             padding: 0 8px;
+        }
+    }
+
+    .content{
+        margin: 0 96px;
+
+        .btn{
+            text-align: center;
+
+            > button{
+                margin-inline: 8px;
+            }
         }
     }
 }
@@ -40,5 +53,21 @@
     }
     100%{
         background-size: 100%;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    section{
+        .content{
+            margin: 0 48px;
+        }
+    }
+}
+
+@media screen and(max-width: 768px){
+    section{
+        .content{
+            margin: 0 24px;
+        }
     }
 }

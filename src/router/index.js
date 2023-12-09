@@ -3,10 +3,10 @@ import React, {lazy} from 'react'
 import App from '@/App'
 import Index from '@/views'
 import NoFound from '@/views/nofound'
+import Lipan from '@/views/we/lipan'
+import Xiaobing from '@/views/we/xiaobing'
 
 const We = lazy(() => import('@/views/we'))
-const Lipan = lazy(() => import('@/views/we/lipan'))
-const Xiaobing = lazy(() => import('@/views/we/xiaobing'))
 const Interview = lazy(() => import('@/views/interview'))
 const Works = lazy(() => import('@/views/works'))
 const Site = lazy(() => import('@/views/resources/site'))
