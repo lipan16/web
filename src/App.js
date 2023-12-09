@@ -1,8 +1,8 @@
-import AMapLoader from '@amap/amap-jsapi-loader'
-import React, {useMemo, useEffect} from 'react'
+import React, {useMemo, useEffect, useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {ConfigProvider, theme} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
+import AMapLoader from '@amap/amap-jsapi-loader'
 
 window._AMapSecurityConfig = {
     securityJsCode: '18e4297a6b5ad414c0e09e78ee2985d2'
@@ -11,8 +11,9 @@ window._AMapSecurityConfig = {
 const jinrishici = require('jinrishici')
 
 import SelfLayout from '@/components/layout'
+import fetchRequest from '@/utils/request'
 import {useThemeToken} from '@/hooks'
-import {setIp, setVerse, setPlat, setLocation} from '@/store/user'
+import {setIp, setVerse, setPlat, setLocation, setWeather} from '@/store/user'
 import '@/utils/event'
 import '@/global.less'
 import '@/antd.less'
@@ -53,6 +54,29 @@ const App = () => {
         }
     }, [themeStore])
 
+    const getWeather = useCallback((lng, lat) => {
+        fetchRequest({
+            url: 'https://devapi.qweather.com/v7/weather/now',
+            method: 'get',
+            data: {
+                location: `${lng},${lat}`,
+                key: 'bf787a5ca09a41cb801b2adcb48f40f8'
+            }
+        }).then(res => {
+            if(res.code === '200'){
+                dispatch(setWeather({
+                    text: res.now.text, // 状况描述
+                    temp: res.now.temp, // 温度
+                    feelsLike: res.now.feelsLike, // 体感温度
+                    link: res.fxLink, // 和风天气响应式页面
+                    obsTime: res.now.obsTime // 数据观测时间
+                }))
+            }
+        }).catch(err => {
+            console.error('和风天气 ERROR: ', err.message, err)
+        })
+    }, [])
+
     useEffect(() => {
         jinrishici.load(result => {
             dispatch(setVerse(result))
@@ -76,6 +100,7 @@ const App = () => {
             map = new AMap.Map('amap', {zoom: 22})
             map.getCity(function(info){ // province city district citycode
                 const {lng, lat} = map.getCenter() // 经纬度
+                getWeather(lng?.toFixed(2), lat?.toFixed(2))
                 dispatch(setLocation({...info, lng, lat}))
             })
         }).catch(e => {

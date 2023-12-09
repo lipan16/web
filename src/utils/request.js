@@ -13,7 +13,7 @@ function fetchRequest({url, method = 'POST', data, loading = false, loadingConte
 
     return fetch(url, {
         method,
-        credentials: 'include', // 每次都带上 cookies
+        // credentials: 'include', // 每次都带上 cookies
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset: utf-8',

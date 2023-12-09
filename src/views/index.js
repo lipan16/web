@@ -1,17 +1,13 @@
 import {isEmpty} from 'lodash'
-import React, {useState, useEffect, useRef, useLayoutEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import {useHover} from 'ahooks'
 import {useDispatch, useSelector} from 'react-redux'
 import {Image, Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
-import AMapLoader from '@amap/amap-jsapi-loader'
-
-const jinrishici = require('jinrishici')
 
 import Battery from '@/components/battery'
 import {useClientInfo, useThemeToken, useVisitTime} from '@/hooks'
 import {randomColor} from '@/utils'
-import {setIp, setVerse} from '@/store/user'
 import './index.less'
 
 const imgs = [
@@ -32,8 +28,7 @@ const Index = () => {
     const visitTime = useVisitTime() // 首次访问网站时间
 
     const [imgSrc, setImgSrc] = useState([])
-    const verse = useSelector(state => state.user.verse) // 诗词
-    const plat = useSelector(state => state.user.plat)
+    const {verse, plat, weather} = useSelector(state => state.user)
     const avatarRef = useRef(null) // 头像
     const isHovering = useHover(avatarRef) // 头像是否hover
 
@@ -43,16 +38,16 @@ const Index = () => {
             img[i] = `http://8.133.162.30/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
         }
         setImgSrc(img)
-        if(isEmpty(verse)){
-            jinrishici.load(result => {
-                dispatch(setVerse(result))
-                dispatch(setIp(result.ipAddress))
-            })
-        }
     }, [])
 
     return (
         <div className='index'>
+            {
+                !isEmpty(weather) && <div className='weather'>
+                    {weather.text}
+                    <span>{weather.temp}</span>℃
+                </div>
+            }
             <div className='content'>
                 <div>
                     {imgSrc.map((img, index) => <Image key={index} src={img} preview={false}/>)}

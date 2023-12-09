@@ -6,7 +6,8 @@ export const user = createSlice({
         ip: '',
         verse: {}, // 诗词
         plat: '', // 设备型号
-        location: {} // 地理位置
+        location: {}, // 地理位置
+        weather: {}, // 天气
     },
     reducers: {
         setIp: (state, action) => {
@@ -20,9 +21,12 @@ export const user = createSlice({
         },
         setLocation: (state, action) => {
             state.location = action.payload
+        },
+        setWeather: (state, action) => {
+            state.weather = action.payload
         }
     }
 })
-export const {setIp, setVerse, setPlat, setLocation} = user.actions
+export const {setIp, setVerse, setPlat, setLocation, setWeather} = user.actions
 
 export default user.reducer
