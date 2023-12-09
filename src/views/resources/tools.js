@@ -1,10 +1,11 @@
-import {setToolSite} from '@/store/action'
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
+import {useSearchParams} from 'react-router-dom'
 import {useTitle} from 'ahooks'
 import {useSelector, useDispatch} from 'react-redux'
 import {Image, Flex} from 'antd'
 
 import {useThemeToken} from '@/hooks'
+import {setToolSite} from '@/store/action'
 import {FINE_TOOLS} from '@/constants'
 import './index.less'
 
@@ -12,6 +13,16 @@ const Tools = () => {
     useTitle('共享资源 | 工具集')
     const token = useThemeToken()
     const dispatch = useDispatch()
+    const [searchParams] = useSearchParams()
+
+    useEffect(() => {
+        const link = searchParams.get('link')
+        link && dispatch(setToolSite({link}))
+
+        return () => {
+            link && dispatch(setToolSite({}))
+        }
+    }, [])
 
     const toolSite = useSelector(state => state.action.toolSite)
 
