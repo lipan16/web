@@ -1,0 +1,33 @@
+.pinned-player{
+    position: fixed;
+    z-index: 10;
+    bottom: 128px;
+    right: 48px;
+
+    .player-expand{
+        position: absolute;
+        font-size: 16px;
+        cursor: pointer;
+        right: 0;
+        top: 0;
+    }
+
+    .player-pic{
+        position: relative;
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        cursor: pointer;
+        background-position: 100%;
+        background-size: cover;
+        transition: all .1s ease;
+
+        .play{
+            position: absolute;
+            color: #fff;
+            font-size: 32px;
+            top: calc(50% - 16px);
+            left: calc(50% - 16px);
+        }
+    }
+}

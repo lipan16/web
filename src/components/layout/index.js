@@ -11,11 +11,12 @@ import {
 const {Search} = Input
 const {Header, Content, Footer} = Layout
 
+import PinnedPlayer from '@/components/pinnedPlayer'
+import IconFont from '@/components/aliIcon'
+import WebDevPng from '@/assets/imgs/webdev.png'
 import {WEBSITE_TIME} from '@/constants'
 import {useThemeToken} from '@/hooks'
 import {showTime} from '@/utils'
-import IconFont from '@/components/aliIcon'
-import WebDevPng from '@/assets/imgs/webdev.png'
 import pkg from '@/../package.json'
 import './index.less'
 
@@ -152,6 +153,7 @@ const SelfLayout = () => {
             </Content>
             <SelfFooter/>
             <FloatButton.BackTop visibilityHeight={300}/>
+            <PinnedPlayer/>
         </Layout>
     )
 }
