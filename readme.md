@@ -11,8 +11,8 @@
   - [x] 第三方借鉴
   - [ ] 自己的理解
 - [x] 作品
-  - [x] 个人主页
-  - [x] 前端知识库
+  - [x] [个人主页](http://8.133.162.30)
+  - [x] [前端知识库](http://8.133.162.30/web-knowledge)
 - [x] 共享资源
   - [x] 网站
   - [x] 工具 改用iframe实现
@@ -23,7 +23,7 @@
   - [ ] 音乐播放器：点击具体歌时仅第一次新开tab页（tab通信）
   - [ ] 流量信息 访问量，用户量
   - [x] gsap动画
-  - [x] 引入高德地图定位
+  - [x] 引入[高德地图](https://lbs.amap.com/api/javascript-api-v2/summary)定位
   - [x] [和风天气预报](https://dev.qweather.com/docs/api/weather/weather-now/)
   - [ ] 背景跟随天气预报，24节气背景图
 - [x] [AiEditor](https://aieditor.dev/zh/getting-started.html)
