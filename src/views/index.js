@@ -1,7 +1,8 @@
-import {isEmpty} from 'lodash'
 import React, {useState, useEffect, useRef, useCallback} from 'react'
-import {useHover} from 'ahooks'
+import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
+import {useHover} from 'ahooks'
+import {isEmpty} from 'lodash'
 import {Image, Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
@@ -9,7 +10,6 @@ import Battery from '@/components/battery'
 import {useClientInfo, useThemeToken, useVisitTime} from '@/hooks'
 import {randomColor} from '@/utils'
 import './index.less'
-import {useNavigate} from 'react-router-dom'
 
 const imgs = [
     '1597550702059.jpg', '1597551240750.jpg', '2735011818.jpg', '1597550850648.jpg', '1597551250418.jpg',

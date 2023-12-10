@@ -23,6 +23,7 @@ const SvgIcon = ({width, height, color, className, style, onClick, filename}) =>
         </svg>
     )
 }
+
 SvgIcon.propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -32,4 +33,5 @@ SvgIcon.propTypes = {
     onClick: PropTypes.func,
     filename: PropTypes.string.isRequired
 }
+
 export default SvgIcon
