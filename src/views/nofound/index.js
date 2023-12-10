@@ -5,7 +5,7 @@ const NoFound = () => {
     useTitle('404')
 
     return (
-        <section className='resources'>
+        <section className='404'>
             <h2>404</h2>
         </section>
     )

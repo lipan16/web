@@ -31,20 +31,22 @@ const Tools = () => {
     }, [])
 
     return (
-        <section className='resource tools'>
+        <section className='resource'>
             <h1>工具集</h1>
-            <Flex wrap='wrap' gap='middle'>
-                {FINE_TOOLS.map(site =>
-                    <div key={site.link} className='item' style={{background: token.colorBgContainer}} onClick={() => onClickSite(site)}>
-                        <Image className='site-img' src={site.logo} preview={false} height={48} width={48}/>
-                        <div className='title'>
-                            <p>{site.title}</p>
-                            <div>{site.desc || site.title}</div>
+            <div className='content'>
+                <Flex wrap='wrap' gap='1rem' className='content-flex'>
+                    {FINE_TOOLS.map(site =>
+                        <div key={site.link} className='item' style={{background: token.colorBgContainer}} onClick={() => onClickSite(site)}>
+                            <Image className='site-img' src={site.logo} preview={false} height={48} width={48}/>
+                            <div className='title'>
+                                <p>{site.title}</p>
+                                <div>{site.desc || site.title}</div>
+                            </div>
                         </div>
-                    </div>
-                )}
-            </Flex>
-            <iframe id='tools-iframe' src={toolSite?.link} className='tools-site' style={{borderColor: token.colorPrimary}}/>
+                    )}
+                </Flex>
+                <iframe id='tools-iframe' src={toolSite?.link} className='tools-iframe' style={{borderColor: token.colorPrimary}}/>
+            </div>
         </section>
     )
 }

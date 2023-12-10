@@ -78,6 +78,10 @@ const App = () => {
     }, [])
 
     useEffect(() => {
+        // fetchRequest({url: '/api/login', method: 'GET', data: {username: 'lipan'}}).then(r => {
+        //     console.log(r)
+        // })
+
         jinrishici.load(result => {
             dispatch(setVerse(result))
             dispatch(setIp(result.ipAddress))
@@ -106,6 +110,7 @@ const App = () => {
         }).catch(e => {
             console.error('AMAP ERROR: ', e)
         })
+
         return () => {
             map?.destroy()
         }

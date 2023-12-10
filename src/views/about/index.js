@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useTitle} from 'ahooks'
 import {Divider, Collapse, Switch, Card, ColorPicker} from 'antd'
@@ -20,13 +20,6 @@ const About = () => {
 
     useTitle('关于')
 
-    useEffect(() => {
-        // fetchRequest({url: '/api/login', method: 'GET', data: {username: 'lipan'}}).then(r => {
-        //     console.log(r)
-        // })
-    }, [])
-
-
     const onChangeThemeAlgorithm = bool => {
         dispatch(setDarkTheme(bool))
     }
@@ -38,8 +31,8 @@ const About = () => {
     return (
         <section className='about'>
             <h1>关于</h1>
-            <div className='main'>
-                <Card className='content'>
+            <div className='content'>
+                <Card className='about-card'>
                     <Divider orientation='left'>✒&nbsp;关于我</Divider>
                     <ul className='box'>
                         <li>一名默默无闻的前端研发工程师</li>

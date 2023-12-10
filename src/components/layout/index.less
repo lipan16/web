@@ -62,8 +62,14 @@
 .footer{
     text-align: center;
     padding-top: 16px !important;
+    padding-inline: 64px;
     max-height: 6rem;
     line-height: 1.1;
+}
+
+section{
+    padding-block-start: 48px;
+    margin-inline: 96px;
 }
 
 @media screen and (max-width: 1200px){
@@ -88,7 +94,6 @@
                 display: none;
             }
         }
-
     }
 
     .mobile-nav-btn{
@@ -97,13 +102,20 @@
     }
 
     .footer{
-        font-size: 14px;
+        padding-inline: 32px;
+    }
+
+    section{
+        margin-inline: 48px;
     }
 }
 
 @media screen and(max-width: 768px){
     .footer{
-        font-size: 12px;
-        padding: 16px;
+        padding-inline: 16px;
+    }
+
+    section{
+        margin-inline: 24px;
     }
 }
