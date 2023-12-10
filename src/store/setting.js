@@ -11,7 +11,8 @@ export const setting = createSlice({
                 fontFamily: 'pretty',
                 colorPrimary: '#fa3899',
             }
-        }
+        },
+        pinnedPlayer: true,
     },
     reducers: {
         setThemeToken: (state, action) => {
@@ -19,10 +20,13 @@ export const setting = createSlice({
         },
         setDarkTheme: (state, action) => {
             state.theme.dark = action.payload
+        },
+        setPinnedPlayer: (state, action) => {
+            state.pinnedPlayer = action.payload
         }
     }
 })
 
-export const {setThemeToken, setDarkTheme} = setting.actions
+export const {setThemeToken, setDarkTheme, setPinnedPlayer} = setting.actions
 
 export default setting.reducer

@@ -1,4 +1,5 @@
 import React, {useState, useEffect, Suspense, useRef, useCallback, useMemo} from 'react'
+import {useSelector} from 'react-redux'
 import {Outlet, useNavigate, useLocation} from 'react-router-dom'
 import {useScroll, useDebounceFn, useFullscreen, useInterval} from 'ahooks'
 import dayjs from 'dayjs'
@@ -66,9 +67,9 @@ const SelfLayout = () => {
     const location = useLocation()
     const token = useThemeToken()
 
+    const pinnedPlayer = useSelector(state => state.setting.pinnedPlayer)
     const fullscreenRef = useRef(null)
     const [isFullscreen, {toggleFullscreen}] = useFullscreen(fullscreenRef)
-
     const [hideHeader, setHideHeader] = useState(false)
     const [selectedKey, setSelectedKey] = useState('/')
 
@@ -153,7 +154,7 @@ const SelfLayout = () => {
             </Content>
             <SelfFooter/>
             <FloatButton.BackTop visibilityHeight={300}/>
-            <PinnedPlayer/>
+            {pinnedPlayer && <PinnedPlayer/>}
         </Layout>
     )
 }

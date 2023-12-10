@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {useTitle} from 'ahooks'
 import {Divider, Collapse, Switch, Card, ColorPicker} from 'antd'
@@ -6,7 +6,7 @@ import {QqCircleFilled, GithubFilled} from '@ant-design/icons'
 
 import {useThemeToken, useVisitTime} from '@/hooks'
 import HelloWorld from '@/components/helloWorld'
-import {setDarkTheme, setThemeToken} from '@/store/setting'
+import {setDarkTheme, setThemeToken, setPinnedPlayer} from '@/store/setting'
 import './index.less'
 
 const About = () => {
@@ -17,16 +17,23 @@ const About = () => {
     const ip = useSelector(state => state.user.ip)
     const colorPrimary = useSelector(state => state.setting.theme.token.colorPrimary)
     const dark = useSelector(state => state.setting.theme.dark)
+    const pinnedPlayer = useSelector(state => state.setting.pinnedPlayer)
 
     useTitle('关于')
 
-    const onChangeThemeAlgorithm = bool => {
-        dispatch(setDarkTheme(bool))
-    }
-
-    const onChangeColorPrimary = color => {
-        dispatch(setThemeToken({key: 'colorPrimary', value: color.toHexString()}))
-    }
+    const onChangeSetting = useCallback((val, key) => {
+        switch(key){
+            case 'dark':
+                dispatch(setDarkTheme(val))
+                break
+            case 'colorPrimary':
+                dispatch(setThemeToken({key: 'colorPrimary', value: val.toHexString()}))
+                break
+            case 'pinnedPlayer':
+                dispatch(setPinnedPlayer(val))
+                break
+        }
+    }, [])
 
     return (
         <section className='about'>
@@ -64,15 +71,15 @@ const About = () => {
                                 <div className='setting-content'>
                                     <div className='item'>
                                         <span>暗色模式: </span>
-                                        <Switch size='small' checked={dark} onChange={onChangeThemeAlgorithm}/>
+                                        <Switch size='small' checked={dark} onChange={bool => onChangeSetting(bool, 'dark')}/>
                                     </div>
                                     <div className='item'>
                                         <span>主题色: </span>
-                                        <ColorPicker size='small' value={colorPrimary} onChangeComplete={onChangeColorPrimary}/>
+                                        <ColorPicker size='small' value={colorPrimary} onChangeComplete={color => onChangeSetting(color, 'colorPrimary')}/>
                                     </div>
                                     <div className='item'>
                                         <span>音乐播放器: </span>
-                                        <Switch size='small'/>
+                                        <Switch size='small' checked={pinnedPlayer} onChange={bool => onChangeSetting(bool, 'pinnedPlayer')}/>
                                     </div>
                                 </div>
                         }]}
