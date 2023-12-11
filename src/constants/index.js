@@ -502,4 +502,16 @@ export const FINE_TOOLS = [
         link: 'https://transfonter.org',
         logo: 'https://transfonter.org/favicon.ico'
     },
+    {
+        title: 'APP 影院',
+        desc: '',
+        link: 'https://www.appmovie.vip',
+        logo: 'https://cdn.wyteam.net/webapps/maccms/template/blueghost/img/favicon.ico'
+    },
+    {
+        title: 'VidHub 视频库',
+        desc: '',
+        link: 'https://vidhub.tv',
+        logo: 'https://vidhub.tv/mxstatic/image/logo2.png'
+    },
 ]
