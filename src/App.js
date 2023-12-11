@@ -81,6 +81,19 @@ const App = () => {
         // fetchRequest({url: '/api/login', method: 'GET', data: {username: 'lipan'}}).then(r => {
         //     console.log(r)
         // })
+        try{
+            navigator.geolocation.getCurrentPosition(position => {
+                console.log('位置信息: ', position.coords.latitude, position.coords.longitude)
+            }, err => {
+                console.error('navigator.geolocation.getCurrentPosition, code: [' + err.code + ']: ' + err.message)
+            }, {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            })
+        }catch(e){
+            console.error('navigator.geolocation.getCurrentPosition ERROR: ', e.message)
+        }
 
         jinrishici.load(result => {
             dispatch(setVerse(result))
