@@ -1,3 +1,4 @@
+import {useThemeToken} from '@/hooks'
 import React, {useRef, useEffect, useCallback} from 'react'
 import {useSetState} from 'ahooks'
 import dayjs from 'dayjs'
@@ -7,6 +8,8 @@ import './index.less'
 
 let audioEle
 const Music = () => {
+    const token = useThemeToken()
+
     const canvasRef = useRef(null)
     const [audioObj, setAudioObj] = useSetState({
         isPlay: false,
@@ -67,7 +70,7 @@ const Music = () => {
             analyser.getByteFrequencyData(dataArray)
             const len = dataArray.length / 2 // 过滤高频
             const barWidth = width / len / 2
-            canvasCtx.fillStyle = '#fd726d'
+            canvasCtx.fillStyle = token.colorPrimary
             for(let i = 0; i < len; i++){
                 const data = dataArray[i]
                 const barHeight = (data / 255) * height
