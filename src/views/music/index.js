@@ -60,18 +60,14 @@ const Music = () => {
 
         // 把分析出的波形画到canvas中
         function draw(){
-            console.log(audioEle.currentTime)
-            setAudioObj({currentTime: formatTime(audioEle.currentTime)}) //获取当前播放时长
+            setAudioObj({currentTime: formatTime(audioEle.currentTime)}) // 获取当前播放时长
 
-            // 清空canvas
             const {width, height} = canvasEle
-            canvasCtx.clearRect(0, 0, width, height)
-
+            canvasCtx.clearRect(0, 0, width, height) // 清空canvas
             analyser.getByteFrequencyData(dataArray)
             const len = dataArray.length / 2 // 过滤高频
             const barWidth = width / len / 2
             canvasCtx.fillStyle = '#fd726d'
-
             for(let i = 0; i < len; i++){
                 const data = dataArray[i]
                 const barHeight = (data / 255) * height
@@ -81,7 +77,6 @@ const Music = () => {
                 canvasCtx.fillRect(x1, y, barWidth - 2, barHeight)
                 canvasCtx.fillRect(x2, y, barWidth - 2, barHeight)
             }
-
             frameId = requestAnimationFrame(draw)
         }
     }, [])
