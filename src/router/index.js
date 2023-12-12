@@ -3,16 +3,17 @@ import React, {lazy} from 'react'
 import App from '@/App'
 import Index from '@/views'
 import NoFound from '@/views/nofound'
-import Lipan from '@/views/we/lipan'
-import Xiaobing from '@/views/we/xiaobing'
 
 const We = lazy(() => import('@/views/we'))
+const Lipan = lazy(() => import('@/views/we/lipan'))
+const Xiaobing = lazy(() => import('@/views/we/xiaobing'))
 const Interview = lazy(() => import('@/views/interview'))
 const Works = lazy(() => import('@/views/works'))
 const Site = lazy(() => import('@/views/resources/site'))
 const Tools = lazy(() => import('@/views/resources/tools'))
-const About = lazy(() => import('@/views/about'))
 const Aieditor = lazy(() => import('@/views/aieditor'))
+const Music = lazy(() => import('@/views/music'))
+const About = lazy(() => import('@/views/about'))
 
 const routes = [
     {
@@ -35,9 +36,11 @@ const routes = [
                 ]
             },
             {path: 'aieditor', element: <Aieditor/>},
+            {path: 'music', element: <Music/>},
             {path: 'about', element: <About/>},
             {path: '*', element: <NoFound></NoFound>}
         ]
     }
 ]
+
 export default routes

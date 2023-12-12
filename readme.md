@@ -5,6 +5,7 @@
   - [x] 用户信息，电量，ip，浏览器，访问时间
   - [x] 浏览器tab间通信
   - [x] 标签
+  - [ ] 搜索
 - [x] 我们
   - [x] 1 w 天倒计时
 - [x] 面试题
@@ -16,17 +17,18 @@
 - [x] 共享资源
   - [x] 网站
   - [x] 工具 改用iframe实现
+- [x] [AiEditor](https://aieditor.dev/zh/getting-started.html)
+- [ ] 音乐播放页面：点击具体歌时仅第一次新开tab页（tab通信）
 - [x] 关于
   - [x] 个人介绍
   - [x] 本站技术介绍
   - [x] 设置 暗色设置，主题风格定制
-  - [ ] 音乐播放器：点击具体歌时仅第一次新开tab页（tab通信）
+  - [x] 音乐播放器
   - [ ] 流量信息 访问量，用户量
   - [x] gsap动画
   - [x] 引入[高德地图](https://lbs.amap.com/api/javascript-api-v2/summary)定位
   - [x] [和风天气预报](https://dev.qweather.com/docs/api/weather/weather-now/)
   - [ ] 背景跟随天气预报，24节气背景图
-- [x] [AiEditor](https://aieditor.dev/zh/getting-started.html)
 
 
 | 依赖                         | 说明                                                                               |
