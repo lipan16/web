@@ -111,6 +111,10 @@ const SelfLayout = () => {
         navigate('/', {replace: true})
     }, [])
 
+    const showPinnedPlayer = useMemo(() => {
+        return pinnedPlayer && !location.pathname.endsWith('music')
+    }, [pinnedPlayer, location])
+
     // console.log('layout render', scroll)
 
     return (
@@ -154,7 +158,7 @@ const SelfLayout = () => {
             </Content>
             <SelfFooter/>
             <FloatButton.BackTop visibilityHeight={300}/>
-            {pinnedPlayer && <PinnedPlayer/>}
+            {showPinnedPlayer && <PinnedPlayer/>}
         </Layout>
     )
 }
