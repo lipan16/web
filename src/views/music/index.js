@@ -13,6 +13,7 @@ const Music = () => {
     const canvasRef = useRef(null)
     const [audioObj, setAudioObj] = useSetState({
         isPlay: false,
+        progress: 0, // 播放进度
         duration: '',
         currentTime: '00:00'
     })
@@ -63,7 +64,10 @@ const Music = () => {
 
         // 把分析出的波形画到canvas中
         function draw(){
-            setAudioObj({currentTime: formatTime(audioEle.currentTime)}) // 获取当前播放时长
+            setAudioObj({
+                currentTime: formatTime(audioEle.currentTime),
+                progress: +(audioEle.currentTime / audioEle.duration).toFixed(2)
+            }) // 获取当前播放时长
 
             const {width, height} = canvasEle
             canvasCtx.clearRect(0, 0, width, height) // 清空canvas
@@ -93,17 +97,26 @@ const Music = () => {
         setAudioObj({isPlay: !audioObj.isPlay})
     }, [audioObj, audioEle])
 
+    const onChangeBar = useCallback(event => {
+        const curTime = event.target.value * audioEle.duration
+        setAudioObj({currentTime: formatTime(curTime)})
+        audioEle.currentTime = curTime
+        audioEle.play()
+    }, [audioEle])
+
     return (
         <section className='music'>
             <div className='music-controller'>
                 <canvas ref={canvasRef} style={{border: '1px solid'}}/>
                 <div className='music-bar'>
-                    {audioObj.currentTime} / {audioObj.duration}
+                    <div className='music-bar-time'>{audioObj.currentTime}</div>
+                    <input type='range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>
+                    <div className='music-bar-time'>{audioObj.duration}</div>
                 </div>
                 <div className='music-play'>
-                    <div><BackwardOutlined /></div>
+                    <div><BackwardOutlined/></div>
                     <div onClick={onPlay}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
-                    <div><ForwardOutlined /></div>
+                    <div><ForwardOutlined/></div>
                 </div>
             </div>
             <div className='music-info'>

@@ -4,13 +4,52 @@
     .music-controller{
         display: flex;
         flex-direction: column;
-        flex: 0 0 40%;
+        flex: 0 0 60%;
+
+        .music-bar{
+            padding: 8px 0;
+            display: flex;
+
+            .music-bar-time{
+                margin: 0 16px;
+            }
+            [type="range"]{
+                -webkit-appearance: none;
+                appearance: none;
+                outline: 0;
+                background-color: transparent;
+                flex-grow: 1;
+            }
+
+            [type="range"]::-webkit-slider-runnable-track{
+                height: 4px;
+                background: #eee;
+            }
+
+            [type="range" i]::-webkit-slider-container{
+                height: 16px;
+                overflow: hidden;
+            }
+
+            [type="range"]::-webkit-slider-thumb{
+                -webkit-appearance: none;
+                appearance: none;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background-color: #f44336;
+                border: 1px solid transparent;
+                margin-top: -6px;
+                border-image: 0 fill / 8 20 8 0 / 0px 0px 0 99vw;
+                border-image-source: linear-gradient(#f44336, #f44336);
+            }
+        }
 
         .music-play{
             display: flex;
             justify-content: center;
 
-            >div{
+            > div{
                 margin: 0 16px;
             }
         }
