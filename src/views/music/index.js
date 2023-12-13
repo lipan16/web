@@ -62,6 +62,11 @@ const Music = () => {
             cancelAnimationFrame(frameId)
         }
 
+        audioEle.onended = () => {
+            console.log('play end')
+            setAudioObj({isPlay: false})
+        }
+
         // 把分析出的波形画到canvas中
         function draw(){
             setAudioObj({
@@ -99,9 +104,8 @@ const Music = () => {
 
     const onChangeBar = useCallback(event => {
         const curTime = event.target.value * audioEle.duration
-        setAudioObj({currentTime: formatTime(curTime)})
+        setAudioObj({currentTime: formatTime(curTime), progress: event.target.value})
         audioEle.currentTime = curTime
-        audioEle.play()
     }, [audioEle])
 
     return (
