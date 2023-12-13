@@ -1,17 +1,32 @@
+import IconFont from '@/components/aliIcon'
 import {useThemeToken} from '@/hooks'
 import React, {useRef, useEffect, useCallback} from 'react'
 import {useSetState} from 'ahooks'
 import dayjs from 'dayjs'
-import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined} from '@ant-design/icons'
+import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
 
 import './index.less'
 
 let audioEle
+const AUDIO_PLAY_MODE = {
+    order: <IconFont type='icon-shunxubofang'/>, // 顺序播放 最后一首暂停
+    one: <IconFont type='icon-danquxunhuan'/>, // 单曲循环
+    random: <IconFont type='icon-suijibofang'/>, // 随机
+    loop: <RetweetOutlined/> // 列表循环
+}
+
 const Music = () => {
+    const AUDIO_PLAY_LIST = [
+        {src: 'http://8.133.162.30/static/music/bing.mp3', title: '星月神话', author: '冰'},
+        {src: 'https://cdn.hyl999.co/public/music/1660617357259.mp4', title: '玫瑰花的葬礼', author: '许嵩'},
+        {src: 'https://cdn.hyl999.co/public/music/1697361264639.mp3', title: '悬溺', author: '葛东琪'}
+    ]
+
     const token = useThemeToken()
 
     const canvasRef = useRef(null)
     const [audioObj, setAudioObj] = useSetState({
+        music: {}, // 音乐
         isPlay: false,
         progress: 0, // 播放进度
         duration: '',
@@ -23,8 +38,18 @@ const Music = () => {
     }, [])
 
     useEffect(() => {
+        setAudioObj({music: AUDIO_PLAY_LIST[0]})
+    }, [])
+
+    useEffect(() => {
+        console.log('audioObj.music')
+        musicController()
+    }, [audioObj.music])
+
+    const musicController = useCallback(() => {
+        console.log('musicController')
         let canvasEle = canvasRef.current
-        audioEle = new Audio('http://8.133.162.30/static/music/bing.mp3')
+        audioEle = new Audio(audioObj.music?.src)
         audioEle.oncanplay = () => {
             if(!audioObj.duration){
                 setAudioObj({duration: formatTime(audioEle.duration)}) // 获取音频时长
@@ -71,7 +96,7 @@ const Music = () => {
         function draw(){
             setAudioObj({
                 currentTime: formatTime(audioEle.currentTime),
-                progress: +(audioEle.currentTime / audioEle.duration).toFixed(2)
+                progress: +((audioEle.currentTime / audioEle.duration) || 0).toFixed(2)
             }) // 获取当前播放时长
 
             const {width, height} = canvasEle
@@ -91,22 +116,39 @@ const Music = () => {
             }
             frameId = requestAnimationFrame(draw)
         }
-    }, [])
+    }, [audioObj])
 
-    const onPlay = useCallback(() => {
-        if(audioObj.isPlay){
-            audioEle.pause()
-        }else{
-            audioEle.play()
-        }
-        setAudioObj({isPlay: !audioObj.isPlay})
-    }, [audioObj, audioEle])
-
+    // 拖拽进度条
     const onChangeBar = useCallback(event => {
+        console.log('onChangeBar')
         const curTime = event.target.value * audioEle.duration
         setAudioObj({currentTime: formatTime(curTime), progress: event.target.value})
         audioEle.currentTime = curTime
     }, [audioEle])
+
+    // 播放
+    const onPlay = useCallback(() => {
+        console.log('onPlay')
+
+        setAudioObj({isPlay: !audioObj.isPlay})
+    }, [audioObj.isPlay])
+
+    useEffect(() => {
+        console.log('useEffect audioEle.play')
+        if(audioObj.isPlay){
+            audioEle.play()
+        }else{
+            audioEle.pause()
+        }
+    }, [audioObj.isPlay, audioEle])
+
+    //
+    const playMusic = useCallback((index) => {
+        const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src)
+        const playIndex = (currIndex + index + AUDIO_PLAY_LIST.length) % AUDIO_PLAY_LIST.length
+        console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
+        setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
+    }, [audioObj])
 
     return (
         <section className='music'>
@@ -118,15 +160,15 @@ const Music = () => {
                     <div className='music-bar-time'>{audioObj.duration}</div>
                 </div>
                 <div className='music-play'>
-                    <div><BackwardOutlined/></div>
+                    <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
                     <div onClick={onPlay}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
-                    <div><ForwardOutlined/></div>
+                    <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
                 </div>
             </div>
             <div className='music-info'>
                 <div className='music-header'>
-                    <span className='music-title'>星月神话</span>
-                    <span className='music-author'>-冰</span>
+                    <span className='music-title'>{audioObj.music?.title}</span>
+                    <span className='music-author'>-{audioObj.music?.author}</span>
                 </div>
                 <div className='music-lrc'>
                     歌词

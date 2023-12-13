@@ -25,7 +25,7 @@ const MENU_LIST = [
     {key: '/', label: '首页', icon: <HomeOutlined/>},
     {key: '/we', label: '我们', icon: <HeartOutlined/>},
     {key: '/interview', label: '面试题', icon: <IconFont type='icon--interview'/>},
-    {key: '/works', label: '作品', icon: <IconFont type='icon-wodezuopin'/>},
+    {key: '/works', label: '作品', icon: <IconFont type='icon-xuexibaogaoliebiao'/>},
     {
         key: '', label: '共享资源', icon: <ShareAltOutlined/>, children: [
             {key: '/site', label: '精品网站', icon: null},
