@@ -1,18 +1,19 @@
-import IconFont from '@/components/aliIcon'
-import {useThemeToken} from '@/hooks'
 import React, {useRef, useEffect, useCallback} from 'react'
 import {useSetState} from 'ahooks'
 import dayjs from 'dayjs'
+import {App} from 'antd'
 import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
 
+import IconFont from '@/components/aliIcon'
+import {useThemeToken} from '@/hooks'
 import './index.less'
 
 let audioEle
 const AUDIO_PLAY_MODE = {
     order: <IconFont type='icon-shunxubofang'/>, // 顺序播放 最后一首暂停
-    one: <IconFont type='icon-danquxunhuan'/>, // 单曲循环
     random: <IconFont type='icon-suijibofang'/>, // 随机
-    loop: <RetweetOutlined/> // 列表循环
+    loop: <RetweetOutlined/>, // 列表循环
+    one: <IconFont type='icon-danquxunhuan'/> // 单曲循环
 }
 
 const Music = () => {
@@ -21,11 +22,12 @@ const Music = () => {
         {src: 'https://cdn.hyl999.co/public/music/1660617357259.mp4', title: '玫瑰花的葬礼', author: '许嵩'},
         {src: 'https://cdn.hyl999.co/public/music/1697361264639.mp3', title: '悬溺', author: '葛东琪'}
     ]
-
+    const {message, notification, modal} = App.useApp()
     const token = useThemeToken()
 
     const canvasRef = useRef(null)
     const [audioObj, setAudioObj] = useSetState({
+        mode: 'order', // 播放模式
         music: {}, // 音乐
         isPlay: false,
         progress: 0, // 播放进度
@@ -142,13 +144,42 @@ const Music = () => {
         }
     }, [audioObj.isPlay, audioEle])
 
-    //
+    // 播放上一首（-1），下一首（1）
     const playMusic = useCallback((index) => {
-        const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src)
-        const playIndex = (currIndex + index + AUDIO_PLAY_LIST.length) % AUDIO_PLAY_LIST.length
+        const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
+        const len = AUDIO_PLAY_LIST.length
+        let playIndex = currIndex + index
+        console.log('playMusic', audioObj.mode, playIndex)
+        if(audioObj.mode === 'loop'){
+            playIndex = (playIndex + len) % len
+        }else{
+            if(playIndex < 0){
+                return message.info('已经是第一首了')
+            }
+            if(playIndex >= len){
+                return message.info('已经是最后一首了')
+            }
+        }
+
         console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
     }, [audioObj])
+
+    const onNextMode = useCallback(() => {
+        const keys = Object.keys(AUDIO_PLAY_MODE)
+        const curIndex = keys.findIndex(f => f === audioObj.mode) // 当前模式索引
+        const modeIndex = (curIndex + 1) % keys.length
+        setAudioObj({mode: keys[modeIndex]})
+    }, [audioObj.mode])
+
+    useEffect(() => {
+        console.log('useEffect audioObj.mode')
+        if(audioObj.mode === 'one'){
+            audioEle.loop = true
+        }else if(audioObj.mode === 'random'){
+            // 打乱 AUDIO_PLAY_LIST
+        }
+    }, [audioObj.mode, audioEle])
 
     return (
         <section className='music'>
@@ -159,11 +190,14 @@ const Music = () => {
                     <input type='range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>
                     <div className='music-bar-time'>{audioObj.duration}</div>
                 </div>
-                <div className='music-play'>
+                <div className='music-play' style={{fontSize: '4rem'}}>
+                    <div onClick={onNextMode} style={{fontSize: '2rem'}}>{AUDIO_PLAY_MODE[audioObj.mode]}</div>
                     <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
-                    <div onClick={onPlay}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
+                    <div onClick={onPlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
                     <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
+
                 </div>
+                <div>音量，倍速</div>
             </div>
             <div className='music-info'>
                 <div className='music-header'>
