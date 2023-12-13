@@ -17,22 +17,22 @@ const AUDIO_PLAY_MODE = {
 }
 
 const Music = () => {
-    const AUDIO_PLAY_LIST = [
+    const AUDIO_PLAY_LIST = [ // todo 列表丰富
         {src: 'http://8.133.162.30/static/music/bing.mp3', title: '星月神话', author: '冰'},
-        {src: 'https://cdn.hyl999.co/public/music/1660617357259.mp4', title: '玫瑰花的葬礼', author: '许嵩'},
-        {src: 'https://cdn.hyl999.co/public/music/1697361264639.mp3', title: '悬溺', author: '葛东琪'}
     ]
-    const {message, notification, modal} = App.useApp()
+    const {message} = App.useApp()
     const token = useThemeToken()
 
     const canvasRef = useRef(null)
     const [audioObj, setAudioObj] = useSetState({
-        mode: 'order', // 播放模式
         music: {}, // 音乐
-        isPlay: false,
-        progress: 0, // 播放进度
         duration: '',
-        currentTime: '00:00'
+        currentTime: '00:00',
+        progress: 0, // 播放进度
+
+        mode: 'order', // 播放模式 todo 优化
+        isPlay: false,
+        showLrc: true, // todo 是否显示歌词
     })
 
     const formatTime = useCallback(time => {
@@ -195,7 +195,7 @@ const Music = () => {
                     <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
                     <div onClick={onPlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
                     <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
-
+                    <div style={{fontSize: '2rem'}}><IconFont type='icon-a'/></div>
                 </div>
                 <div>音量，倍速</div>
             </div>
