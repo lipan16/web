@@ -1,6 +1,6 @@
 import React, {useMemo, useEffect, useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {ConfigProvider, theme} from 'antd'
+import {ConfigProvider, theme, App as AppProvider} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 import AMapLoader from '@amap/amap-jsapi-loader'
 
@@ -132,8 +132,10 @@ const App = () => {
     return (
         <ConfigProvider theme={themeProvider}>
             <StyleProvider transformers={[px2rem]} hashPriority='high'>
-                <SelfLayout/>
-                <div id='amap' style={{display: 'none', height: '10px', width: '10px'}}/>
+                <AppProvider>
+                    <SelfLayout/>
+                    <div id='amap' style={{display: 'none', height: '10px', width: '10px'}}/>
+                </AppProvider>
             </StyleProvider>
         </ConfigProvider>
     )
