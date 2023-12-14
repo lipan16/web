@@ -44,8 +44,8 @@ const PinnedPlayer = ({audioSrc, picImg}) => {
 }
 
 PinnedPlayer.defaultProps = {
-    audioSrc: 'http://8.133.162.30/static/music/bing.mp3',
-    picImg: 'http://8.133.162.30/static/bing.jpg'
+    audioSrc: '/static/music/bing.mp3',
+    picImg: '/static/bing.jpg'
 }
 
 PinnedPlayer.propTypes = {

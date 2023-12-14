@@ -42,7 +42,7 @@ const We = () => {
     }, [])
 
     return (
-        // <section className='we' style={{backgroundImage: 'url(http://8.133.162.30/static/2735011818111.jpg)'}}>
+        // <section className='we' style={{backgroundImage: 'url(/static/2735011818111.jpg)'}}>
         <section className='we'>
             <div className='love-time'>
                 <div className='title'>这是我们在一起的</div>

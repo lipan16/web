@@ -53,7 +53,7 @@ const BroadcastChannelCard = () => {
     return (
         <div className='broadcast' draggable='false'>
             <span>可以在多个标签页间拖动我</span>
-            <img src='http://8.133.162.30/static/20181104.jpg' className='img-card' alt=''/>
+            <img src='/static/20181104.jpg' className='img-card' alt=''/>
         </div>
     )
 }

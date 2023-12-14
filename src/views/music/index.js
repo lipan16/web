@@ -18,7 +18,7 @@ const AUDIO_PLAY_MODE = {
 
 const Music = () => {
     const AUDIO_PLAY_LIST = [ // todo 列表丰富
-        {src: 'http://8.133.162.30/static/music/bing.mp3', title: '星月神话', author: '冰'}
+        {src: '/static/music/bing.mp3', title: '星月神话', author: '冰'}
     ]
     const {message} = App.useApp()
     const token = useThemeToken()
@@ -48,7 +48,7 @@ const Music = () => {
         musicController()
     }, [audioObj.music])
 
-    const musicController = useCallback(() => {
+    const musicController = useCallback(()  => {
         console.log('musicController')
         let canvasEle = canvasRef.current
         audioEle = new Audio(audioObj.music?.src)

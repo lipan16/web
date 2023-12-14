@@ -37,7 +37,7 @@ const Index = () => {
     useEffect(() => {
         let img = []
         for(let i = 0; i < 3; i++){
-            img[i] = `http://8.133.162.30/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
+            img[i] = `/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
         }
         setImgSrc(img)
     }, [])
@@ -62,7 +62,7 @@ const Index = () => {
             <div className='person'>
                 <div className='card avatar'>
                     <img ref={avatarRef} className='avatar-img' alt='' style={{background: token.colorWhite}}
-                         src={isHovering ? 'http://8.133.162.30/static/20181104.jpg' : 'http://8.133.162.30/favicon.ico'}/>
+                         src={isHovering ? '/static/20181104.jpg' : '/favicon.ico'}/>
                     <div className='title'>拓荒者, 守护繁华</div>
                     <div style={{color: token.colorPrimary}}>前端开发</div>
                     <div className='addr' style={{color: token.colorLink}}>上海-浦东</div>

@@ -14,12 +14,12 @@ module.exports = (env) => {
         devServer: {
             proxy: {
                 '/api': {
-                    target: 'http://127.0.0.1:3000/',
+                    target: 'https://127.0.0.1:3000/',
                     secure: false,
                     changeOrigin: true
                 },
                 '/sse': {
-                    target: 'http://127.0.0.1:3000/',
+                    target: 'https://127.0.0.1:3000/',
                     secure: false,
                     changeOrigin: true
                 }
