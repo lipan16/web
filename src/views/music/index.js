@@ -18,7 +18,7 @@ const AUDIO_PLAY_MODE = {
 
 const Music = () => {
     const AUDIO_PLAY_LIST = [ // todo 列表丰富
-        {src: 'http://8.133.162.30/static/music/bing.mp3', title: '星月神话', author: '冰'},
+        {src: 'http://8.133.162.30/static/music/bing.mp3', title: '星月神话', author: '冰'}
     ]
     const {message} = App.useApp()
     const token = useThemeToken()
@@ -32,7 +32,7 @@ const Music = () => {
 
         mode: 'order', // 播放模式 todo 优化
         isPlay: false,
-        showLrc: true, // todo 是否显示歌词
+        showLrc: true
     })
 
     const formatTime = useCallback(time => {
@@ -181,6 +181,10 @@ const Music = () => {
         }
     }, [audioObj.mode, audioEle])
 
+    const onShowLrc = useCallback(() => {
+        setAudioObj({showLrc: !audioObj.showLrc})
+    }, [audioObj.showLrc])
+
     return (
         <section className='music'>
             <div className='music-controller'>
@@ -195,19 +199,21 @@ const Music = () => {
                     <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
                     <div onClick={onPlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
                     <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
-                    <div style={{fontSize: '2rem'}}><IconFont type='icon-a'/></div>
+                    <div onClick={onShowLrc} style={{fontSize: '2rem'}}><IconFont type='icon-a'/></div>
                 </div>
                 <div>音量，倍速</div>
             </div>
-            <div className='music-info'>
-                <div className='music-header'>
-                    <span className='music-title'>{audioObj.music?.title}</span>
-                    <span className='music-author'>-{audioObj.music?.author}</span>
+            {
+                audioObj.showLrc && <div className='music-info'>
+                    <div className='music-header'>
+                        <span className='music-title'>{audioObj.music?.title}</span>
+                        <span className='music-author'>-{audioObj.music?.author}</span>
+                    </div>
+                    <div className='music-lrc'>
+                        歌词
+                    </div>
                 </div>
-                <div className='music-lrc'>
-                    歌词
-                </div>
-            </div>
+            }
         </section>
     )
 }
