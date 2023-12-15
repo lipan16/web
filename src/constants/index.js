@@ -514,4 +514,16 @@ export const FINE_TOOLS = [
         link: 'https://vidhub.tv',
         logo: 'https://vidhub.tv/mxstatic/image/logo2.png'
     },
+    {
+        title: 'NavNav+',
+        desc: '动画效果分享',
+        link: 'https://navnav.co/',
+        logo: 'https://navnav.co/assets/logo-7d2e3e19995a6030c546114a9d5133d0c30ca2c8025e47c40b68d67347dbfa07.png'
+    },
+    {
+        title: 'UI verse',
+        desc: '动画效果分享',
+        link: 'https://uiverse.io/',
+        logo: 'https://uiverse.io/favicon-32x32.png'
+    },
 ]
