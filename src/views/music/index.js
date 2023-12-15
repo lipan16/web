@@ -100,11 +100,8 @@ const Music = () => {
                 setAudioObj({duration: formatTime(audioEle.duration)}) // 获取音频时长
             }
         }
-
         console.log('audioEle', audioEle)
-
         let audioCtx, analyser, source, dataArray, frameId // 音频上下文， 音频分析器，音频源节点，音频分析数据组，动画帧id
-
         let canvasCtx = canvasEle.getContext('2d')
 
         // 开始播放
@@ -134,7 +131,7 @@ const Music = () => {
         // 播放完
         audioEle.onended = () => {
             console.log('play end')
-            setAudioObj({isPlay: false})
+            onChangePlay()
             playMusic(1)
         }
 
@@ -173,9 +170,8 @@ const Music = () => {
     }, [audioEle])
 
     // 播放
-    const onPlay = useCallback(() => {
-        console.log('onPlay')
-
+    const onChangePlay = useCallback(() => {
+        console.log('onChangePlay')
         setAudioObj({isPlay: !audioObj.isPlay})
     }, [audioObj.isPlay])
 
@@ -190,7 +186,7 @@ const Music = () => {
 
     // 播放上一首（-1），下一首（1）
     const playMusic = useCallback((index) => {
-        audioEle.pause()
+        onChangePlay()
         const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
         const len = AUDIO_PLAY_LIST.length
         let playIndex = currIndex + index
@@ -239,7 +235,7 @@ const Music = () => {
                 <div className='music-play' style={{fontSize: '4rem'}}>
                     <div onClick={onNextMode} style={{fontSize: '2rem'}}>{AUDIO_PLAY_MODE[audioObj.mode]}</div>
                     <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
-                    <div onClick={onPlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
+                    <div onClick={onChangePlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
                     <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
                     <div onClick={onShowLrc} style={{fontSize: '2rem'}}><IconFont type='icon-a'/></div>
                 </div>
