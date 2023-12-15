@@ -131,10 +131,11 @@ const Music = () => {
         audioEle.onpause = () => {
             cancelAnimationFrame(frameId)
         }
-
+        // 播放完
         audioEle.onended = () => {
             console.log('play end')
             setAudioObj({isPlay: false})
+            playMusic(1)
         }
 
         // 把分析出的波形画到canvas中
@@ -189,6 +190,7 @@ const Music = () => {
 
     // 播放上一首（-1），下一首（1）
     const playMusic = useCallback((index) => {
+        audioEle.pause()
         const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
         const len = AUDIO_PLAY_LIST.length
         let playIndex = currIndex + index
