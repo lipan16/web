@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import {App} from 'antd'
 import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
 
+import {BASE_URL} from '@/constants'
 import IconFont from '@/components/aliIcon'
 import {useThemeToken} from '@/hooks'
 import './index.less'
@@ -18,7 +19,7 @@ const AUDIO_PLAY_MODE = {
 
 const Music = () => {
     const AUDIO_PLAY_LIST = [ // todo 列表丰富
-        {src: '/static/music/bing.mp3', title: '星月神话', author: '冰'}
+        {src: `${BASE_URL}/static/music/bing.mp3`, title: '星月神话', author: '冰'}
     ]
     const {message} = App.useApp()
     const token = useThemeToken()

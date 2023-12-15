@@ -1,8 +1,9 @@
+import React, {useEffect, useState, useCallback} from 'react'
 import {useBoolean} from 'ahooks'
 import PropTypes from 'prop-types'
-import React, {useEffect, useState, useCallback} from 'react'
 import {PlayCircleOutlined, PauseCircleOutlined, UpSquareFilled} from '@ant-design/icons'
 
+import {BASE_URL} from '@/constants'
 import './index.less'
 
 const PinnedPlayer = ({audioSrc, picImg}) => {
@@ -44,8 +45,8 @@ const PinnedPlayer = ({audioSrc, picImg}) => {
 }
 
 PinnedPlayer.defaultProps = {
-    audioSrc: '/static/music/bing.mp3',
-    picImg: '/static/bing.jpg'
+    audioSrc: `${BASE_URL}/static/music/bing.mp3`,
+    picImg: `${BASE_URL}/static/bing.jpg`
 }
 
 PinnedPlayer.propTypes = {

@@ -6,6 +6,7 @@ import {isEmpty} from 'lodash'
 import {Image, Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
+import {BASE_URL} from '@/constants'
 import Battery from '@/components/battery'
 import {useClientInfo, useThemeToken, useVisitTime} from '@/hooks'
 import {randomColor} from '@/utils'
@@ -37,7 +38,7 @@ const Index = () => {
     useEffect(() => {
         let img = []
         for(let i = 0; i < 3; i++){
-            img[i] = `/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
+            img[i] = `${BASE_URL}/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
         }
         setImgSrc(img)
     }, [])

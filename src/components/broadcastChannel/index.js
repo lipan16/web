@@ -1,4 +1,6 @@
 import React, {useLayoutEffect} from 'react'
+
+import {BASE_URL} from '@/constants'
 import './index.less'
 /**
  * 同域名下多个标签页间广播信息
@@ -53,7 +55,7 @@ const BroadcastChannelCard = () => {
     return (
         <div className='broadcast' draggable='false'>
             <span>可以在多个标签页间拖动我</span>
-            <img src='/static/20181104.jpg' className='img-card' alt=''/>
+            <img src={`${BASE_URL}/static/20181104.jpg`} className='img-card' alt=''/>
         </div>
     )
 }
