@@ -18,8 +18,50 @@ const AUDIO_PLAY_MODE = {
 }
 
 const Music = () => {
-    const AUDIO_PLAY_LIST = [ // todo 列表丰富
-        {src: `${BASE_URL}/static/music/bing.mp3`, title: '星月神话', author: '冰'}
+    const AUDIO_PLAY_LIST = [
+        {src: `${BASE_URL}/static/music/bing.mp3`, title: '星月神话', author: '冰', lrc:''},
+        {
+            src: `${BASE_URL}/static/music/44656c61636579202d20447265616d20497420506f737369626c65.mp3`,
+            title: 'Dream It Possible',
+            author: 'Delacey',
+            lrc:`${BASE_URL}/static/music/44656c61636579202d20447265616d20497420506f737369626c65.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e4bda0e982a3e4b988e788b1e5a5b9202d20e69d8ee59ca3e69db0.mp3`,
+            title: '你那么爱她',
+            author: '李圣杰',
+            lrc:`${BASE_URL}/static/music/e4bda0e982a3e4b988e788b1e5a5b9202d20e69d8ee59ca3e69db0.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e696ade6a1a5e6ae8be99baa202d20e8aeb8e5b5a9.mp3`,
+            title: '断桥残雪',
+            author: '许嵩',
+            lrc:`${BASE_URL}/static/music/e696ade6a1a5e6ae8be99baa202d20e8aeb8e5b5a9.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e69da8e5b982202d20e788b1e79a84e4be9be585bb.mp3`,
+            title: '爱的供养',
+            author: '杨幂',
+            lrc:`${BASE_URL}/static/music/e69da8e5b982202d20e788b1e79a84e4be9be585bb.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e7a88be5938d202d20e696b0e5a898e4b88de698afe68891.mp3`,
+            title: '新娘不是我',
+            author: '程响',
+            lrc:`${BASE_URL}/static/music/e7a88be5938d202d20e696b0e5a898e4b88de698afe68891.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e894a1e58d93e5a68de38081e69e97e4bf8ae69db0202d20e5b08fe98592e7aa9d.mp3`,
+            title: '小酒窝',
+            author: '蔡卓妍、林俊杰',
+            lrc:`${BASE_URL}/static/music/e894a1e58d93e5a68de38081e69e97e4bf8ae69db0202d20e5b08fe98592e7aa9d.lrc`
+        },
+        {
+            src: `${BASE_URL}/static/music/e99988e5a89fe584bfe38081e585ade593b2202d20e99499e99499e99499.mp3`,
+            title: '错错错',
+            author: '陈娟儿、六哲',
+            lrc:`${BASE_URL}/static/music/e99988e5a89fe584bfe38081e585ade593b2202d20e99499e99499e99499.lrc`
+        },
     ]
     const {message} = App.useApp()
     const token = useThemeToken()
@@ -31,7 +73,7 @@ const Music = () => {
         currentTime: '00:00',
         progress: 0, // 播放进度
 
-        mode: 'order', // 播放模式 todo 优化
+        mode: 'order',
         isPlay: false,
         showLrc: true
     })
@@ -151,8 +193,10 @@ const Music = () => {
         const len = AUDIO_PLAY_LIST.length
         let playIndex = currIndex + index
         console.log('playMusic', audioObj.mode, playIndex)
-        if(audioObj.mode === 'loop'){
+        if(audioObj.mode === 'loop'){ // 循环
             playIndex = (playIndex + len) % len
+        }else if(audioObj.mode === 'random'){ // 随机
+            playIndex = (playIndex + len + Math.floor(Math.random() * len)) % len
         }else{
             if(playIndex < 0){
                 return message.info('已经是第一首了')
@@ -174,12 +218,7 @@ const Music = () => {
     }, [audioObj.mode])
 
     useEffect(() => {
-        console.log('useEffect audioObj.mode')
-        if(audioObj.mode === 'one'){
-            audioEle.loop = true
-        }else if(audioObj.mode === 'random'){
-            // 打乱 AUDIO_PLAY_LIST
-        }
+        audioEle.loop = audioObj.mode === 'one'
     }, [audioObj.mode, audioEle])
 
     const onShowLrc = useCallback(() => {
