@@ -63,7 +63,7 @@ const Index = () => {
             <div className='person'>
                 <div className='card avatar'>
                     <img ref={avatarRef} className='avatar-img' alt='' style={{background: token.colorWhite}}
-                         src={isHovering ? '/static/20181104.jpg' : '/favicon.ico'}/>
+                         src={isHovering ? `${BASE_URL}/static/20181104.jpg` : `${BASE_URL}/favicon.ico`}/>
                     <div className='title'>拓荒者, 守护繁华</div>
                     <div style={{color: token.colorPrimary}}>前端开发</div>
                     <div className='addr' style={{color: token.colorLink}}>上海-浦东</div>

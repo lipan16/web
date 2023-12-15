@@ -1,6 +1,6 @@
 .index{
     display: flex;
-    padding: 32px 16px;
+    padding: 32px;
     align-items: flex-start;
     font-size: 24px;
 
@@ -20,8 +20,6 @@
         max-width: 75%;
         flex: auto;
         border: 1px solid #4d4d4d;
-        margin: 0 32px;
-        padding: 0;
 
         .amap{
             width: 100%;
@@ -30,7 +28,7 @@
     }
 
     .person{
-        margin: 0 32px;
+        margin-inline: 32px 0;
         padding-top: 40px;
         max-width: 25%;
         flex: auto;
@@ -144,7 +142,9 @@
 
 @media screen and (max-width: 768px){
     .index{
-        justify-content: center;
+        .content{
+            margin: 0 auto;
+        }
 
         .person{
             display: none;
