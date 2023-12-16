@@ -1,21 +1,21 @@
-import React, {useRef, useEffect, useCallback} from 'react'
-import {useSetState} from 'ahooks'
+import React, {useRef, useEffect, useCallback, useMemo} from 'react'
+import {useSetState, useHover} from 'ahooks'
 import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
 import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
 
 import {BASE_URL} from '@/constants'
-import IconFont from '@/components/aliIcon'
+import AliIcon from '@/components/aliIcon'
 import {useThemeToken} from '@/hooks'
 import './index.less'
 
 let audioEle
 const AUDIO_PLAY_MODE = {
-    order: <IconFont type='icon-shunxubofang'/>, // 顺序播放 最后一首暂停
-    random: <IconFont type='icon-suijibofang'/>, // 随机
+    order: <AliIcon type='icon-shunxubofang'/>, // 顺序播放 最后一首暂停
+    random: <AliIcon type='icon-suijibofang'/>, // 随机
     loop: <RetweetOutlined/>, // 列表循环
-    one: <IconFont type='icon-danquxunhuan'/> // 单曲循环
+    one: <AliIcon type='icon-danquxunhuan'/> // 单曲循环
 }
 
 const Music = () => {
@@ -68,12 +68,16 @@ const Music = () => {
     const token = useThemeToken()
 
     const canvasRef = useRef(null)
+    const volumeRef = useRef(null)
+    const isHoverVolume = useHover(volumeRef)
     const [audioObj, setAudioObj] = useSetState({
         music: {}, // 音乐
         duration: '',
         currentTime: '00:00',
         progress: 0, // 播放进度
 
+        muted: false, // 是否静音
+        volume: '1', // 音量
         mode: 'order',
         isPlay: false,
         showLrc: true
@@ -170,6 +174,35 @@ const Music = () => {
         audioEle.currentTime = curTime
     }, [audioEle])
 
+    // 点击静音
+    const onMuted =  useCallback(() => {
+        const volume = audioObj.muted ? `${audioEle.volume}` : '0'
+        setAudioObj({muted: !audioObj.muted, volume})
+    }, [audioObj.muted])
+
+    // 设置音量
+    const onChangeVolume = useCallback(event => {
+        console.log('onChangeVolume')
+        const volume = event.target.value
+        setAudioObj({volume, muted: false})
+        audioEle.volume = volume
+    }, [audioEle])
+
+    // 音量图标
+    const volumeIcon = useMemo(() => {
+        console.log('volumeIcon', audioObj.volume, audioObj.muted)
+        if(audioObj.volume === '0' || audioObj.muted){
+            return 'icon-24gl-volumeCross'
+        }else if(audioObj.volume >= 0.8){
+            return 'icon-24gl-volumeHigh'
+        }else if(audioObj.volume >= 0.5){
+            return 'icon-24gl-volumeMiddle'
+        }else{
+            return 'icon-24gl-volumeLow'
+        }
+    }, [audioObj.volume, audioObj.muted])
+
+
     // 播放
     const onChangePlay = useCallback(() => {
         console.log('onChangePlay')
@@ -231,17 +264,21 @@ const Music = () => {
                 <canvas ref={canvasRef} style={{border: '1px solid'}}/>
                 <div className='music-bar'>
                     <div className='music-bar-time'>{audioObj.currentTime}</div>
-                    <input type='range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>
+                    <input type='range' className='music-bar-range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>
                     <div className='music-bar-time'>{audioObj.duration}</div>
+                    <div className='music-volume' ref={volumeRef}>
+                        <AliIcon type={volumeIcon} onClick={onMuted}/>
+                        <input style={{height: isHoverVolume ? '0.375rem' : '0'}} type='range' className='music-bar-volume' value={audioObj.volume} min={0}
+                               max={1} step={0.01} onChange={onChangeVolume}/>
+                    </div>
                 </div>
                 <div className='music-play' style={{fontSize: '4rem'}}>
-                    <div onClick={onNextMode} style={{fontSize: '2rem'}}>{AUDIO_PLAY_MODE[audioObj.mode]}</div>
-                    <div onClick={() => playMusic(-1)}><BackwardOutlined/></div>
-                    <div onClick={onChangePlay} style={{fontSize: '5rem'}}>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</div>
-                    <div onClick={() => playMusic(1)}><ForwardOutlined/></div>
-                    <div onClick={onShowLrc} style={{fontSize: '2rem'}}><IconFont type='icon-a'/></div>
+                    <div onClick={onNextMode} style={{fontSize: '2rem'}}><a>{AUDIO_PLAY_MODE[audioObj.mode]}</a></div>
+                    <div onClick={() => playMusic(-1)}><a><BackwardOutlined/></a></div>
+                    <div onClick={onChangePlay} style={{fontSize: '5rem'}}><a>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</a></div>
+                    <div onClick={() => playMusic(1)}><a><ForwardOutlined/></a></div>
+                    <div onClick={onShowLrc} style={{fontSize: '2rem'}}><a><AliIcon type='icon-a'/></a></div>
                 </div>
-                <div>音量，倍速</div>
             </div>
             <div className='music-info' style={{display: audioObj.showLrc ? 'block' : 'none'}}>
                 <div className='music-header'>

@@ -33,7 +33,8 @@ const App = () => {
         return {
             token: {
                 ...themeStore.token,
-                colorLinkHover: `${themeStore.token.colorPrimary} !important`
+                colorLinkHover: `${themeStore.token.colorPrimary} !important`,
+                lineHeight: 1
             },
             algorithm: themeStore.dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
             components: {
