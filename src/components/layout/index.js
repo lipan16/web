@@ -13,7 +13,7 @@ const {Search} = Input
 const {Header, Content, Footer} = Layout
 
 import PinnedPlayer from '@/components/pinnedPlayer'
-import IconFont from '@/components/aliIcon'
+import AliIcon from '@/components/aliIcon'
 import WebDevPng from '@/assets/imgs/webdev.png'
 import {WEBSITE_TIME} from '@/constants'
 import {useThemeToken} from '@/hooks'
@@ -24,8 +24,8 @@ import './index.less'
 const MENU_LIST = [
     {key: '/', label: '首页', icon: <HomeOutlined/>},
     {key: '/we', label: '我们', icon: <HeartOutlined/>},
-    {key: '/interview', label: '面试题', icon: <IconFont type='icon--interview'/>},
-    {key: '/works', label: '作品', icon: <IconFont type='icon-xuexibaogaoliebiao'/>},
+    {key: '/interview', label: '面试题', icon: <AliIcon type='icon--interview'/>},
+    {key: '/works', label: '作品', icon: <AliIcon type='icon-xuexibaogaoliebiao'/>},
     {
         key: '', label: '共享资源', icon: <ShareAltOutlined/>, children: [
             {key: '/site', label: '精品网站', icon: null},
