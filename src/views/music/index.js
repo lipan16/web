@@ -176,9 +176,11 @@ const Music = () => {
 
     // 点击静音
     const onMuted =  useCallback(() => {
-        const volume = audioObj.muted ? `${audioEle.volume}` : '0'
-        setAudioObj({muted: !audioObj.muted, volume})
-    }, [audioObj.muted])
+        const muted = audioObj.muted
+        const volume = muted ? `${audioEle.volume}` : '0'
+        setAudioObj({muted: !muted, volume})
+        audioEle.muted = !muted
+    }, [audioObj.muted, audioEle])
 
     // 设置音量
     const onChangeVolume = useCallback(event => {
