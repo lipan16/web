@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useCallback} from 'react'
 import {useSetState} from 'ahooks'
+import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
 import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
@@ -19,49 +20,49 @@ const AUDIO_PLAY_MODE = {
 
 const Music = () => {
     const AUDIO_PLAY_LIST = [
-        {src: `${BASE_URL}/static/music/bing.mp3`, title: '星月神话', author: '冰', lrc:''},
+        {src: `${BASE_URL}/static/music/bing.mp3`, title: '星月神话', author: '冰', lrc: ''},
         {
             src: `${BASE_URL}/static/music/44656c61636579202d20447265616d20497420506f737369626c65.mp3`,
             title: 'Dream It Possible',
             author: 'Delacey',
-            lrc:`${BASE_URL}/static/music/44656c61636579202d20447265616d20497420506f737369626c65.lrc`
+            lrc: `${BASE_URL}/static/music/44656c61636579202d20447265616d20497420506f737369626c65.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e4bda0e982a3e4b988e788b1e5a5b9202d20e69d8ee59ca3e69db0.mp3`,
             title: '你那么爱她',
             author: '李圣杰',
-            lrc:`${BASE_URL}/static/music/e4bda0e982a3e4b988e788b1e5a5b9202d20e69d8ee59ca3e69db0.lrc`
+            lrc: `${BASE_URL}/static/music/e4bda0e982a3e4b988e788b1e5a5b9202d20e69d8ee59ca3e69db0.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e696ade6a1a5e6ae8be99baa202d20e8aeb8e5b5a9.mp3`,
             title: '断桥残雪',
             author: '许嵩',
-            lrc:`${BASE_URL}/static/music/e696ade6a1a5e6ae8be99baa202d20e8aeb8e5b5a9.lrc`
+            lrc: `${BASE_URL}/static/music/e696ade6a1a5e6ae8be99baa202d20e8aeb8e5b5a9.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e69da8e5b982202d20e788b1e79a84e4be9be585bb.mp3`,
             title: '爱的供养',
             author: '杨幂',
-            lrc:`${BASE_URL}/static/music/e69da8e5b982202d20e788b1e79a84e4be9be585bb.lrc`
+            lrc: `${BASE_URL}/static/music/e69da8e5b982202d20e788b1e79a84e4be9be585bb.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e7a88be5938d202d20e696b0e5a898e4b88de698afe68891.mp3`,
             title: '新娘不是我',
             author: '程响',
-            lrc:`${BASE_URL}/static/music/e7a88be5938d202d20e696b0e5a898e4b88de698afe68891.lrc`
+            lrc: `${BASE_URL}/static/music/e7a88be5938d202d20e696b0e5a898e4b88de698afe68891.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e894a1e58d93e5a68de38081e69e97e4bf8ae69db0202d20e5b08fe98592e7aa9d.mp3`,
             title: '小酒窝',
             author: '蔡卓妍、林俊杰',
-            lrc:`${BASE_URL}/static/music/e894a1e58d93e5a68de38081e69e97e4bf8ae69db0202d20e5b08fe98592e7aa9d.lrc`
+            lrc: `${BASE_URL}/static/music/e894a1e58d93e5a68de38081e69e97e4bf8ae69db0202d20e5b08fe98592e7aa9d.lrc`
         },
         {
             src: `${BASE_URL}/static/music/e99988e5a89fe584bfe38081e585ade593b2202d20e99499e99499e99499.mp3`,
             title: '错错错',
             author: '陈娟儿、六哲',
-            lrc:`${BASE_URL}/static/music/e99988e5a89fe584bfe38081e585ade593b2202d20e99499e99499e99499.lrc`
-        },
+            lrc: `${BASE_URL}/static/music/e99988e5a89fe584bfe38081e585ade593b2202d20e99499e99499e99499.lrc`
+        }
     ]
     const {message} = App.useApp()
     const token = useThemeToken()
@@ -91,7 +92,7 @@ const Music = () => {
         musicController()
     }, [audioObj.music])
 
-    const musicController = useCallback(()  => {
+    const musicController = useCallback(() => {
         console.log('musicController')
         let canvasEle = canvasRef.current
         audioEle = new Audio(audioObj.music?.src)
@@ -185,7 +186,8 @@ const Music = () => {
     }, [audioObj.isPlay, audioEle])
 
     // 播放上一首（-1），下一首（1）
-    const playMusic = useCallback((index) => {
+    const playMusic = useCallback(debounce((index) => {
+        console.error('playMusicImpl')
         onChangePlay()
         const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
         const len = AUDIO_PLAY_LIST.length
@@ -206,7 +208,7 @@ const Music = () => {
 
         console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
-    }, [audioObj])
+    }, 1000), [audioObj.mode, audioObj.music])
 
     const onNextMode = useCallback(() => {
         const keys = Object.keys(AUDIO_PLAY_MODE)
@@ -241,17 +243,15 @@ const Music = () => {
                 </div>
                 <div>音量，倍速</div>
             </div>
-            {
-                audioObj.showLrc && <div className='music-info'>
-                    <div className='music-header'>
-                        <span className='music-title'>{audioObj.music?.title}</span>
-                        <span className='music-author'>-{audioObj.music?.author}</span>
-                    </div>
-                    <div className='music-lrc'>
-                        歌词
-                    </div>
+            <div className='music-info' style={{display: audioObj.showLrc ? 'block' : 'none'}}>
+                <div className='music-header'>
+                    <span className='music-title'>{audioObj.music?.title}</span>
+                    <span className='music-author'>-{audioObj.music?.author}</span>
                 </div>
-            }
+                <div className='music-lrc'>
+                    歌词
+                </div>
+            </div>
         </section>
     )
 }
