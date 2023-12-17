@@ -95,7 +95,7 @@ const Music = () => {
         audioEle.pause()
         audioEle = null
         musicController()
-    }, [audioObj.music])
+    }, [audioObj.music, audioEle])
 
     const musicController = useCallback(() => {
         console.log('musicController')
