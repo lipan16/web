@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useCallback, useMemo} from 'react'
-import {useSetState, useHover} from 'ahooks'
+import {useSetState, useHover, useEventListener} from 'ahooks'
 import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
@@ -174,7 +174,7 @@ const Music = () => {
     }, [audioEle])
 
     // 点击静音
-    const onMuted =  useCallback(() => {
+    const onMuted = useCallback(() => {
         const muted = audioObj.muted
         const volume = muted ? `${audioEle.volume}` : '0'
         setAudioObj({muted: !muted, volume})
@@ -201,6 +201,12 @@ const Music = () => {
         }
     }, [audioObj.volume, audioObj.muted])
 
+
+    useEventListener('keyup', (event) => {
+        if(event.key === ' '){ // 监听空格
+            onChangePlay()
+        }
+    })
 
     // 播放
     const onChangePlay = useCallback(() => {
@@ -238,7 +244,7 @@ const Music = () => {
 
         console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
-    }, 500), [audioObj.mode, audioObj.music])
+    }, 300), [audioObj.mode, audioObj.music])
 
     const onNextMode = useCallback(() => {
         const keys = Object.keys(AUDIO_PLAY_MODE)
