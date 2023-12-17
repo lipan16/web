@@ -92,7 +92,7 @@ const Music = () => {
     }, [])
 
     useEffect(() => {
-        audioEle.pause()
+        audioEle?.pause()
         audioEle = null
         musicController()
     }, [audioObj.music, audioEle])
