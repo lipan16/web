@@ -92,7 +92,8 @@ const Music = () => {
     }, [])
 
     useEffect(() => {
-        console.log('audioObj.music')
+        audioEle.pause()
+        audioEle = null
         musicController()
     }, [audioObj.music])
 
@@ -168,7 +169,6 @@ const Music = () => {
 
     // 拖拽进度条
     const onChangeBar = useCallback(event => {
-        console.log('onChangeBar')
         const curTime = event.target.value * audioEle.duration
         setAudioObj({currentTime: formatTime(curTime), progress: event.target.value})
         audioEle.currentTime = curTime
@@ -184,7 +184,6 @@ const Music = () => {
 
     // 设置音量
     const onChangeVolume = useCallback(event => {
-        console.log('onChangeVolume')
         const volume = event.target.value
         setAudioObj({volume, muted: false})
         audioEle.volume = volume
@@ -192,7 +191,6 @@ const Music = () => {
 
     // 音量图标
     const volumeIcon = useMemo(() => {
-        console.log('volumeIcon', audioObj.volume, audioObj.muted)
         if(audioObj.volume === '0' || audioObj.muted){
             return 'icon-24gl-volumeCross'
         }else if(audioObj.volume >= 0.8){
@@ -207,12 +205,10 @@ const Music = () => {
 
     // 播放
     const onChangePlay = useCallback(() => {
-        console.log('onChangePlay')
         setAudioObj({isPlay: !audioObj.isPlay})
     }, [audioObj.isPlay])
 
     useEffect(() => {
-        console.log('useEffect audioEle.play')
         if(audioObj.isPlay){
             audioEle.play()
         }else{
@@ -243,7 +239,7 @@ const Music = () => {
 
         console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
-    }, 1000), [audioObj.mode, audioObj.music])
+    }, 500), [audioObj.mode, audioObj.music])
 
     const onNextMode = useCallback(() => {
         const keys = Object.keys(AUDIO_PLAY_MODE)
