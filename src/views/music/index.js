@@ -1,5 +1,6 @@
+import SvgIcon from '@/components/svgIcon'
 import React, {useRef, useEffect, useCallback, useMemo} from 'react'
-import {useSetState, useHover, useEventListener} from 'ahooks'
+import {useSetState, useHover, useEventListener, useSafeState} from 'ahooks'
 import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
@@ -69,7 +70,9 @@ const Music = () => {
 
     const canvasRef = useRef(null)
     const volumeRef = useRef(null)
+    const musicBarRef = useRef(null)
     const isHoverVolume = useHover(volumeRef)
+
     const [audioObj, setAudioObj] = useSetState({
         music: {}, // 音乐
         duration: '',
@@ -82,6 +85,7 @@ const Music = () => {
         isPlay: false,
         showLrc: true
     })
+    const [hoverProgress, setHoverProgress] = useSafeState(0)
 
     const formatTime = useCallback(time => {
         return dayjs.duration(time, 's').format(time > 3600 ? 'HH:mm:ss' : 'mm:ss')
@@ -144,7 +148,7 @@ const Music = () => {
         function draw(){
             setAudioObj({
                 currentTime: formatTime(audioEle.currentTime),
-                progress: +((audioEle.currentTime / audioEle.duration) || 0).toFixed(2)
+                progress: audioEle.currentTime / audioEle.duration || 0
             }) // 获取当前播放时长
 
             const {width, height} = canvasEle
@@ -261,13 +265,43 @@ const Music = () => {
         setAudioObj({showLrc: !audioObj.showLrc})
     }, [audioObj.showLrc])
 
+    const onEvent = event => {
+        event.preventDefault()
+
+        console.log(event, event.nativeEvent.layerX, event.target.offsetWidth)
+    }
+
+    // 鼠标在进度条上移动
+    useEventListener('mousemove', (event) => {
+        setHoverProgress(event.layerX / musicBarRef.current.offsetWidth)
+        console.log(event)
+    }, {target: musicBarRef, passive: true})
+
+    const showHoverTime = useMemo(() => {
+        return formatTime(hoverProgress * audioEle?.duration || 0)
+    }, [hoverProgress, audioEle])
+
     return (
         <section className='music'>
             <div className='music-controller'>
                 <canvas ref={canvasRef} style={{border: '1px solid'}}/>
-                <div className='music-bar'>
+                <div className='music-controller-bar'>
                     <div className='music-bar-time'>{audioObj.currentTime}</div>
-                    <input type='range' className='music-bar-range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>
+
+                    <div ref={musicBarRef} className='music-bar-content'>
+                        <div className='music-bar-hover-time' style={{left: `calc(${100 * hoverProgress}% - 20px)`}}>{showHoverTime}</div>
+                        <div className='music-bar-preview'/>
+                        <div className='music-bar'>
+                            <div className='music-loaded'/>
+                            <div className='music-played' style={{width: `${100 * audioObj.progress}%`}}>
+                                <span className='music-thumb'>
+                                    <SvgIcon filename='thumb' color={token.colorPrimary}/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/*<input type='range' className='music-bar-range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>*/}
                     <div className='music-bar-time'>{audioObj.duration}</div>
                     <div className='music-volume' ref={volumeRef}>
                         <AliIcon type={volumeIcon} onClick={onMuted}/>
