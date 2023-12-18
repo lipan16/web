@@ -12,8 +12,8 @@ try{
 
 const SvgIcon = ({width, height, color, className, style, onClick, filename}) => {
     return (
-        <svg width={width || 10}
-             height={height || 18}
+        <svg width={width || 16}
+             height={height || 16}
              fill={color}
              className={className}
              style={style}
