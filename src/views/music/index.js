@@ -170,13 +170,6 @@ const Music = () => {
         }
     }, [audioObj])
 
-    // 拖拽进度条
-    const onChangeBar = useCallback(event => {
-        const curTime = event.target.value * audioEle.duration
-        setAudioObj({currentTime: formatTime(curTime), progress: event.target.value})
-        audioEle.currentTime = curTime
-    }, [audioEle])
-
     // 点击静音
     const onMuted = useCallback(() => {
         const muted = audioObj.muted
@@ -232,7 +225,6 @@ const Music = () => {
         const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
         const len = AUDIO_PLAY_LIST.length
         let playIndex = currIndex + index
-        console.log('playMusic', audioObj.mode, playIndex)
         if(audioObj.mode === 'loop'){ // 循环
             playIndex = (playIndex + len) % len
         }else if(audioObj.mode === 'random'){ // 随机
@@ -246,7 +238,7 @@ const Music = () => {
             }
         }
 
-        console.log('playMusic', index, AUDIO_PLAY_LIST[playIndex])
+        console.log('playMusic', audioObj.mode, index, playIndex, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
     }, 300), [audioObj.mode, audioObj.music])
 
@@ -265,16 +257,17 @@ const Music = () => {
         setAudioObj({showLrc: !audioObj.showLrc})
     }, [audioObj.showLrc])
 
-    const onEvent = event => {
-        event.preventDefault()
-
-        console.log(event, event.nativeEvent.layerX, event.target.offsetWidth)
-    }
-
     // 鼠标在进度条上移动
     useEventListener('mousemove', (event) => {
         setHoverProgress(event.layerX / musicBarRef.current.offsetWidth)
-        console.log(event)
+    }, {target: musicBarRef, passive: true})
+
+    // 点击进度条
+    useEventListener('click', (event) => {
+        const progress = event.layerX / musicBarRef.current.offsetWidth || 0
+        const curTime = progress * audioEle.duration
+        setAudioObj({currentTime: formatTime(curTime), progress})
+        audioEle.currentTime = curTime
     }, {target: musicBarRef, passive: true})
 
     const showHoverTime = useMemo(() => {
@@ -290,7 +283,6 @@ const Music = () => {
 
                     <div ref={musicBarRef} className='music-bar-content'>
                         <div className='music-bar-hover-time' style={{left: `calc(${100 * hoverProgress}% - 20px)`}}>{showHoverTime}</div>
-                        <div className='music-bar-preview'/>
                         <div className='music-bar'>
                             <div className='music-loaded'/>
                             <div className='music-played' style={{width: `${100 * audioObj.progress}%`}}>
@@ -301,7 +293,6 @@ const Music = () => {
                         </div>
                     </div>
 
-                    {/*<input type='range' className='music-bar-range' value={audioObj.progress} min={0} max={1} step={0.01} onChange={onChangeBar}/>*/}
                     <div className='music-bar-time'>{audioObj.duration}</div>
                     <div className='music-volume' ref={volumeRef}>
                         <AliIcon type={volumeIcon} onClick={onMuted}/>
