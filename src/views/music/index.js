@@ -1,6 +1,6 @@
 import SvgIcon from '@/components/svgIcon'
 import React, {useRef, useEffect, useCallback, useMemo} from 'react'
-import {useSetState, useHover, useEventListener, useSafeState} from 'ahooks'
+import {useSetState, useHover, useEventListener, useSafeState, useMouse} from 'ahooks'
 import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
@@ -83,7 +83,7 @@ const Music = () => {
         volume: '1', // 音量
         mode: 'order',
         isPlay: false,
-        showLrc: true
+        showLrc: false
     })
     const [hoverProgress, setHoverProgress] = useSafeState(0)
 
@@ -198,7 +198,6 @@ const Music = () => {
         }
     }, [audioObj.volume, audioObj.muted])
 
-
     useEventListener('keyup', (event) => {
         if(event.key === ' '){ // 监听空格
             onChangePlay()
@@ -258,17 +257,23 @@ const Music = () => {
     }, [audioObj.showLrc])
 
     // 鼠标在进度条上移动
-    useEventListener('mousemove', (event) => {
-        setHoverProgress(event.layerX / musicBarRef.current.offsetWidth)
-    }, {target: musicBarRef, passive: true})
+    const mouse = useMouse(musicBarRef)
+
+    useEffect(() => {
+        const {elementX, elementY, elementH, elementW} = mouse
+        if(elementX >= 0 && elementX <= elementW && elementY >= 0 && elementY <= elementH){
+            setHoverProgress(elementX / elementW)
+        }
+    }, [mouse])
 
     // 点击进度条
-    useEventListener('click', (event) => {
-        const progress = event.layerX / musicBarRef.current.offsetWidth || 0
+    const onClickMusicBar = useCallback(() => {
+        const {elementX, elementW} = mouse
+        const progress = elementX / elementW
         const curTime = progress * audioEle.duration
         setAudioObj({currentTime: formatTime(curTime), progress})
         audioEle.currentTime = curTime
-    }, {target: musicBarRef, passive: true})
+    }, [mouse, audioEle])
 
     const showHoverTime = useMemo(() => {
         return formatTime(hoverProgress * audioEle?.duration || 0)
@@ -281,7 +286,7 @@ const Music = () => {
                 <div className='music-controller-bar'>
                     <div className='music-bar-time'>{audioObj.currentTime}</div>
 
-                    <div ref={musicBarRef} className='music-bar-content'>
+                    <div ref={musicBarRef} className='music-bar-content' onClick={onClickMusicBar}>
                         <div className='music-bar-hover-time' style={{left: `calc(${100 * hoverProgress}% - 20px)`}}>{showHoverTime}</div>
                         <div className='music-bar'>
                             <div className='music-loaded'/>
