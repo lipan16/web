@@ -101,7 +101,6 @@ const Music = () => {
     }, [audioObj.music])
 
     const musicController = useCallback(() => {
-        console.log('musicController')
         let canvasEle = canvasRef.current
         audioEle = new Audio(audioObj.music?.src)
         audioEle.oncanplay = () => {
@@ -109,7 +108,6 @@ const Music = () => {
                 setAudioObj({duration: formatTime(audioEle.duration)}) // 获取音频时长
             }
         }
-        console.log('audioEle', audioEle)
         let audioCtx, analyser, source, dataArray, frameId // 音频上下文， 音频分析器，音频源节点，音频分析数据组，动画帧id
         let canvasCtx = canvasEle.getContext('2d')
 
@@ -139,7 +137,6 @@ const Music = () => {
         }
         // 播放完
         audioEle.onended = () => {
-            console.log('play end')
             onChangePlay()
             playMusic(1)
         }
@@ -237,7 +234,7 @@ const Music = () => {
             }
         }
 
-        console.log('playMusic', audioObj.mode, index, playIndex, AUDIO_PLAY_LIST[playIndex])
+        // console.log('playMusic', audioObj.mode, index, playIndex, AUDIO_PLAY_LIST[playIndex])
         setAudioObj({music: AUDIO_PLAY_LIST[playIndex], isPlay: true, duration: '', progress: 0, currentTime: '00:00'})
     }, 300), [audioObj.mode, audioObj.music])
 
