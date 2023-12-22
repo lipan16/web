@@ -20,11 +20,11 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@ant-design/cssinjs": "^1.17.5",
+    "@ant-design/cssinjs": "^1.18.1",
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.7",
     "ahooks": "^3.7.8",
-    "antd": "^5.11.5",
+    "antd": "^5.12.5",
     "dayjs": "^1.11.10",
     "gsap": "^3.12.3",
     "jinrishici": "^1.0.6",
