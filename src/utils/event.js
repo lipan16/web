@@ -74,31 +74,35 @@ export const safe = () => {
     document.onkeyup = noPreventS // 键盘抬起
 }
 
-try{
-    navigator.connection.addEventListener('change', () => {
-        const {rtt, downlink, effectiveType, saveData} = navigator.connection
-        console.table({
-            '有效网络连接类型：': effectiveType,
-            '估算下行速度(Mb/s)': downlink,
-            '估算往返时间(ms)': rtt,
-            '打开/请求数据保护模式(用户是否已请求用户代理减少数据使用量)': saveData
+const networkListener = () => {
+    try{
+        navigator.connection.addEventListener('change', () => {
+            const {rtt, downlink, effectiveType, saveData} = navigator.connection
+            console.table({
+                '有效网络连接类型：': effectiveType,
+                '估算下行速度(Mb/s)': downlink,
+                '估算往返时间(ms)': rtt,
+                '打开/请求数据保护模式(用户是否已请求用户代理减少数据使用量)': saveData
+            })
         })
-    })
-}catch(e){
-    console.error('connection change ERROR: ', e.message)
+    }catch(e){
+        console.error('connection change ERROR: ', e.message)
+    }
 }
 
 // js判断横竖屏
-window.addEventListener('resize', () => {
-    if(window.screen.orientation.angle === 180 || window.screen.orientation.angle === 0){
-        // 正常方向或屏幕旋转180度
-        console.info('竖屏')
-    }
-    if(window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90){
-        // 屏幕顺时钟旋转90度或屏幕逆时针旋转90度
-        console.info('横屏')
-    }
-})
+const sizeListener = () => {
+    window.addEventListener('resize', () => {
+        if(window.screen.orientation.angle === 180 || window.screen.orientation.angle === 0){
+            // 正常方向或屏幕旋转180度
+            console.info('竖屏')
+        }
+        if(window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90){
+            // 屏幕顺时钟旋转90度或屏幕逆时针旋转90度
+            console.info('横屏')
+        }
+    })
+}
 
 // 当 HTML 文档完全解析，且所有延迟脚本（<script defer> 和 <script type="module">）下载和执行完毕后，会触发 DOMContentLoaded 事件
 document.addEventListener('DOMContentLoaded', () => {
