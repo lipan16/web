@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react'
+import {useNavigate} from 'react-router-dom'
 import {useBoolean} from 'ahooks'
 import PropTypes from 'prop-types'
 import {PlayCircleOutlined, PauseCircleOutlined, UpSquareFilled} from '@ant-design/icons'
@@ -7,6 +8,7 @@ import {BASE_URL} from '@/constants'
 import './index.less'
 
 const PinnedPlayer = ({audioSrc, picImg}) => {
+    const navigate = useNavigate()
     const [playAudio, setPlayAudio] = useState(null)
     const [isPlay, {toggle}] = useBoolean(false)
 
@@ -24,7 +26,7 @@ const PinnedPlayer = ({audioSrc, picImg}) => {
     }, [isPlay, playAudio])
 
     const onExpand = useCallback(() => {
-
+        navigate('/music')
     }, [])
 
     return (
