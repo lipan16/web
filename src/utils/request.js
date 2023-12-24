@@ -1,11 +1,13 @@
 function fetchRequest({url, method = 'POST', data, loading = false, loadingContent = '加载中...'}){
     let body = ''
-    for(let key in data){
-        body += key + '=' + data[key] + '&'
-    }
 
     if(['get', 'GET', 'head', 'HEAD'].includes(method)){
-        url += '?' + body.slice(0, -1)
+        for(let key in data){
+            body += `${key}=${data[key]}&`
+        }
+        if(body){
+            url += '?' + body.slice(0, -1)
+        }
         body = null
     }else{
         body = data
@@ -21,6 +23,7 @@ function fetchRequest({url, method = 'POST', data, loading = false, loadingConte
             'Accept': 'application/json;*/*;',
             'Cache-Control': 'no-cache'
         },
+        mode: 'cors',
         body // get 或者head 提交的请求不能有body
     }).then(res => res.json())
 }
