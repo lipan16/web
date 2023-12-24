@@ -74,7 +74,7 @@ export const safe = () => {
     document.onkeyup = noPreventS // 键盘抬起
 }
 
-const networkListener = () => {
+export const networkListener = () => {
     try{
         navigator.connection.addEventListener('change', () => {
             const {rtt, downlink, effectiveType, saveData} = navigator.connection
@@ -91,7 +91,7 @@ const networkListener = () => {
 }
 
 // js判断横竖屏
-const sizeListener = () => {
+export const sizeListener = () => {
     window.addEventListener('resize', () => {
         if(window.screen.orientation.angle === 180 || window.screen.orientation.angle === 0){
             // 正常方向或屏幕旋转180度
