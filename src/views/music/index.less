@@ -58,7 +58,7 @@
                     text-align: center;
                     transition: opacity .1s ease-in-out;
                     pointer-events: none;
-                    background: url('https://vidhub.tv/player/img/sign.png') no-repeat center;
+                    background: url('@/assets/imgs/sign.png') no-repeat center;
                 }
 
                 .music-bar{
@@ -155,5 +155,31 @@
         flex-grow: 1;
         text-align: center;
         user-select: none;
+
+        .music-header{
+            font-size: 24px;
+            padding-bottom: 8px;
+        }
+
+        .music-lrc{
+            height: 360px;
+            overflow: hidden;
+
+            .lrc-list{
+                transition: .5s;
+                list-style: none;
+
+                li{
+                    height: 20px;
+                    line-height: 20px;
+                    transition: .2s;
+                }
+
+                .active{
+                    color: #ea43f6;
+                    transform: scale(1.2);
+                }
+            }
+        }
     }
 }

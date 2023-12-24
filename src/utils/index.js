@@ -145,3 +145,23 @@ export const getBattery = cb => {
         console.error('navigator.getBattery error: ', e.message)
     }
 }
+
+/**
+ * 将歌词解析为数组
+ * @param lrc
+ * @returns {time: 时间, words: 歌词}
+ */
+export const parseLrc = lrc => {
+    const parseTime = str => {
+        const time = str.split(':')
+        return time[0] * 60 + Number(time[1])
+    }
+
+    const lines = lrc.split('\n')
+    return lines.map(line => {
+        const parts = line.split(']')
+        const time = parts[0].substring(1)
+
+        return {time: parseTime(time), words: parts[1]}
+    })
+}

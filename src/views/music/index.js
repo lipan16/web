@@ -1,13 +1,14 @@
-import SvgIcon from '@/components/svgIcon'
-import React, {useRef, useEffect, useCallback, useMemo} from 'react'
+import React, {useRef, useEffect, useCallback, useMemo, useState} from 'react'
 import {useSetState, useHover, useEventListener, useSafeState, useMouse} from 'ahooks'
 import {debounce} from 'lodash'
 import dayjs from 'dayjs'
 import {App} from 'antd'
 import {BackwardOutlined, ForwardOutlined, PauseCircleOutlined, PlayCircleOutlined, RetweetOutlined} from '@ant-design/icons'
 
-import {BASE_URL} from '@/constants'
+import SvgIcon from '@/components/svgIcon'
 import AliIcon from '@/components/aliIcon'
+import {BASE_URL} from '@/constants'
+import {parseLrc} from '@/utils'
 import {useThemeToken} from '@/hooks'
 import './index.less'
 
@@ -70,8 +71,10 @@ const Music = () => {
 
     const canvasRef = useRef(null)
     const volumeRef = useRef(null)
-    const musicBarRef = useRef(null)
     const isHoverVolume = useHover(volumeRef)
+    const musicBarRef = useRef(null)
+    const musicLrcRef = useRef(null)
+    const lrcListRef = useRef(null)
 
     const [audioObj, setAudioObj] = useSetState({
         music: {}, // 音乐
@@ -83,7 +86,9 @@ const Music = () => {
         volume: '1', // 音量
         mode: 'order',
         isPlay: false,
-        showLrc: false
+        showLrc: true,
+        lrc: [],
+        lrcOffset: 0
     })
     const [hoverProgress, setHoverProgress] = useSafeState(0)
 
@@ -103,6 +108,17 @@ const Music = () => {
     const musicController = useCallback(() => {
         let canvasEle = canvasRef.current
         audioEle = new Audio(audioObj.music?.src)
+        audioEle.muted = audioObj.muted
+        audioEle.volume = audioObj.volume
+
+        let lrc = []
+        audioObj.music.lrc && fetch(audioObj.music.lrc, {method: 'get'}).then(res => res.text()).then(res => {
+            lrc = parseLrc(res.trim())
+            setAudioObj({lrc})
+        }).catch(err => {
+            console.error(err)
+        })
+
         audioEle.oncanplay = () => {
             if(!audioObj.duration){
                 setAudioObj({duration: formatTime(audioEle.duration)}) // 获取音频时长
@@ -111,6 +127,33 @@ const Music = () => {
         let audioCtx, analyser, source, dataArray, frameId // 音频上下文， 音频分析器，音频源节点，音频分析数据组，动画帧id
         let canvasCtx = canvasEle.getContext('2d')
 
+        audioEle.ontimeupdate = () => {
+            let index = lrc.findIndex(f => audioEle.currentTime < f.time) // 当前显示的歌词下标
+            index = index === -1 ? lrc.length - 1 : index - 1
+            const musicLrcHeight = musicLrcRef.current?.clientHeight / 2
+            const maxOffset = lrcListRef.current?.clientHeight - musicLrcHeight
+            let offset = 20 * (index + 0.5) - musicLrcHeight
+
+            if(offset < 0){
+                offset = 0
+            }
+            if(offset > maxOffset){
+                offset = maxOffset
+            }
+
+            if(lrcListRef.current && lrcListRef.current.children){
+                const len = lrcListRef.current.children.length
+                for(let i = 0; i < len; i++){
+                    if(i === index){
+                        lrcListRef.current.children[i].classList.add('active')
+                    }else{
+                        lrcListRef.current.children[i].classList.remove('active') // 去掉之前的active
+                    }
+                }
+            }
+
+            setAudioObj({lrcOffset: offset})
+        }
         // 开始播放
         audioEle.onplay = () => {
             // 音频源 ---> 分析器 ---> 输出设备
@@ -165,7 +208,7 @@ const Music = () => {
             }
             frameId = requestAnimationFrame(draw)
         }
-    }, [audioObj])
+    }, [audioObj, musicLrcRef, lrcListRef])
 
     // 点击静音
     const onMuted = useCallback(() => {
@@ -216,7 +259,6 @@ const Music = () => {
 
     // 播放上一首（-1），下一首（1）
     const playMusic = useCallback(debounce((index) => {
-        console.error('playMusicImpl')
         onChangePlay()
         const currIndex = AUDIO_PLAY_LIST.findIndex(f => f.src === audioObj.music?.src) // 当前音乐索引
         const len = AUDIO_PLAY_LIST.length
@@ -302,11 +344,11 @@ const Music = () => {
                                max={1} step={0.01} onChange={onChangeVolume}/>
                     </div>
                 </div>
-                <div className='music-play' style={{fontSize: '4rem'}}>
+                <div className='music-play'>
                     <div onClick={onNextMode} style={{fontSize: '2rem'}}><a>{AUDIO_PLAY_MODE[audioObj.mode]}</a></div>
-                    <div onClick={() => playMusic(-1)}><a><BackwardOutlined/></a></div>
-                    <div onClick={onChangePlay} style={{fontSize: '5rem'}}><a>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</a></div>
-                    <div onClick={() => playMusic(1)}><a><ForwardOutlined/></a></div>
+                    <div onClick={() => playMusic(-1)} style={{fontSize: '3rem'}}><a><BackwardOutlined/></a></div>
+                    <div onClick={onChangePlay} style={{fontSize: '4rem'}}><a>{audioObj.isPlay ? <PauseCircleOutlined/> : <PlayCircleOutlined/>}</a></div>
+                    <div onClick={() => playMusic(1)} style={{fontSize: '3rem'}}><a><ForwardOutlined/></a></div>
                     <div onClick={onShowLrc} style={{fontSize: '2rem'}}><a><AliIcon type='icon-a'/></a></div>
                 </div>
             </div>
@@ -315,8 +357,10 @@ const Music = () => {
                     <span className='music-title'>{audioObj.music?.title}</span>
                     <span className='music-author'>-{audioObj.music?.author}</span>
                 </div>
-                <div className='music-lrc'>
-                    歌词
+                <div ref={musicLrcRef} className='music-lrc'>
+                    <ul ref={lrcListRef} className='lrc-list' style={{transform: `translateY(-${audioObj.lrcOffset}px)`}}>
+                        {audioObj.lrc.map((m, index) => <li key={index}>{m.words}</li>)}
+                    </ul>
                 </div>
             </div>
         </section>
