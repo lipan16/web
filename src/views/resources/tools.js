@@ -36,7 +36,8 @@ const Tools = () => {
             <div className='content'>
                 <Flex wrap='wrap' gap='1rem' className='content-flex'>
                     {FINE_TOOLS.map(site =>
-                        <div key={site.link} className='item' style={{background: token.colorBgContainer}} onClick={() => onClickSite(site)}>
+                        <div key={site.link} className='item' onClick={() => onClickSite(site)}
+                             style={{background: token.colorBgContainer, boxShadow: toolSite.link === site.link ? `${token.colorPrimary} 0 0 0 2px` : ''}}>
                             <Image className='site-img' src={site.logo} preview={false} height={48} width={48}/>
                             <div className='title'>
                                 <p>{site.title}</p>
