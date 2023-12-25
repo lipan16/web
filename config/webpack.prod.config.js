@@ -23,8 +23,8 @@ const webpackConfigProd = (env) => {
         plugins: [
             isAnalyse && new BundleAnalyzerPlugin(),
             new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:8].bundle.css',
-                chunkFilename: 'css/[name].[contenthash:8].bundle.css'
+                filename: 'assets/css/[name].[contenthash:8].bundle.css',
+                chunkFilename: 'assets/css/[name].[contenthash:8].bundle.css'
             })
         ]
     }

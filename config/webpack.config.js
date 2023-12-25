@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+
+const pathJoin = dir => path.join(__dirname, dir)
 
 module.exports = (env) => {
     const isProduction = !env.development // 是否生产环境
@@ -27,7 +30,7 @@ module.exports = (env) => {
         },
         output: { // 配置输出信息
             publicPath: '/',
-            path: path.join(__dirname, '../dist'), // 输出的路径，相对当前目录
+            path: pathJoin('../dist'), // 输出的路径，相对当前目录
             filename: isProduction ? 'js/[name].[contenthash:8].js' : '[name].js',  // 列在 entry 中,打包输出的文件名称
             chunkFilename: isProduction ? 'js/[name].[contenthash:8].bundle.js' : '[name].bundle.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
             clean: true
@@ -93,31 +96,31 @@ module.exports = (env) => {
                             }
                         }
                     ],
-                    include: path.join(__dirname, '../src/assets/svg')
+                    include: pathJoin('../src/assets/svg')
                 },
                 {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    test: /\.(png|jpg|jpeg|gif)$/i,
                     type: 'asset/resource',
                     generator: {
-                        filename: 'imgs/[hash].[name][ext]'
+                        filename: 'assets/imgs/[hash].[name][ext]'
                     },
-                    exclude: path.join(__dirname, '../node_modules', '../src/assets/svg'),
-                    include: path.join(__dirname, '../src/assets')
+                    exclude: pathJoin('../node_modules'),
+                    include: pathJoin('../src/assets/imgs')
                 },
                 {
                     test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
                     type: 'asset/resource',
                     generator: {
-                        filename: 'fonts/[hash].[name][ext]'
+                        filename: 'assets/fonts/[hash].[name][ext]'
                     },
                     exclude: /node_modules/,
-                    include: path.join(__dirname, '../src/assets')
+                    include: pathJoin('../src/assets')
                 }
             ]
         },
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, '../src')
+                '@': pathJoin('../src')
             },
             extensions: ['.js', '.css', '.less']
         },
@@ -125,19 +128,28 @@ module.exports = (env) => {
             new HtmlWebpackPlugin({
                 template: './index.html'
             }),
-            new WebpackManifestPlugin({})
+            new WebpackManifestPlugin({}),
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: pathJoin('../iframe'),
+                        to: 'iframe',
+                        toType: 'dir'
+                    }
+                ]
+            })
         ],
         optimization: { // 添加抽离公共代码插件的配置
-            // splitChunks: {
-            //     cacheGroups: {
-            //         commons: { // 打包公共模块
-            //             chunks: 'initial', // initial表示提取入口文件的公共部分
-            //             minChunks: 1, // 表示提取公共部分最少的文件数
-            //             minSize: 0, // 表示提取公共部分最小的大小
-            //             name: 'commons' // 提取出来的文件命名
-            //         }
-            //     }
-            // },
+            splitChunks: {
+                cacheGroups: {
+                    commons: { // 打包公共模块
+                        chunks: 'initial', // initial表示提取入口文件的公共部分
+                        minChunks: 4, // 表示提取公共部分最少的文件数
+                        minSize: 0, // 表示提取公共部分最小的大小
+                        name: 'commons' // 提取出来的文件命名
+                    }
+                }
+            },
             minimize: true,
             minimizer: [
                 new TerserPlugin({
