@@ -17,7 +17,6 @@ function fetchRequest({url, method = 'POST', data, loading = false, loadingConte
         method,
         // credentials: 'include', // 每次都带上 cookies
         headers: {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'application/json;charset: utf-8',
             'X-Requested-With': 'XMLHttpRequest', // 标明为异步请求
             'Accept': 'application/json;*/*;',

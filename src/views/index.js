@@ -31,7 +31,7 @@ const Index = () => {
     const visitTime = useVisitTime() // 首次访问网站时间
 
     const [imgSrc, setImgSrc] = useState([])
-    const {verse, plat, weather} = useSelector(state => state.user)
+    const {verse, plat, geolocation, weather} = useSelector(state => state.user)
     const avatarRef = useRef(null) // 头像
     const isHovering = useHover(avatarRef) // 头像是否hover
 
@@ -50,9 +50,13 @@ const Index = () => {
     return (
         <div className='index'>
             {
-                !isEmpty(weather) && <div className='weather' onClick={() => onClickWeather(weather.link)}>
-                    {weather.text}
-                    <span>{weather.temp}</span>℃
+                !isEmpty(weather) && <div className='weather'>
+                    {geolocation.province}&nbsp;
+                    {geolocation.city}&nbsp;
+                    {weather.text}&nbsp;
+                    <span>{weather.temp}</span>℃&nbsp;&nbsp;
+                    {weather.windDirection}风&nbsp;&nbsp;
+                    {weather.windPower}级
                 </div>
             }
             <div className='content'>

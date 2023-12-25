@@ -13,7 +13,7 @@ const jinrishici = require('jinrishici')
 import SelfLayout from '@/components/layout'
 import fetchRequest from '@/utils/request'
 import {useThemeToken} from '@/hooks'
-import {setIp, setVerse, setPlat, setLocation, setWeather} from '@/store/user'
+import {setIp, setVerse, setPlat, setGeolocation, setWeather} from '@/store/user'
 import '@/utils/event'
 import '@/global.less'
 import '@/antd.less'
@@ -78,10 +78,45 @@ const App = () => {
         })
     }, [])
 
+    const getLocationByIp = useCallback(() => {
+        fetchRequest({
+            url: 'https://restapi.amap.com/v3/ip',
+            method: 'get',
+            data: {key: 'f64867f7e0586f3487ee25cd5cff55cf'}
+        }).then(res => {
+            if(res.status === '1'){
+                fetchRequest({
+                    url: 'https://restapi.amap.com/v3/weather/weatherInfo',
+                    method: 'get',
+                    data: {key: 'f64867f7e0586f3487ee25cd5cff55cf', city: res.adcode, extensions: 'base'}
+                }).then(weather => {
+                    if(weather.status === '1'){
+                        dispatch(setWeather({
+                            text: weather.lives[0].weather, // 状况描述
+                            temp: weather.lives[0].temperature, // 温度
+                            windPower: weather.lives[0].windpower, //风力级别，单位：级
+                            windDirection: weather.lives[0].winddirection, // 风向描述
+                        }))
+                    }
+                })
+                const province = res.province.endsWith('市') ? '' : res.province
+                dispatch(setGeolocation({province, city: res.city}))
+
+                // dispatch(setWeather({
+                //     text: res.now.text, // 状况描述
+                //     temp: res.now.temp, // 温度
+                //     feelsLike: res.now.feelsLike, // 体感温度
+                //     link: res.fxLink, // 和风天气响应式页面
+                //     obsTime: res.now.obsTime // 数据观测时间
+                // }))
+            }
+        }).catch(err => {
+            console.error('高德天气 ERROR: ', err.message, err)
+        })
+    }, [])
+
     useEffect(() => {
-        // fetchRequest({url: '/api/login', method: 'GET', data: {username: 'lipan'}}).then(r => {
-        //     console.log(r)
-        // })
+        getLocationByIp()
         try{
             navigator.geolocation.getCurrentPosition(position => {
                 console.log('位置信息: ', position.coords.latitude, position.coords.longitude)
@@ -115,12 +150,13 @@ const App = () => {
                 }
             })
             dispatch(setPlat(plat))
-            map = new AMap.Map('amap', {zoom: 22})
-            map.getCity(function(info){ // province city district citycode
-                const {lng, lat} = map.getCenter() // 经纬度
-                getWeather(lng?.toFixed(2), lat?.toFixed(2))
-                dispatch(setLocation({...info, lng, lat}))
-            })
+            // map = new AMap.Map('amap', {zoom: 22})
+            // map.getCity(function(info){ // province city district citycode
+            //     console.log(info)
+            // const {lng, lat} = map.getCenter() // 经纬度
+            // getWeather(lng?.toFixed(2), lat?.toFixed(2))
+            // dispatch(setGeolocation({...info, lng, lat}))
+            // })
         }).catch(e => {
             console.error('AMAP ERROR: ', e)
         })
@@ -135,7 +171,7 @@ const App = () => {
             <StyleProvider transformers={[px2rem]} hashPriority='high'>
                 <AppProvider>
                     <SelfLayout/>
-                    <div id='amap' style={{display: 'none', height: '10px', width: '10px'}}/>
+                    {/*<div id='amap' style={{display: 'none', height: '10px', width: '10px'}}/>*/}
                 </AppProvider>
             </StyleProvider>
         </ConfigProvider>
