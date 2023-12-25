@@ -527,4 +527,10 @@ export const FINE_TOOLS = [
         link: 'https://uiverse.io/',
         logo: 'https://uiverse.io/favicon-32x32.png'
     },
+    {
+        title: 'clock Dot',
+        desc: '',
+        link: '/iframe/clockDots',
+        logo: ''
+    },
 ]
