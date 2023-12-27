@@ -6,8 +6,9 @@ import {isEmpty} from 'lodash'
 import {Image, Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
-import {BASE_URL} from '@/constants'
+import TimeCapsule from '@/components/timeCapsule'
 import Battery from '@/components/battery'
+import {BASE_URL} from '@/constants'
 import {useClientInfo, useThemeToken, useVisitTime} from '@/hooks'
 import {randomColor} from '@/utils'
 import './index.less'
@@ -60,6 +61,7 @@ const Index = () => {
                 </div>
             }
             <div className='content'>
+                <TimeCapsule/>
                 <div>
                     {imgSrc.map((img, index) => <Image key={index} src={img} preview={false}/>)}
                 </div>

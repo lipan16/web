@@ -9,7 +9,7 @@ export const setting = createSlice({
             token: {
                 fontSize: 16,
                 fontFamily: 'pretty',
-                colorPrimary: '#fa3899',
+                colorPrimary: '#f00056',
             }
         },
         pinnedPlayer: true,

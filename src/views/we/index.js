@@ -1,10 +1,10 @@
-import {useThemeToken} from '@/hooks'
 import React, {useCallback, useState, useEffect} from 'react'
 import {Outlet, useNavigate, useLocation, useMatches, useNavigation, useMatch} from 'react-router-dom'
 import {useTitle, useInterval} from 'ahooks'
 import {Button} from 'antd'
 
 import {BPI_TIME} from '@/constants'
+import {useThemeToken} from '@/hooks'
 import {showTime} from '@/utils'
 import './index.less'
 
