@@ -53,6 +53,9 @@ const SelfFooter = () => {
                 <a href='https://ant-design.antgroup.com/index-cn' target='_blank'>Antd</a>
                 &nbsp;当前版本{pkg.version}
             </div>
+            <div>
+                <a href='https://beian.miit.gov.cn' target='_blank'>湘ICP备2023039196号</a>
+            </div>
             <div className='copyright'>
                 Copyright © {dayjs().format('2018-YYYY')} {pkg.name}.
                 All Rights Reserved. <a href='./about'>{pkg.nickname}</a> 版权所有
