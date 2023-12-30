@@ -1,14 +1,15 @@
-import {LeftOutlined, RightOutlined} from '@ant-design/icons'
 import React, {useEffect, useCallback, useMemo} from 'react'
-import {useSetState, useUpdateEffect} from 'ahooks'
+import {useSetState, useUpdateEffect, useTitle} from 'ahooks'
 import {SolarMonth, HolidayUtil} from 'lunar-javascript'
 import dayjs from 'dayjs'
-import {DatePicker} from 'antd'
+import {DatePicker, App} from 'antd'
 
 import {WEEK_HEADER} from '@/constants'
 import './index.less'
 
 const Calendar = () => {
+    const {message} = App.useApp()
+    useTitle('日历')
 
     const [calendar, setCalendar] = useSetState({
         year: null,
@@ -87,6 +88,8 @@ const Calendar = () => {
     const onDatePickerChange = useCallback((date, dateString) => {
         if(date){
             setCalendar({year: date.year(), month: date.month() + 1})
+        }else{
+            return message.warning('月份不支持清空')
         }
     }, [])
 
@@ -118,7 +121,8 @@ const Calendar = () => {
         <section className='calendar-content'>
             <header className='calendar-content-header'>
                 <div className='handle' onClick={() => onHandleMonth('prev')}>&lt;</div>
-                <DatePicker defaultValue={dayjs()} onChange={onDatePickerChange} picker='month' size='large' suffixIcon={null}/>
+                <DatePicker value={dayjs(`${calendar.year}-${calendar.month}`, 'YYYY-M')} onChange={onDatePickerChange} picker='month' size='large'
+                            suffixIcon={null} allowClear={false}/>
                 <div className='handle' onClick={() => onHandleMonth('next')}>&gt;</div>
             </header>
             <div className='calendar'>
