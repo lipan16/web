@@ -1,3 +1,4 @@
+import {LeftOutlined, RightOutlined} from '@ant-design/icons'
 import React, {useEffect, useCallback, useMemo} from 'react'
 import {useSetState, useUpdateEffect} from 'ahooks'
 import {SolarMonth, HolidayUtil} from 'lunar-javascript'
@@ -80,15 +81,25 @@ const Calendar = () => {
     }, [calendar.month])
 
     useEffect(() => {
-        setCalendar({
-            year: dayjs().year(),
-            month: dayjs().month() + 1
-        })
+        setCalendar({year: dayjs().year(), month: dayjs().month() + 1})
     }, [])
 
     const onDatePickerChange = useCallback((date, dateString) => {
-        setCalendar({year: date.year(), month: date.month() + 1})
+        if(date){
+            setCalendar({year: date.year(), month: date.month() + 1})
+        }
     }, [])
+
+    const onHandleMonth = useCallback(type => {
+        const curMonth = dayjs(`${calendar.year}-${calendar.month}`, 'YYYY-M')
+        let month
+        if(type === 'prev'){
+            month = curMonth.subtract(1, 'month')
+        }else{
+            month = curMonth.add(1, 'month')
+        }
+        setCalendar({year: month.year(), month: month.month() + 1})
+    }, [calendar.year, calendar.month])
 
     useUpdateEffect(() => {
         const solar = SolarMonth.fromYm(calendar.year, calendar.month)
@@ -105,14 +116,16 @@ const Calendar = () => {
 
     return (
         <section className='calendar-content'>
-            <header>
-                <DatePicker onChange={onDatePickerChange} picker='month' defaultValue={dayjs()} suffixIcon={null}/>
+            <header className='calendar-content-header'>
+                <div className='handle' onClick={() => onHandleMonth('prev')}>&lt;</div>
+                <DatePicker defaultValue={dayjs()} onChange={onDatePickerChange} picker='month' size='large' suffixIcon={null}/>
+                <div className='handle' onClick={() => onHandleMonth('next')}>&gt;</div>
             </header>
-            <div className='calendar' data-month={calendar?.month}>
+            <div className='calendar'>
                 <ul className='calendar-week'>
                     {weekHeads.map(m => <li key={m} className={['六', '日'].includes(m) ? 'weekend' : ''}>星期{m}</li>)}
                 </ul>
-                <ul className='calendar-body'>
+                <ul className='calendar-body' data-month={calendar?.month}>
                     {calendar.weeks.map(week =>
                         week?.days.map(day =>
                             <li key={day.day}
