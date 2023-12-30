@@ -2,7 +2,7 @@ import React, {useEffect, useCallback, useMemo} from 'react'
 import {useSetState, useUpdateEffect, useTitle} from 'ahooks'
 import {SolarMonth, HolidayUtil} from 'lunar-javascript'
 import dayjs from 'dayjs'
-import {DatePicker, App} from 'antd'
+import {DatePicker, App, Switch} from 'antd'
 
 import {WEEK_HEADER} from '@/constants'
 import './index.less'
@@ -19,7 +19,11 @@ const Calendar = () => {
     })
 
     const weekHeads = useMemo(() => {
-        return WEEK_HEADER
+        const weekHeader = [...WEEK_HEADER]
+        if(calendar.weekStart === 0){
+            return [weekHeader.pop(), ...weekHeader]
+        }
+        return weekHeader
     }, [calendar.weekStart])
 
     // 将 day 转换成阴历并判断是否节日，节气，假期等
@@ -117,6 +121,10 @@ const Calendar = () => {
         setCalendar({weeks})
     }, [calendar.year, calendar.month, calendar.weekStart])
 
+    const onWeekStartChange = useCallback((bool) => {
+        setCalendar({weekStart: Number(bool)})
+    }, [])
+
     return (
         <section className='calendar-content'>
             <header className='calendar-content-header'>
@@ -124,6 +132,7 @@ const Calendar = () => {
                 <DatePicker value={dayjs(`${calendar.year}-${calendar.month}`, 'YYYY-M')} onChange={onDatePickerChange} picker='month' size='large'
                             suffixIcon={null} allowClear={false}/>
                 <div className='handle' onClick={() => onHandleMonth('next')}>&gt;</div>
+                <Switch checkedChildren='一' unCheckedChildren='日' checked={!!calendar.weekStart} onChange={onWeekStartChange}/>
             </header>
             <div className='calendar'>
                 <ul className='calendar-week'>
