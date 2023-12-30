@@ -6,8 +6,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpackConfigBase = require('./webpack.config')
 
 const webpackConfigProd = (env) => {
-    const isAnalyse = env.analyse // 是否打包分析
-    // console.log('webpackConfig Prod: ',env, env.analyse)
+    const isAnalyse = env.mode === 'analyse' // 是否打包分析
+    // console.log('webpackConfig Prod: ',env, isAnalyse)
 
     return {
         mode: 'production',

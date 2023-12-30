@@ -13,9 +13,9 @@
   "homepage": "https://github.com/lipan16/web#readme",
   "scripts": {
     "serve": "node ./server/index.js",
-    "dev": "webpack-dev-server --env development --config ./config/webpack.config.js --history-api-fallback",
-    "build": "webpack --env production --config ./config/webpack.prod.config.js",
-    "build:analyse": "webpack --env analyse --config ./config/webpack.prod.config.js",
+    "dev": "webpack-dev-server --env mode=dev --config ./config/webpack.config.js --history-api-fallback",
+    "build": "webpack --env mode=prod --config ./config/webpack.prod.config.js",
+    "build:analyse": "webpack --env mode=analyse --config ./config/webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

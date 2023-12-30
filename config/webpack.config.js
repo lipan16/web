@@ -4,12 +4,13 @@ const {WebpackManifestPlugin} = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
 
 const pathJoin = dir => path.join(__dirname, dir)
 
 module.exports = (env) => {
-    const isProduction = !env.development // 是否生产环境
-    // console.log('webpackConfig: ', env, isProduction)
+    const isBuild = env.mode !== 'dev' // 是否打包环境
+    // console.log('webpackConfig: ', env, isBuild)
 
     return {
         mode: 'development', // webpack打包环境是开发环境
@@ -31,8 +32,8 @@ module.exports = (env) => {
         output: { // 配置输出信息
             publicPath: '/',
             path: pathJoin('../dist'), // 输出的路径，相对当前目录
-            filename: isProduction ? 'js/[name].[contenthash:8].js' : '[name].js',  // 列在 entry 中,打包输出的文件名称
-            chunkFilename: isProduction ? 'js/[name].[contenthash:8].bundle.js' : '[name].bundle.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
+            filename: isBuild ? 'js/[name].[contenthash:8].js' : '[name].js',  // 列在 entry 中,打包输出的文件名称
+            chunkFilename: isBuild ? 'js/[name].[contenthash:8].bundle.js' : '[name].bundle.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
             clean: true
         },
         module: {
@@ -45,7 +46,7 @@ module.exports = (env) => {
                 {
                     test: /\.(css|less)$/,
                     use: [
-                        isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+                        isBuild ? MiniCssExtractPlugin.loader : 'style-loader',
                         'css-loader',
                         {
                             loader: 'less-loader',
@@ -129,6 +130,9 @@ module.exports = (env) => {
                 template: './index.html'
             }),
             new WebpackManifestPlugin({}),
+            new webpack.DefinePlugin({
+                'process.env': JSON.stringify(env)
+            }),
             new CopyPlugin({
                 patterns: [
                     {
