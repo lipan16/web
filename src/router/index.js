@@ -7,6 +7,7 @@ import NoFound from '@/views/nofound'
 const We = lazy(() => import('@/views/we'))
 const Lipan = lazy(() => import('@/views/we/lipan'))
 const Xiaobing = lazy(() => import('@/views/we/xiaobing'))
+const Calendar = lazy(() => import('@/views/calendar'))
 const Interview = lazy(() => import('@/views/interview'))
 const Works = lazy(() => import('@/views/works'))
 const Site = lazy(() => import('@/views/resources/site'))
@@ -27,6 +28,7 @@ const routes = [
                     {path: 'xiaobing', element: <Xiaobing/>}
                 ]
             },
+            {path: 'calendar', element: <Calendar/>},
             {path: 'interview', element: <Interview/>},
             {path: 'works', element: <Works/>},
             {

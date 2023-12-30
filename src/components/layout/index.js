@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import {Layout, Menu, Affix, Input, Drawer, FloatButton, Spin} from 'antd'
 import {
     MenuOutlined, HomeOutlined, UserOutlined, HeartOutlined, ShareAltOutlined, DesktopOutlined, GithubOutlined,
-    FullscreenExitOutlined, FullscreenOutlined, FileMarkdownOutlined
+    FullscreenExitOutlined, FullscreenOutlined, FileMarkdownOutlined, CalendarOutlined
 } from '@ant-design/icons'
 
 const {Search} = Input
@@ -24,6 +24,7 @@ import './index.less'
 const MENU_LIST = [
     {key: '/', label: '首页', icon: <HomeOutlined/>},
     {key: '/we', label: '我们', icon: <HeartOutlined/>},
+    {key: '/calendar', label: '日历', icon: <CalendarOutlined/>},
     {key: '/interview', label: '面试题', icon: <AliIcon type='icon--interview'/>},
     {key: '/works', label: '作品', icon: <AliIcon type='icon-xuexibaogaoliebiao'/>},
     {
