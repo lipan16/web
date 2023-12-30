@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {ConfigProvider, theme, App as AppProvider} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
 import AMapLoader from '@amap/amap-jsapi-loader'
+import zhLocale from 'antd/locale/zh_CN';
 
 window._AMapSecurityConfig = {
     securityJsCode: '18e4297a6b5ad414c0e09e78ee2985d2'
@@ -167,7 +168,7 @@ const App = () => {
     }, [])
 
     return (
-        <ConfigProvider theme={themeProvider}>
+        <ConfigProvider theme={themeProvider} locale={zhLocale}>
             <StyleProvider transformers={[px2rem]} hashPriority='high'>
                 <AppProvider>
                     <SelfLayout/>
