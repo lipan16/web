@@ -1,0 +1,110 @@
+.calendar-content{
+    padding-inline: 48px;
+
+    .calendar{
+        margin-top: 128px;
+        position: relative;
+
+        &:before{
+            content: attr(data-month);
+            position: absolute;
+            font-size: 352px;
+            width: 100%;
+            height: 100%;
+            opacity: .2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .calendar-week{
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            column-gap: 32px;
+            user-select: none;
+            list-style: none;
+
+            > li{
+                width: 100%;
+                font-size: 24px;
+            }
+
+            .weekend{
+                color: #ff5a5d;
+            }
+        }
+
+        .calendar-body{
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            grid-gap: 2px 32px;
+            padding-block: 16px;
+
+            li{
+                width: 100%;
+                font-size: 24px;
+                font-weight: 700;
+                position: relative;
+                padding-block: 12px 4px;
+                user-select: none;
+                border: 2px solid transparent;
+                border-radius: 8px;
+
+                &:hover{
+                    cursor: pointer;
+                    border-color: rgba(0, 0, 0, 0.2);
+                }
+
+                i{
+                    display: block;
+                    font-style: normal;
+                    font-size: 14px;
+                    color: #8C8C8C;
+                    margin-top: 2px;
+                }
+
+                span{
+                    position: absolute;
+                    right: 12px;
+                    top: 4px;
+                    font-size: 16px;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 20px;
+                    border-radius: 50%;
+                    color: #FFF;
+                    background-color: rgba(255, 0, 0, 0.9);
+                }
+            }
+
+            li.other{
+                opacity: 0.4;
+            }
+
+            li.festival{
+                i{
+                    color: #D02F12;
+                    font-size: 12px;
+                }
+            }
+
+            li.rest{
+                background-color: #ffecec;
+            }
+
+            li.today{
+                background: #367df1;
+                border-color: #367df1;
+                color: #FFFFFF;
+
+                i{
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}
