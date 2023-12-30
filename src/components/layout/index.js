@@ -44,7 +44,7 @@ const SelfFooter = () => {
     }, 1000, {immediate: true})
 
     return (
-        <Footer className='footer'>
+        <Footer className='footer' style={{background: 'transparent'}}>
             <div>本站已运行：<a>{websiteTime}</a></div>
             <div className='design'>
                 Powered by&nbsp;
@@ -121,7 +121,7 @@ const SelfLayout = () => {
     // console.log('layout render', scroll)
 
     return (
-        <Layout ref={fullscreenRef}>
+        <Layout ref={fullscreenRef} style={{background: 'transparent'}}>
             <Header style={{padding: 0, background: 'transparent'}}>
                 <Affix offsetTop={0.000000001}>
                     <div className='header-content' style={{transform: hideHeader ? 'translate3d(0, -100%, 0)' : ''}}>
