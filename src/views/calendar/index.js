@@ -1,20 +1,24 @@
-import React, {useEffect, useCallback} from 'react'
+import React, {useEffect, useCallback, useMemo} from 'react'
 import {useSetState, useUpdateEffect} from 'ahooks'
+import {SolarMonth, HolidayUtil} from 'lunar-javascript'
+import dayjs from 'dayjs'
 import {DatePicker} from 'antd'
-import {Solar, SolarMonth, Lunar, HolidayUtil} from 'lunar-javascript'
 
+import {WEEK_HEADER} from '@/constants'
 import './index.less'
 
 const Calendar = () => {
-    const weekHeads = ['一', '二', '三', '四', '五', '六', '日']
-    const now = Solar.fromDate(new Date())
 
     const [calendar, setCalendar] = useSetState({
-        year: 2023,
-        month: 11,
+        year: null,
+        month: null,
         weekStart: 1, // 星期几作为一周的开始，1234560分别代表星期一至星期天
-        weeks: [], // 日期按周数据
+        weeks: [] // 日期按周数据
     })
+
+    const weekHeads = useMemo(() => {
+        return WEEK_HEADER
+    }, [calendar.weekStart])
 
     // 将 day 转换成阴历并判断是否节日，节气，假期等
     const parseDay = useCallback(day => {
@@ -59,7 +63,7 @@ const Calendar = () => {
         }
         showDay.text = text
 
-        if(day.toYmd() === now.toYmd()){ // 传入的 day 是今天
+        if(dayjs(day.toYmd()).isToday()){ // 传入的 day 是今天
             showDay.isToday = true
         }
         if(day.getMonth() !== calendar.month){ // 传入的 day 非本月
@@ -73,9 +77,20 @@ const Calendar = () => {
             showDay.isRest = !holiday.isWork()
         }
         return showDay
-    }, [now, calendar.month])
+    }, [calendar.month])
 
     useEffect(() => {
+        setCalendar({
+            year: dayjs().year(),
+            month: dayjs().month() + 1
+        })
+    }, [])
+
+    const onDatePickerChange = useCallback((date, dateString) => {
+        setCalendar({year: date.year(), month: date.month() + 1})
+    }, [])
+
+    useUpdateEffect(() => {
         const solar = SolarMonth.fromYm(calendar.year, calendar.month)
         const weeks = []
         solar.getWeeks(calendar.weekStart).forEach(w => {
@@ -88,16 +103,12 @@ const Calendar = () => {
         setCalendar({weeks})
     }, [calendar.year, calendar.month, calendar.weekStart])
 
-    const onChange = (date, dateString) => {
-        console.log(date, dateString)
-    }
-
     return (
         <section className='calendar-content'>
             <header>
-                <DatePicker onChange={onChange} picker='month'/>
+                <DatePicker onChange={onDatePickerChange} picker='month' defaultValue={dayjs()} suffixIcon={null}/>
             </header>
-            <div className='calendar' data-month={calendar.month}>
+            <div className='calendar' data-month={calendar?.month}>
                 <ul className='calendar-week'>
                     {weekHeads.map(m => <li key={m} className={['六', '日'].includes(m) ? 'weekend' : ''}>星期{m}</li>)}
                 </ul>
