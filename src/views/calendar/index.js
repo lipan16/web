@@ -111,12 +111,22 @@ const Calendar = () => {
     useUpdateEffect(() => {
         const solar = SolarMonth.fromYm(calendar.year, calendar.month)
         const weeks = []
-        solar.getWeeks(calendar.weekStart).forEach(w => {
-            const days = []
-            w.getDays().forEach(day => {
-                days.push(parseDay(day))
-            })
+        solar.getWeeks(calendar.weekStart).forEach((w, index, array) => {
+            const days = w.getDays().reduce((prev, cur) => {
+                return [...prev, parseDay(cur)]
+            }, [])
             weeks.push({days, index: w.getIndexInYear()})
+
+            if(index === array.length - 1){ // 本月最后一周了
+                while(weeks.length < 6){ // 显示周数不足6周
+                    const next = w.next(1)
+                    const days = next.getDays().reduce((prev, cur) => {
+                        return [...prev, parseDay(cur)]
+                    }, [])
+                    console.log(days, next.getIndexInYear())
+                    weeks.push({days, index: next.getIndexInYear()})
+                }
+            }
         })
         setCalendar({weeks})
     }, [calendar.year, calendar.month, calendar.weekStart])
@@ -142,7 +152,7 @@ const Calendar = () => {
                     {calendar.weeks.map(week =>
                         week?.days.map(day =>
                             <li key={day.day}
-                                className={`${day.isFestival ? 'festival' : ''} ${day.isToday ? 'today' : ''} ${day.isOther ? 'other' : ''} ${day.isRest ? 'rest' : ''}`}>
+                                className={`${day.isFestival ? 'festival' : ''} ${day.isToday ? 'today' : ''} ${day.isOther ? 'other' : ''} ${day.isRest ? 'rest' : ''} ${day.isWeekend ? 'weekend' : ''}`}>
                                 {day.day}
                                 <i>{day.text}</i>
                                 {day.isHoliday && <span>{day.isRest ? '休' : '班'}</span>}
