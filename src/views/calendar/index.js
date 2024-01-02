@@ -75,6 +75,9 @@ const Calendar = () => {
         if(day.getMonth() !== calendar.month){ // 传入的 day 非本月
             showDay.isOther = true
         }
+        if([0, 6].includes(day.getWeek())){ // 是否周末
+            showDay.isWeekend = true
+        }
 
         // 当天是否法定节假日
         const holiday = HolidayUtil.getHoliday(day.getYear(), day.getMonth(), day.getDay())
