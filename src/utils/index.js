@@ -165,3 +165,44 @@ export const parseLrc = lrc => {
         return {time: parseTime(time), words: parts[1]}
     })
 }
+
+/**
+ * 函数重载
+ * 1. 同名函数可以订阅多次
+ * 2. 参数数量或者类型不一样
+ * @returns function {overload}
+ */
+export const createOverload = () => {
+    const fnMap = new Map()
+
+    function overload(...args){
+        const key = args.map(it => typeof it).join(',')
+        const fn = fnMap.get(key)
+        if(!fn){
+            throw new TypeError('没有找到对应的实现')
+        }
+        return fn.apply(this, args)
+    }
+
+    overload.addImpl = function(...args){
+        const fn = args.pop()
+        if(typeof fn !== 'function'){
+            throw new Error('最后一个参数必须是函数！')
+        }
+        const key = args.join(',')
+        fnMap.set(key, fn)
+    }
+
+    return overload
+}
+
+// const getUser= createOverload()
+// const searchPage = (page, size = 10) => {console.log('number, number')}
+// getUser.addImpl( () => {console.log('all')})
+// getUser.addImpl('number', searchPage)
+// getUser.addImpl('number', 'number', searchPage)
+// getUser.addImpl('string', () => {console.log('string')})
+// getUser()
+// getUser(2)
+// getUser(2, 10)
+// getUser('2, 10')
