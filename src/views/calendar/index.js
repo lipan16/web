@@ -126,7 +126,6 @@ const Calendar = () => {
                     const days = next.getDays().reduce((prev, cur) => {
                         return [...prev, parseDay(cur)]
                     }, [])
-                    console.log(days, next.getIndexInYear())
                     weeks.push({days, index: next.getIndexInYear()})
                 }
             }
