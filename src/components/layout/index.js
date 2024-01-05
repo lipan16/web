@@ -160,7 +160,7 @@ const SelfLayout = () => {
                 <Suspense fallback={<Spin size='large' fullscreen/>}><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
-            <FloatButton.BackTop visibilityHeight={300}/>
+            <FloatButton.BackTop visibilityHeight={300} target={() => document.getElementById('root')}/>
             {showPinnedPlayer && <PinnedPlayer/>}
         </Layout>
     )
