@@ -60,11 +60,17 @@
 }
 
 .footer{
+    user-select: none;
     text-align: center;
-    padding-top: 16px !important;
-    padding-inline: 64px;
-    max-height: 7rem;
+    padding-block: 0 16px !important;
+    max-height: 4rem;
     line-height: 1.1;
+
+    .info{
+        > span{
+            font-size: 12px;
+        }
+    }
 }
 
 section{
@@ -101,10 +107,6 @@ section{
         transition: .3s;
     }
 
-    .footer{
-        padding-inline: 32px !important;
-    }
-
     section{
         margin-inline: 48px;
     }
@@ -113,6 +115,11 @@ section{
 @media screen and(max-width: 768px){
     .footer{
         padding-inline: 16px !important;
+        padding-block-end: 8px !important;
+
+        .copyright{
+            font-size: 14px;
+        }
     }
 
     section{

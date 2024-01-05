@@ -46,20 +46,19 @@ const SelfFooter = () => {
 
     return (
         <Footer className='footer' style={{background: 'transparent'}}>
-            <div>本站已运行：<a>{websiteTime}</a></div>
+            <div className='info'>
+                本站已运行：<a>{websiteTime}</a>&nbsp;&nbsp;
+                <span className='icp'>湘<a href='https://beian.miit.gov.cn' target='_blank'>ICP备2023039196号</a></span>
+            </div>
             <div className='design'>
                 Powered by&nbsp;
                 <a href='https://www.webpackjs.com' target='_blank'>webpack</a>&nbsp;+&nbsp;
                 <a href='https://zh-hans.react.dev' target='_blank'>React</a>&nbsp;+&nbsp;
                 <a href='https://ant-design.antgroup.com/index-cn' target='_blank'>Antd</a>
-                &nbsp;当前版本{pkg.version}
-            </div>
-            <div>
-                <a href='https://beian.miit.gov.cn' target='_blank'>湘ICP备2023039196号</a>
             </div>
             <div className='copyright'>
-                Copyright © {dayjs().format('2018-YYYY')} {pkg.name}.
-                All Rights Reserved. <a href='./about'>{pkg.nickname}</a> 版权所有
+                Copyright©{dayjs().format('2018-YYYY')} {pkg.name}.
+                All Rights Reserved. <a href='./about'>{pkg.nickname}{pkg.version}</a> 版权所有
             </div>
         </Footer>
     )
@@ -157,7 +156,7 @@ const SelfLayout = () => {
                           onClick={onClickDrawerMenu}/>
                 </Drawer>
             </Header>
-            <Content style={{minHeight: 'calc(100vh - 11rem)', color: token.colorText}}>
+            <Content style={{minHeight: 'calc(100vh - 8rem)', color: token.colorText}}>
                 <Suspense fallback={<Spin size='large' fullscreen/>}><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
