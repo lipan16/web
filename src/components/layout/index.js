@@ -157,7 +157,7 @@ const SelfLayout = () => {
                           onClick={onClickDrawerMenu}/>
                 </Drawer>
             </Header>
-            <Content style={{minHeight: 'calc(100vh - 10rem)', color: token.colorText}}>
+            <Content style={{minHeight: 'calc(100vh - 11rem)', color: token.colorText}}>
                 <Suspense fallback={<Spin size='large' fullscreen/>}><Outlet/></Suspense>
             </Content>
             <SelfFooter/>
