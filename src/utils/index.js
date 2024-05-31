@@ -196,9 +196,9 @@ export const createOverload = () => {
     return overload
 }
 
-// const getUser= createOverload()
+// const getUser = createOverload()
 // const searchPage = (page, size = 10) => {console.log('number, number')}
-// getUser.addImpl( () => {console.log('all')})
+// getUser.addImpl(() => {console.log('all')})
 // getUser.addImpl('number', searchPage)
 // getUser.addImpl('number', 'number', searchPage)
 // getUser.addImpl('string', () => {console.log('string')})
@@ -206,3 +206,11 @@ export const createOverload = () => {
 // getUser(2)
 // getUser(2, 10)
 // getUser('2, 10')
+
+const className = createOverload()
+className.addImpl('object', obj => {
+    return Object.keys(obj).filter(f => !!obj[f]).join(' ')
+})
+
+className.addImpl('', arr => {})
+className({a: true, b: 'b', c: false, d: [], e: {}})
