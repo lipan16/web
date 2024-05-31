@@ -23,11 +23,16 @@ app.all('*', (req, res, next) => {
         next()
     }
 })
+
+app.listen(3000, () => {
+    console.log('app listen 3000 port')
+})
+
 //配置任何请求都转到index.html，而index.html会根据React-Router规则去匹配任何一个route
 // app.get('*', function (request, response){
 //     response.sendFile(path.resolve(__dirname, 'dist', 'index.html'))
 // })
-function getClientIp(req) {
+function getClientIp(req){
     const referer = req.get('referer')
     if(referer){
         const url = new URL(referer)
@@ -107,11 +112,8 @@ app.post('/api/post', (req, res) => {
 let bigList = []
 
 // create 100,000 records
-for (let i = 0; i < 100_000; i++) {
-    bigList.push({
-        text: `hello world ${i}`,
-        tid: i
-    })
+for(let i = 0; i < 100_000; i++){
+    bigList.push({text: `hello world ${i}`, tid: i})
 }
 
 app.get('/api/bigList', (req, res) => {
@@ -122,6 +124,8 @@ app.get('/api/bigList', (req, res) => {
     }))
 })
 
-app.listen(3000, () => {
-    console.log('app listen 3000 port')
+// 服务器请求第三方服务器数据
+app.get('/hero', async (req, res) => {
+    const data = await fetch('https://pvp.qq.com/web201605/js/herolist.json').then(res => res.json())
+    res.send(data)
 })
