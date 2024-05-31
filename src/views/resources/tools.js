@@ -14,10 +14,19 @@ const Tools = () => {
     const token = useThemeToken()
     const dispatch = useDispatch()
     const [searchParams] = useSearchParams()
+    const PATHNAME = {
+        '/tools/ringRotate': 'ringRotate'
+    }
 
     useEffect(() => {
+        const toolKey = PATHNAME[location.pathname]
+        console.log('toolKey', toolKey)
         const link = searchParams.get('link')
-        link && dispatch(setToolSite({link}))
+        if(toolKey){
+            dispatch(setToolSite({link: ''}))
+        }else if(link){
+            dispatch(setToolSite({link}))
+        }
 
         return () => {
             link && dispatch(setToolSite({}))

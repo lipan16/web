@@ -536,4 +536,16 @@ export const FINE_TOOLS = [
         link: '/iframe/clockDots',
         logo: ''
     },
+    {
+        title: '延时实现动画',
+        desc: '',
+        link: '/iframe/delayAnimation',
+        logo: ''
+    },
+    {
+        title: 'link',
+        desc: 'https://zsyyblog.com/effects/',
+        link: 'https://go.itab.link/',
+        logo: ''
+    },
 ]

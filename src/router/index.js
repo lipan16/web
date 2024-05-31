@@ -34,7 +34,11 @@ const routes = [
             {
                 path: '', children: [
                     {path: 'site', element: <Site/>},
-                    {path: 'tools', element: <Tools/>}
+                    {
+                        path: 'tools', element: <Tools/>, children: [
+                            {path: '*', element: null},
+                        ]
+                    }
                 ]
             },
             {path: 'aieditor', element: <Aieditor/>},
