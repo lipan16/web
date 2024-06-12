@@ -1,0 +1,2 @@
+ignores: ["less", "less-loader", "css-loader", "babel-loader", "style-loader", "postcss-loader", "postcss-px-to-viewport",
+ "svg-sprite-loader", "svgo-loader"]
