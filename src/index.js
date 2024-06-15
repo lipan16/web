@@ -21,11 +21,11 @@ const Routes = () => useRoutes(routes)
 
 const app = createRoot(document.getElementById('root'))
 app.render(
-    // <React.StrictMode>
+    <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
                 <Routes/>
             </BrowserRouter>
         </Provider>
-    // </React.StrictMode>
+    </React.StrictMode>
 )
