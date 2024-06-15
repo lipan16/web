@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react'
+import React, {useEffect, useRef, useCallback} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {useHover} from 'ahooks'
-import {isEmpty} from 'lodash'
-import {Image, Tag} from 'antd'
+import {Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
 import TimeCapsule from '@/components/timeCapsule'
@@ -32,7 +31,6 @@ const Index = () => {
     const {clientName, clientVersion} = useClientInfo() // 客户端信息
     const visitTime = useVisitTime() // 首次访问网站时间
 
-    const [imgSrc, setImgSrc] = useState([])
     const {verse, plat, geolocation, weather} = useSelector(state => state.user)
     const avatarRef = useRef(null) // 头像
     const isHovering = useHover(avatarRef) // 头像是否hover
@@ -42,7 +40,6 @@ const Index = () => {
         for(let i = 0; i < 3; i++){
             img[i] = `${BASE_URL}/static/${imgs[Math.floor(Math.random() * imgs.length)]}`
         }
-        setImgSrc(img)
     }, [])
 
     const onClickWeather = useCallback((link) => {
@@ -51,21 +48,8 @@ const Index = () => {
 
     return (
         <div className='index'>
-            {
-                !isEmpty(weather) && <div className='weather'>
-                    {geolocation.province}&nbsp;
-                    {geolocation.city}&nbsp;
-                    {weather.text}&nbsp;
-                    <span>{weather.temp}</span>℃&nbsp;&nbsp;
-                    {weather.windDirection}风&nbsp;&nbsp;
-                    {weather.windPower}级
-                </div>
-            }
             <div className='content'>
                 <TimeCapsule/>
-                <div>
-                    {imgSrc.map((img, index) => <Image key={index} src={img} preview={false}/>)}
-                </div>
             </div>
             <div className='person'>
                 <div className='card avatar'>
@@ -82,6 +66,8 @@ const Index = () => {
                     <div className='battery'><span>电量:&nbsp;</span><Battery/></div>
                     os: <span>{plat}</span><br/>
                     ip: <span className='ip' style={{color: token.colorPrimary}}>{verse?.ipAddress}</span><br/>
+                    城市: <span>{geolocation?.city}</span><br/>
+                    天气: <span>{weather?.text}{weather?.temp}<span className='weather'>℃</span>{weather?.windDirection}风{weather?.windPower}级</span><br/>
                     浏览器: <span style={{color: token.colorLink}}>{clientName}-{clientVersion}</span><br/>
                     您在<span style={{color: token.colorLink}}>{visitTime}</span>访问了本站
                 </div>
