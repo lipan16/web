@@ -66,7 +66,7 @@ const SelfFooter = () => {
 
 const SelfLayout = () => {
     const navigate = useNavigate()
-    const scroll = useScroll()
+    const scroll = useScroll(document.querySelector('.ant-app'))
     const location = useLocation()
     const token = useThemeToken()
 
@@ -82,8 +82,8 @@ const SelfLayout = () => {
 
     // 滚动时隐藏header
     const {run} = useDebounceFn(() => {
-        setHideHeader(scroll?.top > 100)
-    }, {wait: 20})
+        setHideHeader(scroll?.top > 40)
+    }, {wait: 10})
     run()
 
     const onClickMenu = useCallback(({key}) => {

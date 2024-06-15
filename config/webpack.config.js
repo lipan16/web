@@ -18,12 +18,12 @@ module.exports = (env) => {
         devServer: {
             proxy: {
                 '/api': {
-                    target: 'https://127.0.0.1:3000/',
+                    target: 'http://127.0.0.1:3000/',
                     secure: false,
                     changeOrigin: true
                 },
                 '/sse': {
-                    target: 'https://127.0.0.1:3000/',
+                    target: 'http://127.0.0.1:3000/',
                     secure: false,
                     changeOrigin: true
                 }
@@ -56,9 +56,9 @@ module.exports = (env) => {
                                 //     const relativePath = path.relative(rootContext, resourcePath)
                                 //     if(relativePath.includes('src')){
                                 //         return `@import "~@/styles/variables.less";` + '\n' + content
-                                //     }
+                        //     }
                                 //     return content
-                                // }
+                        // }
                             }
                         },
                         {

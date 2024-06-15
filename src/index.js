@@ -20,6 +20,7 @@ import routes from '@/router'
 const Routes = () => useRoutes(routes)
 
 const app = createRoot(document.getElementById('root'))
+
 app.render(
     <React.StrictMode>
         <Provider store={store}>
