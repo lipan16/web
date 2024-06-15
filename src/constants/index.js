@@ -1,6 +1,6 @@
 export const BPI_TIME = '2018-11-04 18:36:00'
 export const WEBSITE_TIME = '2020-7-1 9:0:0'
-export const BASE_URL = 'http://8.133.162.30/'
+export const BASE_URL = 'http://8.133.162.30'
 export const WEEK_HEADER = ['一', '二', '三', '四', '五', '六', '日']
 export const LIPAN_BIRTHDAY = '1998-12-17'
 export const XIAOBING_BIRTHDAY = '1999-06-20'
