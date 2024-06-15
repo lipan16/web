@@ -1,4 +1,15 @@
 function createFetchWithTimeout(timeout = 5000){
+    /**
+     * 创建带超时的 fetch 函数
+     * @param options url 请求地址
+     * @param options object
+     * @param options.timeout number 超时时间，默认 5000ms
+     * @param options.method 'GET'|'POST' 请求方式
+     * @param options.body object 请求体
+     * @param options.headers object 请求头
+     * @param options.signal AbortSignal 终止信号
+     *
+     * */
     return function(url, options = {}){
         return new Promise((resolve, reject) => {
             const controller = new AbortController() // 终止信号控制器
