@@ -533,13 +533,13 @@ export const FINE_TOOLS = [
     {
         title: 'clock Dot',
         desc: '',
-        link: '/iframe/clockDots',
+        link: '/assets/iframe/clockDots',
         logo: ''
     },
     {
         title: '延时实现动画',
         desc: '',
-        link: '/iframe/delayAnimation',
+        link: '/assets/iframe/delayAnimation',
         logo: ''
     },
     {

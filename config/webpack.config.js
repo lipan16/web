@@ -137,7 +137,7 @@ module.exports = (env) => {
                 patterns: [
                     {
                         from: pathJoin('../iframe'),
-                        to: 'iframe',
+                        to: 'assets/iframe',
                         toType: 'dir'
                     }
                 ]
