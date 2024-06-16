@@ -1,20 +1,20 @@
-.works{
+.pvp{
     > h1{
         margin-bottom: 24px;
         font-size: 32px;
         text-align: center;
     }
 
-    .works-content{
-        padding: 48px 32px;
-        border-radius: 16px;
-        box-shadow: 0 0 10px #0000001a;
+    .pvp-content{
         margin-block: 24px;
-        justify-content: center;
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+        justify-items: center;
 
-        .works-item{
-            width: 480px;
-            height: 200px;
+        .pvp-item{
+            width: 68px;
+            height: 68px;
             cursor: pointer;
             user-select: none;
             border-radius: 10px;
@@ -40,23 +40,22 @@
 
                 .title{
                     opacity: 1;
-                    transition: opacity 1s;
+                    transition: opacity .5s;
                 }
 
                 .desc{
                     opacity: 1;
-                    transition: opacity 1s;
-                    transition-delay: .2s;
+                    transition: opacity .5s;
+                    transition-delay: .1s;
                 }
             }
 
             .title{
                 position: relative;
                 z-index: 1;
-                width: 75%;
-                padding-top: 32px;
+                padding: 16px 4px 8px;
                 margin: 0 auto;
-                font-size: 30px;
+                font-size: 14px;
                 font-weight: 700;
                 opacity: 0;
             }
@@ -64,10 +63,8 @@
             .desc{
                 position: relative;
                 z-index: 1;
-                width: 75%;
-                padding-top: 24px;
                 margin: 0 auto;
-                font-size: 20px;
+                font-size: 12px;
                 line-height: 1.5;
                 word-wrap: break-word;
                 opacity: 0;

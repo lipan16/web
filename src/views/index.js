@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useCallback} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {useHover} from 'ahooks'
+import {useHover, useTitle} from 'ahooks'
 import {Tag} from 'antd'
 import {MailOutlined, TagsOutlined} from '@ant-design/icons'
 
@@ -30,6 +30,7 @@ const Index = () => {
     const token = useThemeToken()
     const {clientName, clientVersion} = useClientInfo() // 客户端信息
     const visitTime = useVisitTime() // 首次访问网站时间
+    useTitle('lipan | 个人主页')
 
     const {verse, plat, geolocation, weather} = useSelector(state => state.user)
     const avatarRef = useRef(null) // 头像
