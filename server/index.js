@@ -125,7 +125,7 @@ app.get('/api/bigList', (req, res) => {
 })
 
 // 服务器请求第三方服务器数据
-app.get('/hero', async (req, res) => {
+app.get('/api/hero', async (req, res) => {
     const data = await fetch('https://pvp.qq.com/web201605/js/herolist.json').then(res => res.json())
     res.send(data)
 })

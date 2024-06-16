@@ -1,15 +1,5 @@
+// 创建带超时的 fetch 函数
 function createFetchWithTimeout(timeout = 5000){
-    /**
-     * 创建带超时的 fetch 函数
-     * @param options url 请求地址
-     * @param options object
-     * @param options.timeout number 超时时间，默认 5000ms
-     * @param options.method 'GET'|'POST' 请求方式
-     * @param options.body object 请求体
-     * @param options.headers object 请求头
-     * @param options.signal AbortSignal 终止信号
-     *
-     * */
     return function(url, options = {}){
         return new Promise((resolve, reject) => {
             const controller = new AbortController() // 终止信号控制器
@@ -30,7 +20,7 @@ function createFetchWithTimeout(timeout = 5000){
                     'Cache-Control': 'no-cache'
                 },
                 mode: 'cors',
-                ...options,
+                ...options
             }).then(resolve, reject)
 
             setTimeout(() => {
@@ -40,8 +30,6 @@ function createFetchWithTimeout(timeout = 5000){
         })
     }
 }
-
-const fetchWithTimeout = createFetchWithTimeout(3000)
 
 function fetchRequest({url, method = 'POST', data, loading = false, loadingContent = '加载中...', headers}){
     let body = ''
@@ -57,6 +45,8 @@ function fetchRequest({url, method = 'POST', data, loading = false, loadingConte
     }else{
         body = data
     }
+
+    const fetchWithTimeout = createFetchWithTimeout(3000)
 
     return fetchWithTimeout(url, {method, headers, body}).then(res => res.json())
 }
@@ -99,13 +89,18 @@ const fetchRequestMax = (urls, maxNum = 5) => {
     })
 }
 
-/**
- * 请求重试
- * @param url 请求地址
+/** 请求重试
+ * @param options object
+ * @param options.url 请求地址
+ * @param options.method 'GET'|'POST' 请求方式， 默认POST
+ * @param options.body object 请求体
+ * @param options.headers object 请求头
+ * @param options.signal AbortSignal 终止信号
  * @param retryNum 重试次数
- */
-const fetchRequestRetry = (url, retryNum = 3) => {
-    return fetchRequest({url}).catch(err =>retryNum <= 0 ? Promise.reject(err) : fetchRequestRetry(url, retryNum - 1))
+ *
+ * */
+const fetchRequestRetry = (options, retryNum = 0) => {
+    return fetchRequest(options).catch(err => retryNum <= 0 ? Promise.reject(new Error(err)) : fetchRequestRetry(options, retryNum - 1))
 }
 
-export default fetchRequest
+export default fetchRequestRetry

@@ -12,7 +12,7 @@ window._AMapSecurityConfig = {
 const jinrishici = require('jinrishici')
 
 import SelfLayout from '@/components/layout'
-import fetchRequest from '@/utils/request'
+import fetchRequestRetry from '@/utils/request'
 import {useThemeToken} from '@/hooks'
 import {setIp, setVerse, setPlat, setGeolocation, setWeather} from '@/store/user'
 import '@/utils/event'
@@ -57,7 +57,7 @@ const App = () => {
     }, [themeStore])
 
     const getWeather = useCallback((lng, lat) => {
-        fetchRequest({
+        fetchRequestRetry({
             url: 'https://devapi.qweather.com/v7/weather/now',
             method: 'get',
             data: {
@@ -80,13 +80,13 @@ const App = () => {
     }, [])
 
     const getLocationByIp = useCallback(() => {
-        fetchRequest({
+        fetchRequestRetry({
             url: 'https://restapi.amap.com/v3/ip',
             method: 'get',
             data: {key: 'f64867f7e0586f3487ee25cd5cff55cf'}
         }).then(res => {
             if(res.status === '1'){
-                fetchRequest({
+                fetchRequestRetry({
                     url: 'https://restapi.amap.com/v3/weather/weatherInfo',
                     method: 'get',
                     data: {key: 'f64867f7e0586f3487ee25cd5cff55cf', city: res.adcode, extensions: 'base'}
