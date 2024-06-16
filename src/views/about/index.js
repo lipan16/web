@@ -52,8 +52,8 @@ const About = () => {
                     </ul>
                     <Divider orientation='left'>⚙&nbsp;关于本站</Divider>
                     <ul className='box'>
-                        <li>前端：webpack + React + react-router-dom + reduxjs/toolkit + Antd</li>
-                        <li>后端：Node.js + MySql</li>
+                        <li>前端：Webpack + React全家桶 + Antd</li>
+                        <li>后端：Node.js + Express</li>
                     </ul>
                 </Card>
 
