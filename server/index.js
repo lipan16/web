@@ -1,12 +1,11 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const path = require('path')
 
 const app = express()
 // 解析 application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
+// app.use(bodyParser.urlencoded({extended: false}))
 // 解析 application/json
-app.use(bodyParser.json())
+app.use(express.json())
 app.set('trust proxy', true)
 // 全局配置
 app.all('*', (req, res, next) => {
