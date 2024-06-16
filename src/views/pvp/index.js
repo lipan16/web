@@ -1,7 +1,6 @@
 import fetchRequestRetry from '@/utils/request'
 import React, {useEffect, useState} from 'react'
 import {useTitle} from 'ahooks'
-import {Flex, Row, Col, Grid} from 'antd'
 
 import './index.less'
 
@@ -11,11 +10,9 @@ const Pvp = () => {
 
     useEffect(() => {
         fetchRequestRetry({url: '/api/hero', method: 'GET'}).then(res => {
-            console.log(res)
             setHero(res)
         })
     }, [])
-    console.log('pvp')
 
     // https://game.gtimg.cn/images/yxzj/img201606/heroimg/118/118-smallskin-7.jpg
     // https://game.gtimg.cn/images/yxzj/img201606/skin/hero-info/118/118-bigskin-2.jpg
@@ -39,8 +36,8 @@ const Pvp = () => {
 
     return (
         <section className='pvp'>
-            <h1>王者荣耀 grid布局</h1>
-            <div wrap='wrap' gap='2.5rem' className='pvp-content'>
+            <h1>王者英雄</h1>
+            <div className='pvp-content'>
                 {hero.map(h =>
                     <div key={h.moss_id} className='pvp-item'
                          style={{backgroundImage: `url(https://game.gtimg.cn/images/yxzj/img201606/heroimg/${h.ename}/${h.ename}.jpg)`}}>
