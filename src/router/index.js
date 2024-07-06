@@ -1,6 +1,6 @@
 import React, {lazy} from 'react'
 
-import App from '@/App'
+import SelfLayout from '@/components/layout'
 import Index from '@/views'
 import NoFound from '@/views/nofound'
 
@@ -12,14 +12,12 @@ const Interview = lazy(() => import('@/views/interview'))
 const Pvp = lazy(() => import('@/views/pvp'))
 const Site = lazy(() => import('@/views/resources/site'))
 const Tools = lazy(() => import('@/views/resources/tools'))
-const Aieditor = lazy(() => import('@/views/aieditor'))
-const Music = lazy(() => import('@/views/music'))
-const About = lazy(() => import('@/views/about'))
+
 
 const routes = [
     {
         path: '/',
-        element: <App/>,
+        element: <SelfLayout/>,
         children: [
             {path: '', element: <Index/>},
             {
@@ -41,9 +39,6 @@ const routes = [
                     }
                 ]
             },
-            {path: 'aieditor', element: <Aieditor/>},
-            {path: 'music', element: <Music/>},
-            {path: 'about', element: <About/>},
             {path: '*', element: <NoFound></NoFound>}
         ]
     }

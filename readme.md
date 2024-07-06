@@ -94,6 +94,7 @@
 | ~~intro~~                    | 用户引导组件（**未使用**）                                                                                   |
 | tailwindcss                  | 原子化css                                                                                            |
 | postcss-nesting              | tailwind嵌套                                                                                        |
+| react-activation             | 实现keepAlive                                                                                       |
 
 **module**：不同文件类型的模块，这些文件都会被 loader 转换为有效的模块，然后被应用所使用并且加入到依赖关系图中。相对于一个完整的程序代码，模块化的好处在于，模块化将程序分散成小的功能块，这就提供了可靠的抽象能力以及封装的边界，让设计更加连贯、目的更加明确。
 

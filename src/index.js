@@ -1,6 +1,6 @@
 import React from 'react'
 import {createRoot} from 'react-dom/client'
-import {BrowserRouter, useRoutes} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 
 import dayjs from 'dayjs'
@@ -14,19 +14,17 @@ dayjs.extend(duration) // 使用插件
 dayjs.extend(dayOfYear)
 dayjs.extend(isToday)
 
+import App from '@/App'
 import store from '@/store'
-import routes from '@/router'
-
-const Routes = () => useRoutes(routes)
 
 const app = createRoot(document.getElementById('root'))
 
 app.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <Routes/>
+                <App/>
             </BrowserRouter>
         </Provider>
-    </React.StrictMode>
+    // </React.StrictMode>
 )

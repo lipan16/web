@@ -11,6 +11,8 @@ const Pvp = () => {
     useEffect(() => {
         fetchRequestRetry({url: '/api/hero', method: 'GET'}).then(res => {
             setHero(res)
+        }).catch(err => {
+            console.error('/api/hero ERROR: ', err)
         })
     }, [])
 

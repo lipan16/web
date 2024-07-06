@@ -2,16 +2,17 @@ import React, {useMemo, useEffect, useCallback} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {ConfigProvider, theme, App as AppProvider} from 'antd'
 import {StyleProvider, px2remTransformer} from '@ant-design/cssinjs'
+import zhLocale from 'antd/locale/zh_CN'
 import AMapLoader from '@amap/amap-jsapi-loader'
-import zhLocale from 'antd/locale/zh_CN';
+
+const jinrishici = require('jinrishici')
 
 window._AMapSecurityConfig = {
     securityJsCode: '18e4297a6b5ad414c0e09e78ee2985d2'
 }
 // window.forceWebGL = true
-const jinrishici = require('jinrishici')
 
-import SelfLayout from '@/components/layout'
+import AppRouter from '@/router/appRouter'
 import fetchRequestRetry from '@/utils/request'
 import {useThemeToken} from '@/hooks'
 import {setIp, setVerse, setPlat, setGeolocation, setWeather} from '@/store/user'
@@ -96,7 +97,7 @@ const App = () => {
                             text: weather.lives[0].weather, // 状况描述
                             temp: weather.lives[0].temperature, // 温度
                             windPower: weather.lives[0].windpower, //风力级别，单位：级
-                            windDirection: weather.lives[0].winddirection, // 风向描述
+                            windDirection: weather.lives[0].winddirection // 风向描述
                         }))
                     }
                 })
@@ -171,7 +172,7 @@ const App = () => {
         <ConfigProvider theme={themeProvider} locale={zhLocale}>
             <StyleProvider transformers={[px2rem]} hashPriority='high'>
                 <AppProvider>
-                    <SelfLayout/>
+                    <AppRouter/>
                     {/*<div id='amap' style={{display: 'none', height: '10px', width: '10px'}}/>*/}
                 </AppProvider>
             </StyleProvider>
