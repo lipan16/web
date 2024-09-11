@@ -44,23 +44,10 @@ module.exports = (env) => {
                     loader: 'babel-loader'
                 },
                 {
-                    test: /\.(css|less)$/,
+                    test: /\.css$/,
                     use: [
                         isBuild ? MiniCssExtractPlugin.loader : 'style-loader',
                         'css-loader',
-                        {
-                            loader: 'less-loader',
-                            options: {
-                                // additionalData: (content, loaderContent) => {
-                                //     const {resourcePath, rootContext} = loaderContent
-                                //     const relativePath = path.relative(rootContext, resourcePath)
-                                //     if(relativePath.includes('src')){
-                                //         return `@import "~@/styles/variables.less";` + '\n' + content
-                        //     }
-                                //     return content
-                        // }
-                            }
-                        },
                         {
                             loader: 'postcss-loader',
                             options: {
@@ -81,6 +68,48 @@ module.exports = (env) => {
                                         })
                                     ]
                                 }
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.less$/,
+                    use: [
+                        isBuild ? MiniCssExtractPlugin.loader : 'style-loader',
+                        'css-loader',
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                postcssOptions: {
+                                    plugins: [
+                                        // require('postcss-px-to-viewport')({
+                                        //     viewportUnit: 'vw',
+                                        //     viewportWidth: 1920,
+                                        //     viewportHeight: 1080,
+                                        //     unitPrecision: 3,
+                                        //     minPixelValue: 1, // 最小替换像素
+                                        //     mediaQuery: true, // 允许媒体查询中转换
+                                        // }),
+                                        require('postcss-pxtorem')({
+                                            rootValue: 16, // 根元素大小
+                                            propList: ['*'], // 存储将被转换的存储列表，‘*’表示所有
+                                            unitPrecision: 3 // rem保留小数点位数
+                                        })
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            loader: 'less-loader',
+                            options: {
+                                // additionalData: (content, loaderContent) => {
+                                //     const {resourcePath, rootContext} = loaderContent
+                                //     const relativePath = path.relative(rootContext, resourcePath)
+                                //     if(relativePath.includes('src')){
+                                //         return `@import "~@/styles/variables.less";` + '\n' + content
+                                //     }
+                                //     return content
+                                // }
                             }
                         }
                     ]
@@ -116,6 +145,16 @@ module.exports = (env) => {
                     },
                     exclude: /node_modules/,
                     include: pathJoin('../src/assets')
+                },
+                {
+                    test: /\.txt$/,
+                    use: [
+                        {loader: 'raw-loader'},
+                        {
+                            loader: pathJoin('./reverse-txt-loader.js'),
+                            options: {}
+                        }
+                    ]
                 }
             ]
         },
