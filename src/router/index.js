@@ -4,15 +4,14 @@ import SelfLayout from '@/components/layout'
 import Index from '@/views'
 import NoFound from '@/views/nofound'
 
-const We = lazy(() => import('@/views/we'))
-const Lipan = lazy(() => import('@/views/we/lipan'))
-const Xiaobing = lazy(() => import('@/views/we/xiaobing'))
-const Calendar = lazy(() => import('@/views/calendar'))
-const Interview = lazy(() => import('@/views/interview'))
-const Pvp = lazy(() => import('@/views/pvp'))
-const Site = lazy(() => import('@/views/resources/site'))
-const Tools = lazy(() => import('@/views/resources/tools'))
-
+const We = lazy(() => import(/* webpackChunkName: 'we' */'@/views/we'))
+const Lipan = lazy(() => import(/* webpackChunkName: 'lipan' */'@/views/we/lipan'))
+const Xiaobing = lazy(() => import(/* webpackChunkName: 'xiaobing' */'@/views/we/xiaobing'))
+const Calendar = lazy(() => import(/* webpackChunkName: 'calendar' */'@/views/calendar'))
+const Interview = lazy(() => import(/* webpackChunkName: 'interview' */'@/views/interview'))
+const Pvp = lazy(() => import(/* webpackChunkName: 'pvp' */'@/views/pvp'))
+const Site = lazy(() => import(/* webpackChunkName: 'site' */'@/views/resources/site'))
+const Tools = lazy(() => import(/* webpackChunkName: 'tools' */'@/views/resources/tools'))
 
 const routes = [
     {

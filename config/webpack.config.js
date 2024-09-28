@@ -33,7 +33,7 @@ module.exports = (env) => {
             publicPath: '/',
             path: pathJoin('../dist'), // 输出的路径，相对当前目录
             filename: isBuild ? 'js/[name].[contenthash:8].js' : '[name].js',  // 列在 entry 中,打包输出的文件名称
-            chunkFilename: isBuild ? 'js/[name].[contenthash:8].bundle.js' : '[name].bundle.js', // 未列在 entry 中，却又需要被打包出来的文件的名称
+            chunkFilename: isBuild ? 'js/[name].[contenthash:8].js' : '[name].js', // 未列在 entry 中，却又需要被打包出来的文件的名称
             clean: true
         },
         module: {
@@ -181,24 +181,6 @@ module.exports = (env) => {
                     }
                 ]
             })
-        ],
-        optimization: { // 添加抽离公共代码插件的配置
-            splitChunks: {
-                cacheGroups: {
-                    commons: { // 打包公共模块
-                        chunks: 'initial', // initial表示提取入口文件的公共部分
-                        minChunks: 4, // 表示提取公共部分最少的文件数
-                        minSize: 0, // 表示提取公共部分最小的大小
-                        name: 'commons' // 提取出来的文件命名
-                    }
-                }
-            },
-            minimize: true,
-            minimizer: [
-                new TerserPlugin({
-                    extractComments: false // 不将注释提取到单独的文件中
-                })
-            ]
-        }
+        ]
     }
 }

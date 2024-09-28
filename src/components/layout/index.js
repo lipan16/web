@@ -21,6 +21,7 @@ import {showTime} from '@/utils'
 import pkg from '@/../package.json'
 import './index.less'
 
+// todo 动态路由生成菜单栏
 const MENU_LIST = [
     {key: '/', label: '首页', icon: <HomeOutlined/>},
     {key: '/we', label: '我们', icon: <HeartOutlined/>},

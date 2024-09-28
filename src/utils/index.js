@@ -214,3 +214,5 @@ className.addImpl('object', obj => {
 
 className.addImpl('', arr => {})
 className({a: true, b: 'b', c: false, d: [], e: {}})
+
+export const importAll = (requireContext) => requireContext.keys().forEach(requireContext)

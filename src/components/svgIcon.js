@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const importAll = (requireContext) => requireContext.keys().forEach(requireContext)
+import {importAll} from '@/utils'
 
 try{
     console.log('import all assets of svg')
